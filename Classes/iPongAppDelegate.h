@@ -28,22 +28,22 @@ BrowserViewControllerDelegate, TCPServerDelegate, UIAccelerometerDelegate>
 	BOOL				   	  _inReady;
 	BOOL				      _outReady;
   
-  UILabel           *labelView;
-  UILabel           *secondLabel;
+    UILabel           *labelView;
+    UILabel           *secondLabel;
+
+    UIButton          *buttonView;
+    UIButton          *soundButton;
+
+    UIAccelerometer   *accelerometer;
   
-  UIButton          *buttonView;
-  UIButton          *soundButton;
+    BOOL              isSampling;
+    NSTimeInterval    startTime;
+    NSUInteger        previousTimeInterval;
+    CGFloat           partialVelocity;
+    NSInteger         direction;
+    NSUInteger        numberOfSamples;
   
-  UIAccelerometer   *accelerometer;
-  
-  BOOL              isSampling;
-  NSTimeInterval    startTime;
-  NSUInteger        previousTimeInterval;
-  CGFloat           partialVelocity;
-  NSInteger         direction;
-  NSUInteger        numberOfSamples;
-  
-	CFURLRef		soundFileURLRef;
+    CFURLRef		soundFileURLRef;
 	SystemSoundID	soundFileObject;
   
 }

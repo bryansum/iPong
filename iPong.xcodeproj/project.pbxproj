@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		232F5B4810AF13E700C65C6F /* SwingTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F5B4710AF13E700C65C6F /* SwingTimer.m */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		A9F2CDDE10AE463F00677B91 /* Picker.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2CDD910AE463F00677B91 /* Picker.m */; };
 		A9F2CDDF10AE463F00677B91 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2CDDB10AE463F00677B91 /* BrowserViewController.m */; };
@@ -26,6 +27,9 @@
 		1D3623250D0F684500981E51 /* iPongAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPongAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iPong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		232F5B4610AF13E700C65C6F /* SwingTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwingTimer.h; sourceTree = "<group>"; };
+		232F5B4710AF13E700C65C6F /* SwingTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwingTimer.m; sourceTree = "<group>"; };
+		232F5B4910AF15F700C65C6F /* PongPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PongPacket.h; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* iPong_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPong_Prefix.pch; sourceTree = "<group>"; };
@@ -61,6 +65,9 @@
 			children = (
 				1D3623240D0F684500981E51 /* iPongAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iPongAppDelegate.m */,
+				232F5B4610AF13E700C65C6F /* SwingTimer.h */,
+				232F5B4710AF13E700C65C6F /* SwingTimer.m */,
+				232F5B4910AF15F700C65C6F /* PongPacket.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -180,6 +187,7 @@
 				A9F2CDDE10AE463F00677B91 /* Picker.m in Sources */,
 				A9F2CDDF10AE463F00677B91 /* BrowserViewController.m in Sources */,
 				A9F2CDE010AE463F00677B91 /* TCPServer.m in Sources */,
+				232F5B4810AF13E700C65C6F /* SwingTimer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,8 +9,7 @@
 #import "iPongAppDelegate.h"
 #define kGameIdentifier		@"iPong"
 
-
-@interface iPongAppDelegate ()
+@interface iPongAppDelegate()
 - (void) setup;
 - (void) startSampling;
 - (void) stopSampling;
@@ -66,7 +65,7 @@
   [accelerometer setDelegate:self];
   [accelerometer setUpdateInterval:0.05];	
 
-  //Create and advertise a new game and discover other availble games
+  //Create and advertise a new game and discover other available games
   [self setup];
 }
 - (void) startSampling{
@@ -76,7 +75,7 @@
   isSampling = true;
 }
 
-- (void) stopSampling{
+- (void) stopSampling {
   partialVelocity = 0;
   numberOfSamples = 0;
   isSampling = false;

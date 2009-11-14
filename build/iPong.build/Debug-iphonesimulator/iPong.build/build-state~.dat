@@ -1,240 +1,0 @@
-TiPong
-v7
-r0
-t279856477.138792
-cCheck dependencies
-cProcessInfoPlistFile /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/Info.plist iPong-Info.plist
-cProcessPCH /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch.gch iPong_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/main.o /Users/majd/Desktop/iPong/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/iPongAppDelegate.o /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/AppController.o /Users/majd/Desktop/iPong/Classes/../AppController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong normal i386
-cGenerateDSYMFile /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app.dSYM /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong
-cTouch /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk
-c000000004AD95B6F00000000000000EE
-t1255758703
-s238
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004ABDC853000000000026EE30
-t1253951571
-s2551344
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004ABDC952000000000027E880
-t1253951826
-s2615424
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004ABDC93F0000000000001355
-t1253951807
-s4949
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004ABDEE1D0000000000000788
-t1253961245
-s1928
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004ABDEEE200000000016721E0
-t1253961442
-s23536096
-
-N/Users/majd/Desktop/iPong/AppController.h
-c000000004AFE0DD400000000000000D0
-t1258163668
-s208
-i<UIKit/UIKit.h>
-
-N/Users/majd/Desktop/iPong/AppController.m
-c000000004AFE0DD400000000000001B9
-t1258163668
-s441
-i"AppController.h"
-
-N/Users/majd/Desktop/iPong/Classes/../AppController.m
-c000000004AFE0DD400000000000001B9
-t1258163668
-s441
-i"AppController.h"
-
-N/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.h
-c000000004AFE0D5C000000000000013F
-t1258163548
-s319
-i<UIKit/UIKit.h>
-
-N/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m
-c000000004AFE0D5C00000000000001D7
-t1258163548
-s471
-i"iPongAppDelegate.h"
-
-N/Users/majd/Desktop/iPong/MainWindow.xib
-c000000004AFE0D5C0000000000001F49
-t1258163548
-s8009
-
-N/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app
-t1258163677
-s170
-
-N/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app.dSYM
-t1258163677
-s102
-
-N/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/Info.plist
-t1258163676
-s525
-
-N/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/MainWindow.nib
-t2
-s0
-
-N/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/PkgInfo
-t1258163676
-s8
-
-N/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong
-t1258163677
-s18988
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/AppController.o
-t1258163677
-s9880
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/iPong.LinkFileList
-c000000004AFE0DDC0000000000000150
-t1258163676
-s336
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/iPongAppDelegate.o
-t1258163677
-s17124
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/main.o
-t1258163677
-s6108
-
-N/Users/majd/Desktop/iPong/iPong_Prefix.pch
-c000000004AFE0D5C00000000000000B3
-t1258163548
-s179
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/Users/majd/Desktop/iPong/main.m
-c000000004AFE0DCC0000000000000173
-t1258163660
-s371
-i<UIKit/UIKit.h>
-
-N/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch.gch
-t1258163676
-s13034960
-
-NiPong-Info.plist
-c000000004AFE0D900000000000000356
-t1258163600
-s854
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies279856476#279856476#0(0"0(0#1#0"4300885448#0"0#
-
-CCompileC build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/AppController.o /Users/majd/Desktop/iPong/AppController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-r0
-
-CCompileC build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/AppController.o /Users/majd/Desktop/iPong/Classes/../AppController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s279856477.071979
-e279856477.110029
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/AppController.o
-x/Users/majd/Desktop/iPong/Classes/../AppController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@60"Compile /Users/majd/Desktop/iPong/Classes/../AppController.m279856477#279856477#0(0"0(0#0#52"/Users/majd/Desktop/iPong/Classes/../AppController.m4300885448#1705"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphonesimulator -I/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources/i386 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/Classes/../AppController.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/AppController.o0#
-
-CCompileC build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/iPongAppDelegate.o /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s279856477.022589
-e279856477.072814
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/iPongAppDelegate.o
-x/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@60"Compile /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m279856477#279856477#0(0"0(0#0#52"/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m4300885448#1708"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphonesimulator -I/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources/i386 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/iPongAppDelegate.o0#
-
-CCompileC build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/main.o /Users/majd/Desktop/iPong/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s279856477.021553
-e279856477.071883
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/main.o
-x/Users/majd/Desktop/iPong/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@40"Compile /Users/majd/Desktop/iPong/main.m279856477#279856477#0(0"0(0#0#32"/Users/majd/Desktop/iPong/main.m4300885448#1676"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphonesimulator -I/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources/i386 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/main.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/main.o0#
-
-CCompileXIB /Users/majd/Desktop/iPong/MainWindow.xib
-r0
-
-CGenerateDSYMFile /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app.dSYM /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong
-s279856477.126776
-e279856477.136716
-r1
-xGenerateDSYMFile
-x/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app.dSYM
-x/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong
-lSLF07#2@103"GenerateDSYMFile build/Debug-iphonesimulator/iPong.app.dSYM build/Debug-iphonesimulator/iPong.app/iPong279856477#279856477#0(0"0(0#0#69"/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong4300885448#338"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong -o /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app.dSYM0#
-
-CLd /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong normal i386
-s279856477.110111
-e279856477.126694
-r1
-xLd
-x/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong
-xnormal
-xi386
-lSLF07#2@74"Link /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong279856477#279856477#0(0"0(0#0#0"4300885448#789"    cd /Users/majd/Desktop/iPong    setenv MACOSX_DEPLOYMENT_TARGET 10.5    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk -L/Users/majd/Desktop/iPong/build/Debug-iphonesimulator -F/Users/majd/Desktop/iPong/build/Debug-iphonesimulator -filelist /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/Objects-normal/i386/iPong.LinkFileList -mmacosx-version-min=10.5 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/iPong0#
-
-CProcessInfoPlistFile /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/Info.plist iPong-Info.plist
-s279856476.546119
-e279856476.548721
-r1
-xProcessInfoPlistFile
-x/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/Info.plist
-xiPong-Info.plist
-lSLF07#2@24"Process iPong-Info.plist279856476#279856476#0(0"0(0#0#42"/Users/majd/Desktop/iPong/iPong-Info.plist4300885448#434"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility iPong-Info.plist -genpkginfo /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app/Info.plist0#
-
-CProcessPCH /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch.gch iPong_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-s279856476.548792
-e279856477.021443
-r1
-xProcessPCH
-x/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch.gch
-xiPong_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@27"Precompile iPong_Prefix.pch279856476#279856477#0(0"0(0#0#42"/Users/majd/Desktop/iPong/iPong_Prefix.pch4300885448#1583"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphonesimulator -I/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources/i386 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphonesimulator/iPong.build/DerivedSources -c /Users/majd/Desktop/iPong/iPong_Prefix.pch -o /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-bbivdzklsyechdbdpyirmbubugkx/iPong_Prefix.pch.gch0#
-
-CTouch /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app
-s279856477.136794
-e279856477.138771
-r1
-xTouch
-x/Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app
-lSLF07#2@69"Touch /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app279856477#279856477#0(0"0(0#0#0"4300885448#250"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/majd/Desktop/iPong/build/Debug-iphonesimulator/iPong.app0#
-

@@ -1,579 +1,0 @@
-TiPong
-v7
-r0
-t279903359.744237
-cCheck dependencies
-cCpResource build/Debug-iphoneos/iPong.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/ResourceRules.plist
-cProcessInfoPlistFile /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/Info.plist iPong-Info.plist
-cCpResource build/Debug-iphoneos/iPong.app/pingpong.mp3 pingpong.mp3
-cCpResource build/Debug-iphoneos/iPong.app/tap.aif tap.aif
-cProcessPCH /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch.gch iPong_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/main.o /Users/majd/Desktop/iPong/main.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPongAppDelegate.o /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/Picker.o /Users/majd/Desktop/iPong/Picker.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/BrowserViewController.o /Users/majd/Desktop/iPong/BrowserViewController.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/TCPServer.o /Users/majd/Desktop/iPong/TCPServer.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong normal armv6
-cGenerateDSYMFile /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app.dSYM /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong
-cProcessProductPackaging "/Users/majd/Library/MobileDevice/Provisioning Profiles/453F52B7-D98C-4C1F-99FC-B36D281EEF29.mobileprovision" /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/embedded.mobileprovision
-cTouch /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app
-cProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/Entitlements.plist /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent
-cCodeSign /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk
-c000000004ABDAC790000000000000110
-t1253944441
-s272
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/Entitlements.plist
-c000000004A0BA04000000000000000DD
-t1242275904
-s221
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/ResourceRules.plist
-c000000004A0BA04000000000000001E5
-t1242275904
-s485
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/CFNetwork.framework/Headers/CFSocketStream.h
-c000000004A0BAE1A00000000000060BB
-t1242279450
-s24763
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004A121EB900000000003D72A0
-t1242701497
-s4027040
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004A121FF90000000000396540
-t1242701817
-s3761472
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004A0BAECB0000000000001355
-t1242279627
-s4949
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNetServices.h
-c000000004A0BAECE000000000000445B
-t1242279630
-s17499
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004A0CBEBD000000000000075E
-t1242349245
-s1886
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004A1221FD00000000019A6110
-t1242702333
-s26894608
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/usr/include/netinet/in.h
-c000000004A0BA77A000000000000535B
-t1242277754
-s21339
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/usr/include/sys/socket.h
-c000000004A0BA7810000000000005660
-t1242277761
-s22112
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/usr/include/unistd.h
-c000000004A0BA31400000000000053FF
-t1242276628
-s21503
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk
-c000000004ABFDAFE0000000000000110
-t1254087422
-s272
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/Entitlements.plist
-c000000004ABDB88400000000000000DD
-t1253947524
-s221
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/ResourceRules.plist
-c000000004ABDB88400000000000001E5
-t1253947524
-s485
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
-c000000004ABDBC2D00000000002E0B30
-t1253948461
-s3017520
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioToolbox.h
-c000000004ABDBC030000000000000A22
-t1253948419
-s2594
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/CFNetwork.framework/Headers/CFSocketStream.h
-c000000004ABDBC2B00000000000060BB
-t1253948459
-s24763
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004ABDBA1300000000005F4900
-t1253947923
-s6244608
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004ABDBDCF0000000000501370
-t1253948879
-s5247856
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004ABDBDA40000000000001355
-t1253948836
-s4949
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNetServices.h
-c000000004ABDBDAA000000000000445B
-t1253948842
-s17499
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004ABDD0D10000000000000788
-t1253953745
-s1928
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004ABDD2250000000001B3F450
-t1253954085
-s28570704
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/usr/include/netinet/in.h
-c000000004ABDB473000000000000535B
-t1253946483
-s21339
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/usr/include/sys/socket.h
-c000000004ABDB4790000000000005660
-t1253946489
-s22112
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/usr/include/unistd.h
-c000000004ABDAF7900000000000053FF
-t1253945209
-s21503
-
-N/Users/majd/Desktop/iPong/BrowserViewController.h
-c000000004A3059AE00000000000010F8
-t1244682670
-s4344
-i<UIKit/UIKit.h>
-i<Foundation/NSNetServices.h>
-
-N/Users/majd/Desktop/iPong/BrowserViewController.m
-c000000004A3059AE0000000000003E00
-t1244682670
-s15872
-i"BrowserViewController.h"
-
-N/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.h
-c000000004AFE961E00000000000004F9
-t1258198558
-s1273
-i<AudioToolbox/AudioToolbox.h>
-i"BrowserViewController.h"
-i"Picker.h"
-i"TCPServer.h"
-
-N/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m
-c000000004AFEC4E300000000000023E1
-t1258210531
-s9185
-i"iPongAppDelegate.h"
-
-N/Users/majd/Desktop/iPong/Picker.h
-c000000004A3059AE0000000000000B7B
-t1244682670
-s2939
-i<UIKit/UIKit.h>
-i"BrowserViewController.h"
-
-N/Users/majd/Desktop/iPong/Picker.m
-c000000004A3059AE0000000000001877
-t1244682670
-s6263
-i"Picker.h"
-
-N/Users/majd/Desktop/iPong/TCPServer.h
-c000000004A3059AE0000000000000E2E
-t1244682670
-s3630
-i<Foundation/Foundation.h>
-
-N/Users/majd/Desktop/iPong/TCPServer.m
-c000000004A3059AE00000000000024D0
-t1244682670
-s9424
-i<sys/socket.h>
-i<netinet/in.h>
-i<unistd.h>
-i<CFNetwork/CFSocketStream.h>
-i"TCPServer.h"
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app
-t1258210559
-s374
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app.dSYM
-t1258210559
-s102
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/Info.plist
-t1258165854
-s591
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/PkgInfo
-t1258165854
-s8
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/ResourceRules.plist
-t1258167883
-s485
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/embedded.mobileprovision
-t1258165855
-s60490
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong
-t1258210559
-s68116
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/pingpong.mp3
-t1258193444
-s18301
-
-N/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/tap.aif
-t1258198916
-s22368
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/BrowserViewController.o
-t1258167884
-s72680
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/Picker.o
-t1258167883
-s47052
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/TCPServer.o
-t1258167883
-s30476
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPong.LinkFileList
-c000000004AFE165E0000000000000213
-t1258165854
-s531
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPongAppDelegate.o
-t1258210559
-s81312
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/main.o
-t1258167883
-s6720
-
-N/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent
-t1258167884
-s318
-
-N/Users/majd/Desktop/iPong/iPong_Prefix.pch
-c000000004AFE0D5C00000000000000B3
-t1258163548
-s179
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/Users/majd/Desktop/iPong/main.m
-c000000004AFE0E1A0000000000000176
-t1258163738
-s374
-i<UIKit/UIKit.h>
-
-N/Users/majd/Desktop/iPong/pingpong.mp3
-c000000004AFE7A14000000000000477D
-t1258191380
-s18301
-
-N/Users/majd/Desktop/iPong/tap.aif
-c0000000048D05F540000000000005760
-t1221615444
-s22368
-
-N/Users/majd/Library/MobileDevice/Provisioning Profiles/453F52B7-D98C-4C1F-99FC-B36D281EEF29.mobileprovision
-c000000004AD92251000000000000EC4A
-t1255744081
-s60490
-
-N/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-adhzdunzuckwwsactpyhikbovmzp/iPong_Prefix.pch.gch
-t2
-s0
-
-N/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch.gch
-t1258167883
-s7876792
-
-N/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-gkagysdwljtgjjdnnyxfzhgcwgfj/iPong_Prefix.pch.gch
-t1258165855
-s7876792
-
-N/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-hbmhaxngcymisudzxcziukxlfpcj/iPong_Prefix.pch.gch
-t1258166136
-s7831680
-
-NiPong-Info.plist
-c000000004AFE0D900000000000000356
-t1258163600
-s854
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies279903359#279903359#0(0"0(0#1#0"4300885448#0"0#
-
-CCodeSign /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app
-s279903359.423814
-e279903359.744196
-r1
-xCodeSign
-x/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app
-lSLF07#2@39"CodeSign build/Debug-iphoneos/iPong.app279903359#279903359#0(0"0(0#0#56"/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app4300885448#568"    cd /Users/majd/Desktop/iPong    setenv CODESIGN_ALLOCATE /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/codesign -f -s "iPhone Developer: Alex Kuhn" --resource-rules=/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/ResourceRules.plist --entitlements /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app0#
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/BrowserViewController.o /Users/majd/Desktop/iPong/BrowserViewController.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279860683.868774
-e279860684.006714
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/BrowserViewController.o
-x/Users/majd/Desktop/iPong/BrowserViewController.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@57"Compile /Users/majd/Desktop/iPong/BrowserViewController.m279860683#279860684#0(0"0(0#0#49"/Users/majd/Desktop/iPong/BrowserViewController.m4300885448#1577"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.0 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/BrowserViewController.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/BrowserViewController.o0#
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/BrowserViewController.o /Users/majd/Desktop/iPong/BrowserViewController.m normal armv6 objective-c com.apple.compilers.llvmgcc42
-r0
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/Picker.o /Users/majd/Desktop/iPong/Picker.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279860683.805803
-e279860683.888458
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/Picker.o
-x/Users/majd/Desktop/iPong/Picker.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@42"Compile /Users/majd/Desktop/iPong/Picker.m279860683#279860683#0(0"0(0#0#34"/Users/majd/Desktop/iPong/Picker.m4300885448#1547"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.0 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/Picker.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/Picker.o0#
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/Picker.o /Users/majd/Desktop/iPong/Picker.m normal armv6 objective-c com.apple.compilers.llvmgcc42
-r0
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/TCPServer.o /Users/majd/Desktop/iPong/TCPServer.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279860683.888546
-e279860683.980737
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/TCPServer.o
-x/Users/majd/Desktop/iPong/TCPServer.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@45"Compile /Users/majd/Desktop/iPong/TCPServer.m279860683#279860683#0(0"0(0#0#37"/Users/majd/Desktop/iPong/TCPServer.m4300885448#1553"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.0 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/TCPServer.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/TCPServer.o0#
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/TCPServer.o /Users/majd/Desktop/iPong/TCPServer.m normal armv6 objective-c com.apple.compilers.llvmgcc42
-r0
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPongAppDelegate.o /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279903359.261574
-e279903359.378085
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPongAppDelegate.o
-x/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-o/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m: In function '-[iPongAppDelegate(NSStreamDelegate) stream:handleEvent:]':
-o/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m:264: warning: unused variable 'velocity'
-lSLF07#2@60"Compile /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m279903359#279903359#0(221"/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m: In function '-[iPongAppDelegate(NSStreamDelegate) stream:handleEvent:]':/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m:264: warning: unused variable 'velocity'1(22@26"Unused variable 'velocity'279903359#127#94#0(6@52"/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m279903331#264#0#264#0#19"unused variable '*'0(0#0#52"/Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m4300885448#1575"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.0 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPongAppDelegate.o0#
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPongAppDelegate.o /Users/majd/Desktop/iPong/Classes/iPongAppDelegate.m normal armv6 objective-c com.apple.compilers.llvmgcc42
-r0
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/main.o /Users/majd/Desktop/iPong/main.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279860683.765377
-e279860683.805485
-r1
-xCompileC
-xbuild/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/main.o
-x/Users/majd/Desktop/iPong/main.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@40"Compile /Users/majd/Desktop/iPong/main.m279860683#279860683#0(0"0(0#0#32"/Users/majd/Desktop/iPong/main.m4300885448#1543"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.0 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -include /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch -c /Users/majd/Desktop/iPong/main.m -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/main.o0#
-
-CCompileC build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/main.o /Users/majd/Desktop/iPong/main.m normal armv6 objective-c com.apple.compilers.llvmgcc42
-r0
-
-CCpResource build/Debug-iphoneos/iPong.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/ResourceRules.plist
-s279858936.648928
-e279858936.654667
-r1
-xCpResource
-xbuild/Debug-iphoneos/iPong.app/ResourceRules.plist
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/ResourceRules.plist
-lSLF07#2@94"Copy /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/ResourceRules.plist279858936#279858936#0(0"0(0#0#89"/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/ResourceRules.plist4300885448#452"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/ResourceRules.plist /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app0#
-
-CCpResource build/Debug-iphoneos/iPong.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/ResourceRules.plist
-s279860683.385635
-e279860683.389834
-r1
-xCpResource
-xbuild/Debug-iphoneos/iPong.app/ResourceRules.plist
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/ResourceRules.plist
-lSLF07#2@96"Copy /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/ResourceRules.plist279860683#279860683#0(0"0(0#0#91"/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/ResourceRules.plist4300885448#454"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/ResourceRules.plist /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app0#
-
-CCpResource build/Debug-iphoneos/iPong.app/pingpong.mp3 pingpong.mp3
-s279886244.164770
-e279886244.169280
-r1
-xCpResource
-xbuild/Debug-iphoneos/iPong.app/pingpong.mp3
-xpingpong.mp3
-lSLF07#2@17"Copy pingpong.mp3279886244#279886244#0(0"0(0#0#38"/Users/majd/Desktop/iPong/pingpong.mp34300885448#401"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/majd/Desktop/iPong/pingpong.mp3 /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app0#
-
-CCpResource build/Debug-iphoneos/iPong.app/tap.aif tap.aif
-s279891716.771140
-e279891716.780164
-r1
-xCpResource
-xbuild/Debug-iphoneos/iPong.app/tap.aif
-xtap.aif
-lSLF07#2@12"Copy tap.aif279891716#279891716#0(0"0(0#0#33"/Users/majd/Desktop/iPong/tap.aif4300885448#396"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/majd/Desktop/iPong/tap.aif /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app0#
-
-CGenerateDSYMFile /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app.dSYM /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong
-s279903359.406651
-e279903359.421544
-r1
-xGenerateDSYMFile
-x/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app.dSYM
-x/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong
-lSLF07#2@89"GenerateDSYMFile build/Debug-iphoneos/iPong.app.dSYM build/Debug-iphoneos/iPong.app/iPong279903359#279903359#0(0"0(0#0#62"/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong4300885448#317"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong -o /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app.dSYM0#
-
-CLd /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong normal armv6
-s279903359.378187
-e279903359.406268
-r1
-xLd
-x/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong
-xnormal
-xarmv6
-lSLF07#2@67"Link /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong279903359#279903359#0(0"0(0#0#0"4300885448#840"    cd /Users/majd/Desktop/iPong    setenv IPHONEOS_DEPLOYMENT_TARGET 3.0    setenv MACOSX_DEPLOYMENT_TARGET 10.5    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv6 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -L/Users/majd/Desktop/iPong/build/Debug-iphoneos -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -filelist /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/Objects-normal/armv6/iPong.LinkFileList -mmacosx-version-min=10.5 -dead_strip -miphoneos-version-min=3.0 -framework Foundation -framework UIKit -framework CoreGraphics -framework AudioToolbox -o /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/iPong0#
-
-CProcessInfoPlistFile /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/Info.plist iPong-Info.plist
-s279858654.682474
-e279858654.685140
-r1
-xProcessInfoPlistFile
-x/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/Info.plist
-xiPong-Info.plist
-lSLF07#2@24"Process iPong-Info.plist279858654#279858654#0(0"0(0#0#42"/Users/majd/Desktop/iPong/iPong-Info.plist4300885448#502"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility iPong-Info.plist -genpkginfo /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/ResourceRules.plist -o /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/Info.plist0#
-
-CProcessPCH /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-adhzdunzuckwwsactpyhikbovmzp/iPong_Prefix.pch.gch iPong_Prefix.pch normal armv6 objective-c com.apple.compilers.llvmgcc42
-s279871029.255925
-e279871029.257518
-r0
-xProcessPCH
-x/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-adhzdunzuckwwsactpyhikbovmzp/iPong_Prefix.pch.gch
-xiPong_Prefix.pch
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-oerror: can't exec '/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-gcc-4.2' (No such file or directory)
-lSLF07#2@27"Precompile iPong_Prefix.pch279871029#279871029#0(118"error: can't exec '/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-gcc-4.2' (No such file or directory)1(4@110"Can't exec '/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-gcc-4.2' (No such file or directory)279871029#0#118#0(6@0"279871029#0#0#0#0#0"0(0#0#42"/Users/majd/Desktop/iPong/iPong_Prefix.pch4300885448#1542"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -mthumb -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -c /Users/majd/Desktop/iPong/iPong_Prefix.pch -o /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-adhzdunzuckwwsactpyhikbovmzp/iPong_Prefix.pch.gch71#
-
-CProcessPCH /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch.gch iPong_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279860683.389962
-e279860683.765282
-r1
-xProcessPCH
-x/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch.gch
-xiPong_Prefix.pch
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@27"Precompile iPong_Prefix.pch279860683#279860683#0(0"0(0#0#42"/Users/majd/Desktop/iPong/iPong_Prefix.pch4300885448#1456"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.0 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -c /Users/majd/Desktop/iPong/iPong_Prefix.pch -o /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-cjgvzbqlktezrebqxvmesfpplvcg/iPong_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-gkagysdwljtgjjdnnyxfzhgcwgfj/iPong_Prefix.pch.gch iPong_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279858654.688799
-e279858655.142048
-r1
-xProcessPCH
-x/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-gkagysdwljtgjjdnnyxfzhgcwgfj/iPong_Prefix.pch.gch
-xiPong_Prefix.pch
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@27"Precompile iPong_Prefix.pch279858654#279858655#0(0"0(0#0#42"/Users/majd/Desktop/iPong/iPong_Prefix.pch4300885448#1458"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.1.2 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -c /Users/majd/Desktop/iPong/iPong_Prefix.pch -o /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-gkagysdwljtgjjdnnyxfzhgcwgfj/iPong_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-hbmhaxngcymisudzxcziukxlfpcj/iPong_Prefix.pch.gch iPong_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-s279858936.654762
-e279858937.040707
-r1
-xProcessPCH
-x/var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-hbmhaxngcymisudzxcziukxlfpcj/iPong_Prefix.pch.gch
-xiPong_Prefix.pch
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@27"Precompile iPong_Prefix.pch279858936#279858937#0(0"0(0#0#42"/Users/majd/Desktop/iPong/iPong_Prefix.pch4300885448#1454"    cd /Users/majd/Desktop/iPong    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.0 -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-generated-files.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-own-target-headers.hmap -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-all-target-headers.hmap -iquote /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong-project-headers.hmap -F/Users/majd/Desktop/iPong/build/Debug-iphoneos -I/Users/majd/Desktop/iPong/build/Debug-iphoneos/include -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources/armv6 -I/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/DerivedSources -c /Users/majd/Desktop/iPong/iPong_Prefix.pch -o /var/folders/YE/YEkDuTNJG1yr2O+QYC41Y++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPong_Prefix-hbmhaxngcymisudzxcziukxlfpcj/iPong_Prefix.pch.gch0#
-
-CProcessProductPackaging "/Users/majd/Library/MobileDevice/Provisioning Profiles/453F52B7-D98C-4C1F-99FC-B36D281EEF29.mobileprovision" /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/embedded.mobileprovision
-s279858655.431887
-e279858655.433679
-r1
-xProcessProductPackaging
-x/Users/majd/Library/MobileDevice/Provisioning Profiles/453F52B7-D98C-4C1F-99FC-B36D281EEF29.mobileprovision
-x/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/embedded.mobileprovision
-lSLF07#2@189"ProcessProductPackaging "/Users/majd/Library/MobileDevice/Provisioning Profiles/453F52B7-D98C-4C1F-99FC-B36D281EEF29.mobileprovision" build/Debug-iphoneos/iPong.app/embedded.mobileprovision279858655#279858655#0(0"0(0#0#81"/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/embedded.mobileprovision4300885448#394"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> "/Users/majd/Library/MobileDevice/Provisioning Profiles/453F52B7-D98C-4C1F-99FC-B36D281EEF29.mobileprovision" -o /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app/embedded.mobileprovision0#
-
-CProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/Entitlements.plist /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent
-s279858937.321026
-e279858937.322352
-r1
-xProcessProductPackaging
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/Entitlements.plist
-x/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent
-lSLF07#2@169"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/Entitlements.plist build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent279858937#279858937#0(0"0(0#0#82"/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent4300885448#400"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/Entitlements.plist -entitlements -format xml -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent0#
-
-CProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/Entitlements.plist /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent
-s279860684.047990
-e279860684.049525
-r1
-xProcessProductPackaging
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/Entitlements.plist
-x/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent
-lSLF07#2@171"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/Entitlements.plist build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent279860684#279860684#0(0"0(0#0#82"/Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent4300885448#402"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/Entitlements.plist -entitlements -format xml -o /Users/majd/Desktop/iPong/build/iPong.build/Debug-iphoneos/iPong.build/iPong.xcent0#
-
-CTouch /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app
-s279903359.421706
-e279903359.423706
-r1
-xTouch
-x/Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app
-lSLF07#2@62"Touch /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app279903359#279903359#0(0"0(0#0#0"4300885448#236"    cd /Users/majd/Desktop/iPong    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/majd/Desktop/iPong/build/Debug-iphoneos/iPong.app0#
-
