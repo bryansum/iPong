@@ -9,10 +9,12 @@
 
 typedef enum {
     kTopSpin,
-    kSlice
-} kSwingType;
+    kSlice,
+    kNormal
+} SwingType;
 
 typedef struct PongPacket {
     float           velocity;
-    kSwingType      swingType;
+    SwingType      swingType;
+    float           typeIntensity;
 } PongPacket;

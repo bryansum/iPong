@@ -116,9 +116,26 @@
   [accelerometer setDelegate:self];
   [accelerometer setUpdateInterval:0.05];	
 
+//    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(firePacket) 
+//                          userInfo:nil repeats:YES];
+    
   //Create and advertise a new game and discover other available games
-  [self setup];
+  //[self setup];
 }
+
+//-(void)firePacket
+//{
+//    NSLog(@"Fire packet called");
+//    PongPacket packet;
+//    packet.velocity = 1.5;
+//    packet.swingType = kSlice;
+//    packet.typeIntensity = 1;
+//    
+//    SwingTimer *swingTimer = [[SwingTimer alloc] initWithEnemyPacket:packet];
+//    swingTimer.delegate = self;
+//    [swingTimer start];
+//}
+
 - (void) startSampling{
   partialVelocity = 0;
   numberOfSamples = 0;
@@ -158,7 +175,7 @@
 			[self _showAlert:@"Failed sending data to peer"];
 }
 
--(void) playSound{
+-(void) playSound {
 	//Get the filename of the sound file:
 	NSString *path = [NSString stringWithFormat:@"%@%@",
                     [[NSBundle mainBundle] resourcePath],
@@ -176,6 +193,8 @@
 	//Use audio services to play the sound
 	AudioServicesPlaySystemSound(soundID);
 }
+
+
 
 
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
@@ -361,7 +380,15 @@
 
 @end
 
+#pragma mark SwingTimer delegate functions
+@implementation iPongAppDelegate (SwingTimerDelegate)
 
+-(void)intervalDidOccur:(int)interval
+{
+    [self playSound];
+}
+
+@end
 
 #pragma mark -
 @implementation iPongAppDelegate (TCPServerDelegate)

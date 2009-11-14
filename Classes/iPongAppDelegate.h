@@ -10,7 +10,7 @@
 #import "BrowserViewController.h"
 #import "Picker.h"
 #import "TCPServer.h"
-
+#import "SwingTimer.h"
 
 typedef struct AccelerationSample{
   NSTimeInterval elapsedTime;
@@ -18,7 +18,7 @@ typedef struct AccelerationSample{
 } AccelerationSample;
 
 @interface iPongAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate,
-BrowserViewControllerDelegate, TCPServerDelegate, UIAccelerometerDelegate>
+BrowserViewControllerDelegate, TCPServerDelegate, UIAccelerometerDelegate, SwingTimerDelegate>
 {
 	UIWindow				  *_window;
 	Picker					  *_picker;
