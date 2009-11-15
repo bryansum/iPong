@@ -18,7 +18,7 @@
     self = [super init];
     if (self != nil) {
         // Make the array to store our AVAudioPlayer objects
-        NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:@"aif" inDirectory:nil];
+        NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:@"wav" inDirectory:nil];
         
         soundPlayers = [[NSMutableDictionary alloc] initWithCapacity:[paths count]];
         NSLog(@"Capacity %d", [paths count]);
@@ -61,16 +61,6 @@
     }
     [player setVolume:volume];
     [player play];
-}
-
-- (void)playBeepAtVolume:(float)volume
-{
-    [self playSound:@"tap" atVolume:volume];
-}
-
-- (void)playHitAtVolume:(float)volume
-{
-    [self playSound:@"tap" atVolume:volume];
 }
 
 

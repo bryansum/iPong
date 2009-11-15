@@ -14,12 +14,16 @@
   NSInteger remoteScore;
   
   NSInteger localPeerStatus;
+    
+    id      d;
 }
 
+@property (retain) id d;
 @property (nonatomic, assign) NSInteger localPeerStatus;
 
 - (void) gameWon;
 - (void) alertIsMyServe;
+- (void) alertIsMyFirstServe;
 - (void) pointScored:(NSInteger) peerStatus;
 - (void) _showAlert:(NSString *)title withMessage:(NSString *)message andButtonTitle:(NSString *)buttonTitle;
 

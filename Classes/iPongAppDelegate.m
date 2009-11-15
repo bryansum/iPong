@@ -40,6 +40,7 @@ typedef enum {
 @interface iPongAppDelegate()
 - (void) startSampling;
 - (void) stopSampling;
+- (void) resetDots;
 @end
 
 @implementation iPongAppDelegate
@@ -125,6 +126,8 @@ typedef enum {
     swingHandler.delegate = self;
     [swingHandler startRecording];
     
+    player = [[ScoreController alloc] init];
+    
     round = 0;
     peerStatus = kServer;
     gamePacketNumber = 0;
@@ -149,8 +152,19 @@ typedef enum {
 }
 
 - (void) startNewGame {
-  [self incRound]; // sets state to the right value
+    [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve
+    round = -1;
+    [self incRound];
 }
+
+- (void) beginGame {
+    [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve
+}
+
+- (void) startFirstGame {
+    [swingHandler setCanServe:YES];
+}
+
 
 - (void) gameEnded {
   self.gameState = kStateEndGame;
@@ -166,9 +180,15 @@ typedef enum {
 
 -(void)displayDotForInterval:(int)interval
 {
+    NSString *imgSrc = @"glowing-dot.png";
+    [dots[interval] setImage:[UIImage imageNamed:imgSrc]];           
+}
+
+-(void) resetDots
+{
     for (int i = 0; i < kNumBeeps; i++) {
-        NSString *imgSrc = interval == i ? @"glowing-dot.png" : @"empty-dot.png";
-        [dots[i] setImage:[UIImage imageNamed:imgSrc]];        
+        NSString *imgSrc = @"empty-dot.png";
+        [dots[i] setImage:[UIImage imageNamed:imgSrc]];           
     }
 }
 
@@ -182,9 +202,7 @@ typedef enum {
 #pragma mark SwingTimerDelegate methods
 -(BOOL)wasHit:(PongPacket *)pp
 {
-    NSLog(@"velocity = %f, swingType = %d, intensity = %f", pp->velocity, 
-          pp->swingType, pp->typeIntensity);
-    return YES;
+    return pp->velocity > 0.5 ? YES : NO;
 }
 
 -(void)intervalDidOccur:(int)interval
@@ -192,15 +210,18 @@ typedef enum {
     [self displayDotForInterval:interval];
 
     // calc quadratic volume.
-    float volume = pow((float)interval/(float)kNumBeeps,3);
+//    float volume = pow((float)interval/(float)kNumBeeps,2);
+    float volume = (float)interval/(float)kNumBeeps;
     if (interval != kFinalBeep) {
-        [avController playBeepAtVolume:volume];
+        [avController playSound:@"bounce" atVolume:volume];
     } else {
         
         PongPacket packet = [swingHandler currentSwing];
-
+        
+        [self resetDots];
+        
         if ([self wasHit:&packet]) {
-            [avController playHitAtVolume:volume];
+            [avController playSound:@"hit" atVolume:volume];
             [self sendNetworkPacket:gameSession 
                            packetID:NETWORK_PING_EVENT 
                            withData:&packet 
@@ -236,10 +257,14 @@ typedef enum {
     swingTimer.delegate = self;
     [swingTimer start];
 }
+-(void)playWinSound 
+{
+    [avController playSound:@"happy" atVolume:1];
+}
 
 -(void)incRound
 {
-    if (++(self.round) % 5) {
+    if ((self.round++) % 5 == 0) {
         self.myServe = TOGGLE(self.myServe);
       
         if (self.myServe) {
@@ -248,7 +273,6 @@ typedef enum {
     }
     if (self.myServe) {
         self.gameState = kStateMyServe;
-        [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve
     } else {
         self.gameState = kStatePlay;
     }    
@@ -365,9 +389,9 @@ typedef enum {
                 // we're server
                 self.peerStatus = kServer;
 
-                self.myServe = YES;
+                self.myServe = YES; // will get changed                
                 self.gameState = kStateMyServe;
-                [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve                    
+                [player alertIsMyFirstServe];
             }
         }
 			break;
@@ -486,7 +510,7 @@ typedef enum {
                            reliable:YES];
 			self.gameState = kStatePlay; // we only want to be in the cointoss state for one loop
 			break;
-        case kStateMyServe: // wait for a serve event
+    case kStateMyServe: // wait for a serve event
     case kStatePlay: // playing the game... still use heartbeats
     case kStateEndGame: // either you won or you lost... waits for button press
             

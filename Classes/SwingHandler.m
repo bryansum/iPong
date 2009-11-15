@@ -7,7 +7,9 @@
 //
 
 #import "SwingHandler.h"
-
+#define CLAMP(x, l, h)  (((x) > (h)) ? (h) : (((x) < (l)) ? (l) : (x)))
+#define NORMALIZE(x)    (CLAMP(x,0,2)*0.5)
+#define VEL_NORMALIZE(x) (CLAMP(x,0,3))
 
 @implementation SwingHandler
 
@@ -46,6 +48,12 @@
 }
 
 #pragma mark SwingHandler
+-(void)describe
+{
+    NSLog(@"velocity = %f, swingType = %d, intensity = %f", currentSwing.velocity, 
+          currentSwing.swingType, currentSwing.typeIntensity);
+    
+}
 
 - (void) accelerometer:(UIAccelerometer *)accelerometer 
          didAccelerate:(UIAcceleration *)acceleration {
@@ -73,25 +81,29 @@
             //	NSLog(@"z %f, x %f", z, x);
             
             //If the direction has changed
-            currentSwing.velocity = (timeDifference * temp);
+            currentSwing.velocity = VEL_NORMALIZE(timeDifference * temp);
             if(z >= 0.5){
                 if (x <= -0.5 || x >= 0.5 || currentSwing.swingType == 0) {
                     NSLog(@"topspin %f", (-x)/(z-x));
                     
                     //x will be more - implies more top
                     currentSwing.swingType = kTopSpin;
-                    currentSwing.typeIntensity = (-x)/(z-x);
+                    currentSwing.typeIntensity = NORMALIZE((-x)/(z-x));
+                                    [self describe];
+
                 } else if (x/(x+z) <= 0.5 && x/(x+z) >= -0.1 && z > acceleration.z) {
                     NSLog(@"normal %f", currentSwing.velocity);
                     //x will be more + implies more 
                     currentSwing.swingType = kNormal;
-                    currentSwing.typeIntensity = 1;
+                    currentSwing.typeIntensity = NORMALIZE(1);    
+                                    [self describe];
                 }
             } else if (-0.5<= acceleration.z && acceleration.z <= 0.0 && (x >= 0.5 || x <= -0.5)) {
                 NSLog(@"slice %f", x/(x+fabs(z)));
                 
                 currentSwing.swingType = kSlice;
-                currentSwing.typeIntensity = (x)/(x+z);
+                currentSwing.typeIntensity = NORMALIZE((x)/(x+z));
+                [self describe];
             } else {
                 currentSwing.swingType = kNormal;
                 currentSwing.velocity = 0.0;

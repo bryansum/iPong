@@ -12,6 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		23026CBA10AFBB8800209D75 /* SwingHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 23026CB910AFBB8800209D75 /* SwingHandler.m */; };
+		23026DBC10AFF4A900209D75 /* ScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = A93BEC0510AF9FB000D050EF /* ScoreController.m */; };
 		232F5B4810AF13E700C65C6F /* SwingTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F5B4710AF13E700C65C6F /* SwingTimer.m */; };
 		232F5DE010AF623E00C65C6F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 232F5DDF10AF623E00C65C6F /* GameKit.framework */; };
 		232F5E2910AF871500C65C6F /* AVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F5E2810AF871500C65C6F /* AVController.m */; };
@@ -237,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23026DBC10AFF4A900209D75 /* ScoreController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* iPongAppDelegate.m in Sources */,
 				232F5B4810AF13E700C65C6F /* SwingTimer.m in Sources */,

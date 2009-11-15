@@ -11,17 +11,17 @@
 
 @implementation ScoreController
 
-@synthesize localPeerStatus;
+@synthesize localPeerStatus, d;
 
 - (id) init {
   self = [super init];
   winningScore = 11;
+  d = [[UIApplication sharedApplication] delegate];
   
   return self;
 }
 
 - (void) pointScored:(NSInteger)peerStatus{
-  iPongAppDelegate *d = (iPongAppDelegate *)[[UIApplication sharedApplication] delegate];
   
   if(peerStatus == localPeerStatus){
     localScore++;
@@ -49,13 +49,18 @@
   [alertView release];
 }
 
+- (void) alertIsMyFirstServe {
+    [self _showAlert:@"Your serve" withMessage:@"You are the server" andButtonTitle:@"Let's play!"];    
+}
+
 - (void) alertIsMyServe{
   [self _showAlert:@"Service Change!" withMessage:@"You are now the server" andButtonTitle:@"Let's play!"];
 }
 
 - (void) gameWon {
   
-  if(localScore == winningScore){
+  if(localScore == winningScore) {
+      [d playWinSound];
     [self _showAlert:@"You won!" 
          withMessage:@"Hail To The Victors!" 
       andButtonTitle:@"Start a new game"];
@@ -68,19 +73,24 @@
 }
 
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-  iPongAppDelegate *d = (iPongAppDelegate *)[[UIApplication sharedApplication] delegate];
+  
   if([alertView title] == @"You won!" || [alertView title] == @"You lost :("){
     
     localScore = 0;
     remoteScore = 0;
     winningScore = 11;
     
-    iPongAppDelegate *d = (iPongAppDelegate *)[[UIApplication sharedApplication] delegate];
     [d updateMyScoreLabelWithValue:0];
     [d updateRemoteScoreLabelWithValue:0];
     
+      [d startNewGame];
+      
+  } else if ([alertView title] == @"Your serve") {
+      [d startFirstGame];
+  } else {
+      [d beginGame];
   }
-  [d startNewGame];
+  
 }
 
 - (void)dealloc {
