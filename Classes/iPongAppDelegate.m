@@ -152,10 +152,6 @@ UIImageView *flashView;
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
 }
 
-- (void) testButtonClicked {
-	[self startAnimation];
-}
-
 - (void) updateMyScoreLabel:(NSInteger)peerStat withValue:(NSInteger)n {
   if (peerStat == self.peerStatus) {
     [myScoreValue setText:[NSString stringWithFormat:@"%d",n]];
