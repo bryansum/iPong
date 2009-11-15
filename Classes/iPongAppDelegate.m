@@ -9,7 +9,8 @@
 #import "iPongAppDelegate.h"
 #define kGameIdentifier		@"iPong"
 
-@interface iPongAppDelegate()
+
+@interface iPongAppDelegate ()
 - (void) setup;
 - (void) startSampling;
 - (void) stopSampling;
@@ -30,28 +31,78 @@
 	_window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	[_window setBackgroundColor:[UIColor darkGrayColor]];
   
-  labelView = [[UILabel alloc] init];
-  [labelView setFrame:CGRectMake(10, 50, 200, 30)];
-  [labelView setText:@"Value of b"];
-  [_window addSubview:labelView]; 
   
-  secondLabel = [[UILabel alloc] init];
-  [secondLabel setFrame:CGRectMake(10, 100, 200, 30)];
-  [secondLabel setText:@"value of len"];
-  [_window addSubview:secondLabel]; 
+	UIImageView *backgroundPattern = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-pattern.png"]];
+  [backgroundPattern setFrame:[[UIScreen mainScreen] bounds]];
+  [_window addSubview:backgroundPattern];
   
-  buttonView = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [buttonView setFrame:CGRectMake(10, 150, 290, 200)];
-  [buttonView setTitle:@"Click me as you throw" forState:UIControlStateNormal];
+	UIImageView *scoreboardBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scoreboard-bg.png"]];
+  [scoreboardBg setFrame:CGRectMake(0, 0, 320, 480)];
+  [_window addSubview:scoreboardBg];
+  
+	UIImageView *scoreboard = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scoreboard.png"]];
+  [scoreboard setFrame:CGRectMake(0, 40, 320, 53)];
+  [_window addSubview:scoreboard];
+  
+	UIImageView *divider = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scoreboard-divider.png"]];
+  [divider setFrame:CGRectMake(160, 41, 2, 51)];
+  [_window addSubview:divider];
+  
+  UILabel *scoreLabel = [[UILabel alloc] init];
+  [scoreLabel setFrame:CGRectMake(136, 20, 83, 18)];
+  [scoreLabel setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.0]];
+  [scoreLabel setText:@"SCORE"];
+  [scoreLabel setShadowColor:[UIColor colorWithRed:221.0/255.0 green:230.0/255.0 blue:211.0/255.0 alpha:1.0]];
+  [scoreLabel setShadowOffset:CGSizeMake(0.0, 1.0)];
+  [scoreLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
+  [scoreLabel setTextColor:[UIColor colorWithRed:97.0/255.0 green:97.0/255.0 blue:97.0/255.0 alpha:1.0]];
+  [_window addSubview:scoreLabel];
+  
+  myScoreValue = [[UILabel alloc] init];
+  [myScoreValue setFrame:CGRectMake(10, 50, 153, 35)];
+  [myScoreValue setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.0]];
+  [myScoreValue setText:@"11"];
+  [myScoreValue setTextAlignment:UITextAlignmentCenter];
+  [myScoreValue setShadowColor:[UIColor colorWithRed:221.0/255.0 green:230.0/255.0 blue:211.0/255.0 alpha:1.0]];
+  [myScoreValue setShadowOffset:CGSizeMake(0.0, 1.0)];
+  [myScoreValue setFont:[UIFont boldSystemFontOfSize:40.0]];
+  [myScoreValue setTextColor:[UIColor colorWithRed:74.0/255.0 green:96.0/255.0 blue:52.0/255.0 alpha:1.0]];
+  [_window addSubview:myScoreValue];
+  
+  remoteScoreValue = [[UILabel alloc] init];
+  [remoteScoreValue setFrame:CGRectMake(160, 50, 153, 35)];
+  [remoteScoreValue setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.0]];
+  [remoteScoreValue setText:@"5"];
+  [remoteScoreValue setTextAlignment:UITextAlignmentCenter];
+  [remoteScoreValue setShadowColor:[UIColor colorWithRed:221.0/255.0 green:230.0/255.0 blue:211.0/255.0 alpha:1.0]];
+  [remoteScoreValue setShadowOffset:CGSizeMake(0.0, 1.0)];
+  [remoteScoreValue setFont:[UIFont boldSystemFontOfSize:40.0]];
+  [remoteScoreValue setTextColor:[UIColor colorWithRed:74.0/255.0 green:96.0/255.0 blue:52.0/255.0 alpha:1.0]];
+  [_window addSubview:remoteScoreValue];
+  
+  buttonView = [UIButton buttonWithType:UIButtonTypeCustom];
+  [buttonView setFrame:CGRectMake(70, 130, 186, 310)];
+  [buttonView imageRectForContentRect:CGRectMake(100, 1300, 3200, 350)];
+  [buttonView setBackgroundImage:[UIImage imageNamed:@"paddle.png"] forState:UIButtonTypeCustom];
   [buttonView addTarget:self action:@selector(startSampling) forControlEvents:UIControlEventTouchDown];
   [buttonView addTarget:self action:@selector(stopSampling) forControlEvents:UIControlEventTouchUpInside];
   [_window addSubview:buttonView];       
   
-  soundButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [soundButton setFrame:CGRectMake(10, 370, 100, 70)];
-  [soundButton setTitle:@"Play Sound" forState:UIControlStateNormal];
-  [soundButton addTarget:self action:@selector(playSound) forControlEvents:UIControlEventTouchUpInside];
-  [_window addSubview:soundButton];       
+	firstDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
+  [firstDot setFrame:CGRectMake(110, 440, 30, 30)];
+  [_window addSubview:firstDot];
+  
+	secondDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
+  [secondDot setFrame:CGRectMake(135, 440, 30, 30)];
+  [_window addSubview:secondDot];
+  
+	thirdDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
+  [thirdDot setFrame:CGRectMake(160, 440, 30, 30)];
+  [_window addSubview:thirdDot];
+  
+	fourthDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
+  [fourthDot setFrame:CGRectMake(185, 440, 30, 30)];
+  [_window addSubview:fourthDot];
   
 	//Show the window
 	[_window makeKeyAndVisible];
@@ -73,12 +124,22 @@
   numberOfSamples = 0;
   previousTimeInterval = [[NSDate date] timeIntervalSince1970];  
   isSampling = true;
+  
+  [firstDot setImage:[UIImage imageNamed: @"glowing-dot.png"]];
+  [secondDot setImage:[UIImage imageNamed:@"glowing-dot.png"]];
+  [thirdDot setImage:[UIImage imageNamed: @"glowing-dot.png"]];
+  [fourthDot setImage:[UIImage imageNamed:@"glowing-dot.png"]];
 }
 
 - (void) stopSampling {
   partialVelocity = 0;
   numberOfSamples = 0;
   isSampling = false;
+  
+  [firstDot setImage:[UIImage imageNamed: @"empty-dot.png"]];
+  [secondDot setImage:[UIImage imageNamed:@"empty-dot.png"]];
+  [thirdDot setImage:[UIImage imageNamed: @"empty-dot.png"]];
+  [fourthDot setImage:[UIImage imageNamed:@"empty-dot.png"]];
 }
 
 - (void) _showAlert:(NSString *)title
@@ -118,26 +179,29 @@
 
 
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
+  CGFloat x = acceleration.x;
+  CGFloat z = acceleration.z;
+  CGFloat accel = x + z;
+  
   NSTimeInterval intervalDate = [[NSDate date] timeIntervalSince1970];
   CGFloat timeDifference = intervalDate - previousTimeInterval;
   previousTimeInterval = intervalDate;
-  partialVelocity += (timeDifference * acceleration.x);
+  partialVelocity += (timeDifference * accel);
   if(!isSampling) return;
   
   
   //If the direction has changed
-  if((direction < 0 && acceleration.x > 0) || (direction > 0 && acceleration.x < 0)){
+  if((direction < 0 && accel > 0) || (direction > 0 && accel < 0)){
     // Time threshold is 1 second (sampling accelerometer 20 times per second 
     if(numberOfSamples > 5){
       NSLog(@"Velocity: %f",partialVelocity);
       [self send:partialVelocity];
-      [self playSound];
     }
     
     partialVelocity = 0;
     numberOfSamples = 0;
     
-    if(acceleration.x == 0.0){
+    if(accel == 0.0){
       direction = 1.0;
     } else {
       direction = -1.0;
@@ -260,7 +324,6 @@
 		}
 		case NSStreamEventHasBytesAvailable:
 		{
-      NSString *velocity;
 			if (stream == _inStream) {
 				uint8_t b[1024];
 				unsigned int len = 0;
@@ -269,7 +332,7 @@
 					if ([stream streamStatus] != NSStreamStatusAtEnd)
 						[self _showAlert:@"Failed reading data from peer"];
 				} else {
-					[labelView setText:@"Got a hit"];
+          [self playSound];
 				}
 			}
 			break;

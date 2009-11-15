@@ -43,7 +43,24 @@ BrowserViewControllerDelegate, TCPServerDelegate, UIAccelerometerDelegate>
     NSInteger         direction;
     NSUInteger        numberOfSamples;
   
-    CFURLRef		soundFileURLRef;
+  UIImageView       *firstDot;
+  UIImageView       *secondDot;
+  UIImageView       *thirdDot;
+  UIImageView       *fourthDot;
+  
+  UILabel           *myScoreValue;
+  UILabel           *remoteScoreValue;
+  
+  UIAccelerometer   *accelerometer;
+  
+  BOOL              isSampling;
+  NSTimeInterval    startTime;
+  NSUInteger        previousTimeInterval;
+  CGFloat           partialVelocity;
+  NSInteger         direction;
+  NSUInteger        numberOfSamples;
+  
+	CFURLRef		soundFileURLRef;
 	SystemSoundID	soundFileObject;
   
 }
