@@ -156,15 +156,12 @@ typedef enum {
 }
 
 - (void) startSampling {
-  partialVelocity = 0;
-	isSwinging = false;
   numberOfSamples = 0;
   previousTimeInterval = [[NSDate date] timeIntervalSince1970];  
   isSampling = true;
 }
 
 - (void) stopSampling {
-	isSwinging = false;
   currentSwing.velocity = 0;
   numberOfSamples = 0;
   isSampling = false;    
