@@ -17,7 +17,6 @@
 		232F5E2D10AF873600C65C6F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 232F5E2C10AF873600C65C6F /* AVFoundation.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		A9124B2610AF0C3B00EBA976 /* 6002b.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9124B2510AF0C3B00EBA976 /* 6002b.jpg */; };
-		A97FD34810AF87E600CE3E42 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97FD34710AF87E600CE3E42 /* GameController.m */; };
 		A9CA775510AF489B00A0F4FE /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA774D10AF489B00A0F4FE /* back-button.png */; };
 		A9CA775610AF489B00A0F4FE /* bg-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA774E10AF489B00A0F4FE /* bg-pattern.png */; };
 		A9CA775710AF489B00A0F4FE /* empty-dot.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA774F10AF489B00A0F4FE /* empty-dot.png */; };
@@ -26,9 +25,6 @@
 		A9CA775C10AF489B00A0F4FE /* scoreboard.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA775410AF489B00A0F4FE /* scoreboard.png */; };
 		A9CA779210AF4D4400A0F4FE /* scoreboard-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA779010AF4D4400A0F4FE /* scoreboard-bg.png */; };
 		A9CA779310AF4D4400A0F4FE /* scoreboard-divider.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA779110AF4D4400A0F4FE /* scoreboard-divider.png */; };
-		A9F2CDDE10AE463F00677B91 /* Picker.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2CDD910AE463F00677B91 /* Picker.m */; };
-		A9F2CDDF10AE463F00677B91 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2CDDB10AE463F00677B91 /* BrowserViewController.m */; };
-		A9F2CDE010AE463F00677B91 /* TCPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2CDDD10AE463F00677B91 /* TCPServer.m */; };
 		A9FDD3E110AEB2070051B673 /* pingpong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9FDD3E010AEB2070051B673 /* pingpong.mp3 */; };
 		A9FDD43E10AEB9780051B673 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9FDD43D10AEB9780051B673 /* AudioToolbox.framework */; };
 		A9FDD5B210AECEF60051B673 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = A9FDD5B110AECEF60051B673 /* tap.aif */; };
@@ -52,8 +48,6 @@
 		32CA4F630368D1EE00C91783 /* iPong_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPong_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* iPong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iPong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A9124B2510AF0C3B00EBA976 /* 6002b.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6002b.jpg; sourceTree = "<group>"; };
-		A97FD34610AF87E600CE3E42 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
-		A97FD34710AF87E600CE3E42 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		A9CA774D10AF489B00A0F4FE /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button.png"; sourceTree = "<group>"; };
 		A9CA774E10AF489B00A0F4FE /* bg-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-pattern.png"; sourceTree = "<group>"; };
 		A9CA774F10AF489B00A0F4FE /* empty-dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-dot.png"; sourceTree = "<group>"; };
@@ -62,12 +56,6 @@
 		A9CA775410AF489B00A0F4FE /* scoreboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scoreboard.png; sourceTree = "<group>"; };
 		A9CA779010AF4D4400A0F4FE /* scoreboard-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scoreboard-bg.png"; sourceTree = "<group>"; };
 		A9CA779110AF4D4400A0F4FE /* scoreboard-divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scoreboard-divider.png"; sourceTree = "<group>"; };
-		A9F2CDD810AE463F00677B91 /* Picker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picker.h; sourceTree = "<group>"; };
-		A9F2CDD910AE463F00677B91 /* Picker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picker.m; sourceTree = "<group>"; };
-		A9F2CDDA10AE463F00677B91 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewController.h; sourceTree = "<group>"; };
-		A9F2CDDB10AE463F00677B91 /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewController.m; sourceTree = "<group>"; };
-		A9F2CDDC10AE463F00677B91 /* TCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPServer.h; sourceTree = "<group>"; };
-		A9F2CDDD10AE463F00677B91 /* TCPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPServer.m; sourceTree = "<group>"; };
 		A9FDD3E010AEB2070051B673 /* pingpong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pingpong.mp3; sourceTree = "<group>"; };
 		A9FDD43D10AEB9780051B673 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A9FDD5B110AECEF60051B673 /* tap.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = tap.aif; sourceTree = "<group>"; };

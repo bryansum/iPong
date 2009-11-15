@@ -173,6 +173,11 @@ typedef enum {
   [secondDot setImage:[UIImage imageNamed:@"empty-dot.png"]];
   [thirdDot setImage:[UIImage imageNamed: @"empty-dot.png"]];
   [fourthDot setImage:[UIImage imageNamed:@"empty-dot.png"]];
+    
+
+    self.gameState = kStatePicker;
+    [self startPicker];
+
 }
 
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{

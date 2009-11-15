@@ -9,7 +9,6 @@
 #include <AudioToolbox/AudioToolbox.h>
 #import <GameKit/GameKit.h>
 #import "PongPacket.h"
-#import "Picker.h"
 #import "SwingTimer.h"
 #import "AVController.h"
 
@@ -32,7 +31,6 @@ typedef enum {
                                         UIAccelerometerDelegate, SwingTimerDelegate>
 {
 	UIWindow				  *_window;
-	Picker					  *_picker;
 	NSInputStream		  *_inStream;
 	NSOutputStream		*_outStream;
 	BOOL				   	  _inReady;
@@ -88,6 +86,7 @@ typedef enum {
 
 - (void)invalidateSession:(GKSession *)session;
 - (void)sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend;
+-(void)startPicker;
 
 -(void)didMiss;
 -(void)didHit:(PongPacket *)packet;
