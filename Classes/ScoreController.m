@@ -6,10 +6,10 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "GameController.h"
+#import "ScoreController.h"
 
 
-@implementation GameController
+@implementation ScoreController
 
 - (void) pointScored:(NSInteger)peerStatus{
   if(!peerStatus){
@@ -23,9 +23,13 @@
     [self gameWon];
   }
   
-  if(localScore == winningScore - 1 && localScorelocalScore == remoteScore){
+  if(localScore == winningScore - 1 && localScore == remoteScore){
     winningScore++;
   }
+}
+
+- (void) gameWon {
+  
 }
 
 - (void)dealloc {

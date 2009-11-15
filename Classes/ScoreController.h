@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 
-@interface GameController : NSObject {
+@interface ScoreController : NSObject {
   NSInteger winningScore;
   NSInteger localScore;
   NSInteger remoteScore;
 }
 
+- (void) gameWon;
 - (void) pointScored:(NSInteger) peerStatus;
 
 @end

@@ -197,48 +197,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>A9FDD3B110AEAABE0051B673</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iPongAppDelegate.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>A9FDD3B210AEAABE0051B673</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iPongAppDelegate.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>A97FD35310AF911B00CE3E42</string>
-						<key>history</key>
-						<array>
-							<string>A9CA796510AF66D800A0F4FE</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {722, 953}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>-786 206 722 994 -1680 150 1680 1050 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>1920</integer>
@@ -318,7 +277,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>5</integer>
+									<integer>7</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -341,7 +300,7 @@
 							<real>209</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>-1 59 1920 1119 0 0 1920 1178 </string>
+						<string>0 59 1920 1119 0 0 1920 1178 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -359,7 +318,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>A9F2CDC110AE44DE00677B91</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GameController.m</string>
+								<string>SwingTimer.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -367,11 +326,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>A9F2CDC210AE44DE00677B91</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GameController.m</string>
+										<string>SwingTimer.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A97FD35210AF911B00CE3E42</string>
+										<string>A93BEBEE10AF9C0000D050EF</string>
 										<key>history</key>
 										<array>
 											<string>A9F2CDE310AE467B00677B91</string>
@@ -381,10 +340,9 @@
 											<string>A9FDD22810AE55B20051B673</string>
 											<string>A9FDD22910AE55B20051B673</string>
 											<string>A9FDD33D10AE7EA90051B673</string>
-											<string>A97FD2DF10AF7F2D00CE3E42</string>
-											<string>A97FD34F10AF911B00CE3E42</string>
-											<string>A97FD35010AF911B00CE3E42</string>
-											<string>A97FD35110AF911B00CE3E42</string>
+											<string>A93BEBDC10AF9BA000D050EF</string>
+											<string>A93BEBDD10AF9BA000D050EF</string>
+											<string>A93BEBEB10AF9BE400D050EF</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -400,7 +358,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1689, 1073}}</string>
 								<key>RubberWindowFrame</key>
-								<string>-1 59 1920 1119 0 0 1920 1178 </string>
+								<string>0 59 1920 1119 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -425,7 +383,7 @@
 										<key>Frame</key>
 										<string>{{10, 27}, {1689, -27}}</string>
 										<key>RubberWindowFrame</key>
-										<string>-1 59 1920 1119 0 0 1920 1178 </string>
+										<string>0 59 1920 1119 0 0 1920 1178 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -507,11 +465,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A97FD26C10AF77C200CE3E42</string>
+				<string>A93BEBE110AF9BA000D050EF</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>A97FD26D10AF77C200CE3E42</string>
+				<string>A93BEBE210AF9BA000D050EF</string>
 				<string>A9F2CDC110AE44DE00677B91</string>
-				<string>A97FD26E10AF77C200CE3E42</string>
+				<string>A93BEBE310AF9BA000D050EF</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -660,13 +618,13 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A97FD26F10AF77C200CE3E42</string>
+				<string>A93BEBE410AF9BA000D050EF</string>
 				<string>1CCC7628064C1048000F2A68</string>
 				<string>1CCC7629064C1048000F2A68</string>
-				<string>A97FD27010AF77C200CE3E42</string>
-				<string>A97FD27110AF77C200CE3E42</string>
-				<string>A97FD27210AF77C200CE3E42</string>
-				<string>A97FD27310AF77C200CE3E42</string>
+				<string>A93BEBE510AF9BA000D050EF</string>
+				<string>A93BEBE610AF9BA000D050EF</string>
+				<string>A93BEBE710AF9BA000D050EF</string>
+				<string>A93BEBE810AF9BA000D050EF</string>
 				<string>A9F2CDC110AE44DE00677B91</string>
 			</array>
 			<key>ToolbarConfigUserDefaultsMinorVersion</key>
@@ -701,14 +659,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>A97FD35410AF911B00CE3E42</string>
-		<string>A97FD34310AF866100CE3E42</string>
-		<string>A97FD27610AF77C200CE3E42</string>
-		<string>A9FDD3B110AEAABE0051B673</string>
+		<string>A93BEBEA10AF9BA000D050EF</string>
 		<string>/Users/majd/Desktop/iPong/iPong.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>-1 59 1920 1119 0 0 1920 1178 </string>
+	<string>0 59 1920 1119 0 0 1920 1178 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
