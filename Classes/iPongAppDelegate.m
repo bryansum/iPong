@@ -414,7 +414,7 @@ typedef enum {
 			break;
         case NETWORK_MISS_EVENT:
     {
-      NSLog(@"Recieved miss event");;
+      NSLog(@"Recieved miss event");
             // received a miss event from the other player. This means that we, 
             // in turn, score. 
             
