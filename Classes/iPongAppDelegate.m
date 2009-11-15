@@ -41,8 +41,10 @@ typedef enum {
 #define kPeerEnemy (self.peerStatus == kClient ? kServer : kClient)
 
 @interface iPongAppDelegate()
+UIImageView *flashView;
 - (void) didTouchPaddle;
 - (void) resetDots;
+- (void) startAnimation;
 - (void) _showAlert:(NSString *)title withMessage:(NSString *)message andButtonTitle:(NSString *) buttonTitle;
 @end
 
@@ -56,7 +58,7 @@ typedef enum {
 	[_window setBackgroundColor:[UIColor darkGrayColor]];
   
   
-	UIImageView *backgroundPattern = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-pattern.png"]];
+  UIImageView *backgroundPattern = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-pattern.png"]];
   [backgroundPattern setFrame:[[UIScreen mainScreen] bounds]];
   [_window addSubview:backgroundPattern];
   
@@ -109,15 +111,21 @@ typedef enum {
   [buttonView imageRectForContentRect:CGRectMake(100, 1300, 3200, 350)];
   [buttonView setBackgroundImage:[UIImage imageNamed:@"paddle.png"] forState:UIButtonTypeCustom];
   [buttonView addTarget:self action:@selector(didTouchPaddle) forControlEvents:UIControlEventTouchUpInside];
-  [_window addSubview:buttonView];   
-  
+  [_window addSubview:buttonView];
+ 
   int curX = 110;
-  for(int i = 0; i < 4; i++) {
+  for(int i = 0; i < 4; i++) {  
     dots[i] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
     [dots[i] setFrame:CGRectMake(curX, 440, 30, 30)];
     [_window addSubview:dots[i]];
     curX += 25;            
   }
+	
+	flashView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+	[flashView setImage:[UIImage imageNamed:@"white.png"]];
+	[flashView setAlpha:0.0];
+	[UIView setAnimationDuration:1];
+	[_window addSubview:flashView];	
   
 	//Show the window
 	[_window makeKeyAndVisible];
@@ -142,6 +150,10 @@ typedef enum {
     [self startPicker];  
 
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
+}
+
+- (void) testButtonClicked {
+	[self startAnimation];
 }
 
 - (void) updateMyScoreLabel:(NSInteger)peerStat withValue:(NSInteger)n {
@@ -195,6 +207,10 @@ typedef enum {
     if (interval != kFinalBeep) {
         [avController playSound:@"bounce" atVolume:volume];
     } else {
+			
+			[self startAnimation];
+			
+			
         
       PongPacket packet;// = [swingHandler currentSwing];
       packet.velocity = 1;
@@ -226,9 +242,29 @@ typedef enum {
     }
 }
 
+- (void) startAnimation{
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.15];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+	// Change property or properties here
+	[flashView setAlpha:0.6];
+	[UIView commitAnimations];	
+}
+
+- (void)animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context{
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.15];
+	[UIView setAnimationDelegate:self];
+	// Change property or properties here
+	[flashView setAlpha:0.0];
+	[UIView commitAnimations];		
+}
+
+
 #pragma mark SwingHandler methods
 
--(void)didServe
+- (void) didServe
 {
     // set state to play state
     self.gameState = kStatePlay;
