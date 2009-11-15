@@ -129,11 +129,14 @@ typedef enum {
   direction = 1.0;
   startTime = [[NSDate date] timeIntervalSince1970];  
   previousTimeInterval = startTime;
-  partialVelocity = 0;
+	
+	z = 0;
+	x = 0;
+	isServe = true;
   
   accelerometer = [UIAccelerometer sharedAccelerometer];
   [accelerometer setDelegate:self];
-  [accelerometer setUpdateInterval:0.05];	
+  [accelerometer setUpdateInterval:1.0/60.0];	
 
     
     avController = [[AVController alloc] init];
@@ -151,29 +154,20 @@ typedef enum {
 
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
 }
-
-- (void) startSampling {
-  partialVelocity = 0;
+- (void) startSampling{
+  currentSwing.velocity = 0;
+	isSwinging = false;
   numberOfSamples = 0;
   previousTimeInterval = [[NSDate date] timeIntervalSince1970];  
   isSampling = true;
-  
-  [firstDot setImage:[UIImage imageNamed: @"glowing-dot.png"]];
-  [secondDot setImage:[UIImage imageNamed:@"glowing-dot.png"]];
-  [thirdDot setImage:[UIImage imageNamed: @"glowing-dot.png"]];
-  [fourthDot setImage:[UIImage imageNamed:@"glowing-dot.png"]];
 }
 
 - (void) stopSampling {
-  partialVelocity = 0;
+	isSwinging = false;
+  currentSwing.velocity = 0;
   numberOfSamples = 0;
   isSampling = false;
-  
-  [firstDot setImage:[UIImage imageNamed: @"empty-dot.png"]];
-  [secondDot setImage:[UIImage imageNamed:@"empty-dot.png"]];
-  [thirdDot setImage:[UIImage imageNamed: @"empty-dot.png"]];
-  [fourthDot setImage:[UIImage imageNamed:@"empty-dot.png"]];
-    
+}
 
     self.gameState = kStatePicker;
     [self startPicker];
@@ -181,37 +175,58 @@ typedef enum {
 }
 
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
-  CGFloat x = acceleration.x;
-  CGFloat z = acceleration.z;
-  CGFloat accel = x + z;
-  
-  NSTimeInterval intervalDate = [[NSDate date] timeIntervalSince1970];
-  CGFloat timeDifference = intervalDate - previousTimeInterval;
-  previousTimeInterval = intervalDate;
-  partialVelocity += (timeDifference * accel);
-  if(!isSampling) return;
-  
-  
-  //If the direction has changed
-  if((direction < 0 && accel > 0) || (direction > 0 && accel < 0)){
-    // Time threshold is 1 second (sampling accelerometer 20 times per second 
-    if(numberOfSamples > 5){
-      NSLog(@"Velocity: %f",partialVelocity);
-      //[self send:partialVelocity];
-      [avController playBeep];
-    }
-    
-    partialVelocity = 0;
-    numberOfSamples = 0;
-    
-    if(accel == 0.0){
-      direction = 1.0;
-    } else {
-      direction = -1.0;
-    }
-  }
-  
-  numberOfSamples++;
+	NSTimeInterval intervalDate = [[NSDate date] timeIntervalSince1970];
+	CGFloat timeDifference = intervalDate - previousTimeInterval;
+	previousTimeInterval = intervalDate;
+	
+	//if(!isSampling) return;
+	
+	z = 0.923077 * (z + acceleration.z - prevZ);
+	x = 0.923077 * (x + acceleration.x - prevX);
+	
+	
+	if(isServe) {
+		//	NSLog(@"z %f, x %f", z, acceleration.x);
+		if (z > .5  && -0.1 <= x  && x <= 0.1 && z > acceleration.z) {
+			NSLog(@"threw the ball for serve");
+			isServe = false;
+		}
+	} else {
+		
+		//	NSLog(@"velocity %f", z);
+		UIAccelerationValue temp = sqrt(x*x + z*z);
+		//	NSLog(@"z %f, x %f", z, x);
+		
+		//If the direction has changed
+		currentSwing.velocity = (timeDifference * temp);
+		if(z >= 0.5){
+			if (x <= -0.5 || x >= 0.5 || currentSwing.swingType == 0) {
+				NSLog(@"topspin %f", (-x)/(z-x));
+				
+				//x will be more - implies more top
+				currentSwing.swingType = kTopSpin;
+				currentSwing.typeIntensity = (-x)/(z-x);
+			} else if (x/(x+z) <= 0.5 && x/(x+z) >= -0.1 && z > acceleration.z) {
+				NSLog(@"normal %f", currentSwing.velocity);
+				//x will be more + implies more 
+				currentSwing.swingType = kNormal;
+				currentSwing.typeIntensity = 1;
+			}
+		} else if (-0.5<= acceleration.z && acceleration.z <= 0.0 && (x >= 0.5 || x <= -0.5)) {
+			NSLog(@"slice %f", x/(x+fabs(z)));
+			
+			currentSwing.swingType = kSlice;
+			currentSwing.typeIntensity = (x)/(x+z);
+		} else {
+			currentSwing.swingType = kNormal;
+			currentSwing.velocity = 0.0;
+		}
+		
+	}
+	
+	prevZ = acceleration.z;
+	prevX = acceleration.x;
+	
 }
 
 #pragma mark SwingTimerDelegate methods

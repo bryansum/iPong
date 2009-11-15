@@ -48,7 +48,6 @@ typedef enum {
     BOOL              isSampling;
     NSTimeInterval    startTime;
     NSUInteger        previousTimeInterval;
-    CGFloat           partialVelocity;
     NSInteger         direction;
     NSUInteger        numberOfSamples;
 
@@ -74,6 +73,12 @@ typedef enum {
     
     AVController    *avController;
     
+	UIAccelerationValue		prevZ;
+	UIAccelerationValue		z;
+	UIAccelerationValue		prevX;
+	UIAccelerationValue		x;
+	PongPacket			currentSwing;
+	BOOL isServe;
 }
 
 @property (nonatomic) NSInteger		gameState;
