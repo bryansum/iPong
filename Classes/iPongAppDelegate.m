@@ -107,21 +107,14 @@ typedef enum {
   [buttonView addTarget:self action:@selector(stopSampling) forControlEvents:UIControlEventTouchUpInside];
   [_window addSubview:buttonView];       
   
-	firstDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
-  [firstDot setFrame:CGRectMake(110, 440, 30, 30)];
-  [_window addSubview:firstDot];
-  
-	secondDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
-  [secondDot setFrame:CGRectMake(135, 440, 30, 30)];
-  [_window addSubview:secondDot];
-  
-	thirdDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
-  [thirdDot setFrame:CGRectMake(160, 440, 30, 30)];
-  [_window addSubview:thirdDot];
-  
-	fourthDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
-  [fourthDot setFrame:CGRectMake(185, 440, 30, 30)];
-  [_window addSubview:fourthDot];
+    int curX = 110;
+    for (int i = 0; i < kNumBeeps; i++) {
+        dots[i] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
+        [dots[i] setFrame:CGRectMake(curX, 440, 30, 30)];
+        [_window addSubview:dots[i]];
+
+        curX += 25;        
+    }
   
 	//Show the window
 	[_window makeKeyAndVisible];
@@ -154,8 +147,16 @@ typedef enum {
 
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
 }
-- (void) startSampling{
-  currentSwing.velocity = 0;
+
+-(void)displayDotForInterval:(int)interval
+{
+    for (int i = 0; i < kNumBeeps; i++) {
+        [dots[i] setImage:[UIImage imageNamed: (interval == i ? @"glowing-dot.png" : @"empty-dot.png")]];        
+    }
+}
+
+- (void) startSampling {
+  partialVelocity = 0;
 	isSwinging = false;
   numberOfSamples = 0;
   previousTimeInterval = [[NSDate date] timeIntervalSince1970];  
@@ -166,12 +167,12 @@ typedef enum {
 	isSwinging = false;
   currentSwing.velocity = 0;
   numberOfSamples = 0;
-  isSampling = false;
-}
+  isSampling = false;    
 
-    self.gameState = kStatePicker;
-    [self startPicker];
-
+    if (self.gameState == kStateStartGame) {
+        self.gameState = kStatePicker;
+        [self startPicker];  
+    }
 }
 
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
@@ -234,14 +235,19 @@ typedef enum {
 -(void)intervalDidOccur:(int)interval
 {
     if (interval != kFinalBeep) {
-        [avController playBeep];
+        [avController playBeepAtVolume:interval/(float)kNumBeeps];
         
-        // TODO: turn on dots
+        [self displayDotForInterval:interval];
         
     } else {
-        BOOL hit;
+        BOOL hit = YES;
         PongPacket packet;
+        packet.velocity = 1;
+        packet.swingType = kNormal;
+        packet.typeIntensity = 1;
+
         // test for hit
+        // Right now, assume hit all the time
         if (hit) {
             [avController playHit];
             [self didHit:&packet];
@@ -396,10 +402,11 @@ typedef enum {
             if(coinToss > gameUniqueID) {
                 self.peerStatus = kClient;
             } else {
-                // start the serve yourself
+                // we're server
+                self.peerStatus = kServer;
+//                self.gameState = kStateMyServe;
+                [self didServe];
             }
-            
-            // notify user of tank color          
         }
 			break;
 		case NETWORK_PING_EVENT:

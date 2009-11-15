@@ -51,10 +51,7 @@ typedef enum {
     NSInteger         direction;
     NSUInteger        numberOfSamples;
 
-  UIImageView       *firstDot;
-  UIImageView       *secondDot;
-  UIImageView       *thirdDot;
-  UIImageView       *fourthDot;
+    UIImageView       *dots[4];
 
   UILabel           *myScoreValue;
   UILabel           *remoteScoreValue;
