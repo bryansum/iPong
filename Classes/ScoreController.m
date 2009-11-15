@@ -33,6 +33,7 @@
   }
   
   if(localScore == winningScore || remoteScore == winningScore){
+    [d gameEnded];
     [self gameWon];
   }
   
@@ -46,6 +47,10 @@
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:buttonTitle otherButtonTitles:nil];
   [alertView show];
   [alertView release];
+}
+
+- (void) alertIsMyServe{
+  [self _showAlert:@"Service Change!" withMessage:@"You are now the server" andButtonTitle:@"Let's play!"];
 }
 
 - (void) gameWon {

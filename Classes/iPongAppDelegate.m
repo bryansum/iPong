@@ -137,8 +137,6 @@ typedef enum {
 
     [self startPicker];  
 
-    [self startNewGame];
-    
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
 }
 
@@ -150,8 +148,12 @@ typedef enum {
   [player pointScored:1];
 }
 
-- (void) startNewGame{
-  self.gameState = kStateStartGame;
+- (void) startNewGame {
+  [self incRound]; // sets state to the right value
+}
+
+- (void) gameEnded {
+  self.gameState = kStateEndGame;
 }
 
 - (void) updateMyScoreLabelWithValue:(NSInteger) n{
@@ -160,14 +162,6 @@ typedef enum {
 
 - (void) updateRemoteScoreLabelWithValue:(NSInteger) n{
   [remoteScoreValue setText:[NSString stringWithFormat:@"%d",n]];
-}
-
-- (void) startSampling{
-  currentSwing.velocity = 0;
-	isSwinging = false;
-  numberOfSamples = 0;
-  previousTimeInterval = [[NSDate date] timeIntervalSince1970];  
-  isSampling = true;
 }
 
 -(void)displayDotForInterval:(int)interval
@@ -179,7 +173,11 @@ typedef enum {
 }
 
 - (void) startSampling {}
-- (void) stopSampling {}
+- (void) stopSampling {
+  if (self.gameState == kStateStartGame) {
+    [self startPicker];
+  }
+}
 
 #pragma mark SwingTimerDelegate methods
 -(BOOL)wasHit:(PongPacket *)pp
@@ -243,6 +241,10 @@ typedef enum {
 {
     if (++(self.round) % 5) {
         self.myServe = TOGGLE(self.myServe);
+      
+        if (self.myServe) {
+          [player alertIsMyServe];
+        }
     }
     if (self.myServe) {
         self.gameState = kStateMyServe;
@@ -485,8 +487,8 @@ typedef enum {
 			self.gameState = kStatePlay; // we only want to be in the cointoss state for one loop
 			break;
         case kStateMyServe: // wait for a serve event
-		case kStatePlay: // playing the game... still use heartbeats
-        case kStateEndGame: // either you won or you lost... waits for button press
+    case kStatePlay: // playing the game... still use heartbeats
+    case kStateEndGame: // either you won or you lost... waits for button press
             
 			counter++;
 			if(!(counter&7)) { // once every 8 updates check if we have a recent heartbeat from the other player, and send a heartbeat packet with current state

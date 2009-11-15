@@ -19,6 +19,7 @@
 @property (nonatomic, assign) NSInteger localPeerStatus;
 
 - (void) gameWon;
+- (void) alertIsMyServe;
 - (void) pointScored:(NSInteger) peerStatus;
 - (void) _showAlert:(NSString *)title withMessage:(NSString *)message andButtonTitle:(NSString *)buttonTitle;
 

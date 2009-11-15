@@ -18,7 +18,6 @@
 		232F5E2D10AF873600C65C6F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 232F5E2C10AF873600C65C6F /* AVFoundation.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		A9124B2610AF0C3B00EBA976 /* 6002b.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9124B2510AF0C3B00EBA976 /* 6002b.jpg */; };
-		A93BEC0610AF9FB000D050EF /* ScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = A93BEC0510AF9FB000D050EF /* ScoreController.m */; };
 		A94CD02E10AFC78200A9F7D9 /* bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD02D10AFC78200A9F7D9 /* bounce.wav */; };
 		A94CD03010AFC81800A9F7D9 /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD02F10AFC81800A9F7D9 /* hit.wav */; };
 		A94CD14E10AFD82600A9F7D9 /* happy.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD14D10AFD82600A9F7D9 /* happy.wav */; };
@@ -98,9 +97,9 @@
 				1D3623240D0F684500981E51 /* iPongAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iPongAppDelegate.m */,
 				232F5B4610AF13E700C65C6F /* SwingTimer.h */,
+				232F5B4710AF13E700C65C6F /* SwingTimer.m */,
 				A93BEC0410AF9FB000D050EF /* ScoreController.h */,
 				A93BEC0510AF9FB000D050EF /* ScoreController.m */,
-				232F5B4710AF13E700C65C6F /* SwingTimer.m */,
 				232F5B4910AF15F700C65C6F /* PongPacket.h */,
 				23026CB810AFBB8800209D75 /* SwingHandler.h */,
 				23026CB910AFBB8800209D75 /* SwingHandler.m */,
