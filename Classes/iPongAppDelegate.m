@@ -190,29 +190,21 @@ UIImageView *flashView;
     return pp->velocity > 0.3 ? YES : NO; /* MAJD - Reduced threshold from 0.5 to 0.3 */
 }
 
--(void)intervalDidOccur:(int)interval
+-(void)intervalDidOccur:(NSNumber *)ival
 {
-  NSLog(@"intervalDidOccur (%d)...",interval);
-  [self performSelectorOnMainThread:@selector(displayDotForInterval:) 
-                         withObject:[NSNumber numberWithInt:interval] 
-                      waitUntilDone:NO];
+    int interval = [ival intValue];
+  //[self displayDotForInterval:ival];
 
-    // calc quadratic volume.
-//    float volume = pow((float)interval/(float)kNumBeeps,2);
     float volume = (float)interval/((float)kNumBeeps*2.)+0.50;
     if (interval != kFinalBeep) {
-        [avController playSound:@"bounce" atVolume:volume];
+      [avController playSound:@"bounce" atVolume:volume];
     } else {
 			
 			[self startAnimation];
 			
-			
-        
       PongPacket packet = [swingHandler currentSwing];
 
-      [self performSelectorOnMainThread: @selector(resetDots) 
-                             withObject:nil
-                          waitUntilDone:NO];
+      //[self resetDots];
       
         if ([self wasHit:&packet]) {
           NSLog(@"sending hit packet");
@@ -477,6 +469,7 @@ UIImageView *flashView;
             // received move event from other player, update other player's position/destination info
             PongPacket *pp = (PongPacket *)&incomingPacket[8];            
             // calls interval did occur every at every 1/numBeeps interval
+            pp->velocity = CLAMP(pp->velocity,0,3);
             SwingTimer *swingTimer = [[SwingTimer alloc] initWithEnemyPacket:pp andNumBeeps:kNumBeeps];
             swingTimer.delegate = self;
             [swingTimer start];

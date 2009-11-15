@@ -50,17 +50,19 @@
 
 -(void)playSound:(NSString *)sound atVolume:(float)volume
 {
-    AVAudioPlayer *player = [soundPlayers objectForKey:sound];
-    if (player == nil) {
+    @synchronized(self) {
+      AVAudioPlayer *player = [soundPlayers objectForKey:sound];
+      if (player == nil) {
         NSLog(@"Couldn't find instrument '%@'\n",sound);
         return;
-    }
-    if ([player isPlaying]) {
+      }
+      if ([player isPlaying]) {
         [player stop];
         [player setCurrentTime:0];
+      }
+      [player setVolume:volume];
+      [player play];      
     }
-    [player setVolume:volume];
-    [player play];
 }
 
 

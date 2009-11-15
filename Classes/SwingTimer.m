@@ -17,21 +17,9 @@
 
 -(void)fireIntervalBeeps
 {
-    [NSThread setThreadPriority:1.0];
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    NSTimeInterval curTime = 0.0;
-    for(int curInterval = 0; curInterval < numBeeps; curInterval++) {
-
-        NSTimeInterval interval = (timeAtInterval[curInterval] - curTime);
-        [NSThread sleepForTimeInterval:interval];
-        curTime = timeAtInterval[curInterval];
-
-        // play a sound, etc
-        [delegate intervalDidOccur:curInterval];
-        
-    }
-    [pool release];
+  if (curInterval == 4) [timer invalidate];
+  [delegate intervalDidOccur:[NSNumber numberWithInt:curInterval]];
+  curInterval++;
 }
 
 -(id)initWithEnemyPacket:(PongPacket*)packet andNumBeeps:(int)nBeeps
@@ -41,48 +29,25 @@
         
         numBeeps = nBeeps;
         
-        timeAtInterval = malloc(numBeeps * sizeof(NSTimeInterval));
-        
         NSTimeInterval totalTime = (double) kDistance / packet->velocity;
 
         NSLog(@"total time %f", totalTime);
         NSTimeInterval secPerInterval = totalTime/(double)(numBeeps - 1);
-        double specialSwing;
-
-        // calculate time interval 
-        for (int i = 0; i < numBeeps; i++) {
-            switch (packet->swingType) {
-                case kTopSpin:
-                    specialSwing = M_2_PI*acos(-(i*secPerInterval) + 1);                    
-                    break;
-                case kSlice:
-                    specialSwing = M_2_PI*asin(i*secPerInterval);
-                    break;
-                case kNormal:
-                default:
-                    specialSwing = i*secPerInterval; // linear
-                    break;
-            }
-            
-            // weighting function b/t linear and special swing
-            timeAtInterval[i] = packet->typeIntensity*specialSwing + 
-                                    (1-packet->typeIntensity)*(i*secPerInterval);
-            
-            NSLog(@"timeInterval %d is %f", i, timeAtInterval[i]);
-        }        
+      
+        timeAtInterval = secPerInterval;       
     }
     return self;    
 }
 
 -(void)start
 {
-    [NSThread detachNewThreadSelector:@selector(fireIntervalBeeps) toTarget:self withObject:nil];
+  curInterval = 0;
+  timer = [[NSTimer scheduledTimerWithTimeInterval:timeAtInterval target:self selector:@selector(fireIntervalBeeps) userInfo:nil repeats:YES] retain];
 }
 
 - (void) dealloc
 {
-    NSLog(@"free interval");
-    free(timeAtInterval);
+    [timer release];
     [delegate release];
     [super dealloc];
 }

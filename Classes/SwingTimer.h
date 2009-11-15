@@ -11,8 +11,7 @@
 
 @protocol SwingTimerDelegate
 
--(void)intervalDidOccur:(int)interval;
-
+-(void)intervalDidOccur:(NSNumber *)interval;
 @end
 
 // When allocated, sets off a timer which plays a beep at given intervals 
@@ -20,7 +19,9 @@
 @interface SwingTimer : NSObject {
                                  // array of when the next beep should fire using 
                                  // weighting functions
-    NSTimeInterval               *timeAtInterval;
+  int                          curInterval;
+    NSTimeInterval               timeAtInterval;
+    NSTimer                      *timer;
     int                          numBeeps;
     id                           delegate;
 }

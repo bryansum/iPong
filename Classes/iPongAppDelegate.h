@@ -13,6 +13,7 @@
 #import "SwingTimer.h"
 #import "AVController.h"
 #import "SwingHandler.h"
+#define CLAMP(x, l, h)  (((x) > (h)) ? (h) : (((x) < (l)) ? (l) : (x)))
 
 typedef enum {
 	NETWORK_ACK,					// no packet
