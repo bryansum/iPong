@@ -53,7 +53,7 @@
         for (int i = 0; i < numBeeps; i++) {
             switch (packet->swingType) {
                 case kTopSpin:
-                    specialSwing = M_2_PI*acos(-(i*secPerInterval) + 1);
+                    specialSwing = M_2_PI*acos(-(i*secPerInterval) + 1);                    
                     break;
                 case kSlice:
                     specialSwing = M_2_PI*asin(i*secPerInterval);

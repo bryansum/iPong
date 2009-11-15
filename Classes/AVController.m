@@ -59,6 +59,7 @@
         [player stop];
         [player setCurrentTime:0];
     }
+    [player setVolume:volume];
     [player play];
 }
 

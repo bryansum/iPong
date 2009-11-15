@@ -11,11 +11,7 @@
 #import "PongPacket.h"
 #import "SwingTimer.h"
 #import "AVController.h"
-
-typedef struct AccelerationSample{
-  NSTimeInterval elapsedTime;
-  double x;
-} AccelerationSample;
+#import "SwingHandler.h"
 
 typedef enum {
 	NETWORK_ACK,					// no packet
@@ -27,38 +23,32 @@ typedef enum {
 
 @interface iPongAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate, 
                                         GKPeerPickerControllerDelegate, GKSessionDelegate, 
-                                        UIAlertViewDelegate,
-                                        UIAccelerometerDelegate, SwingTimerDelegate>
+                                        UIAlertViewDelegate, SwingTimerDelegate,
+                                        SwingHandlerDelegate>
 {
-	UIWindow				  *_window;
-	NSInputStream		  *_inStream;
-	NSOutputStream		*_outStream;
-	BOOL				   	  _inReady;
-	BOOL				      _outReady;
-  
+    UIWindow				  *_window;
+    NSInputStream		  *_inStream;
+    NSOutputStream		*_outStream;
+    BOOL				   	  _inReady;
+    BOOL		_outReady;
+    
     UILabel           *labelView;
     UILabel           *secondLabel;
-
+    
     UIButton          *buttonView;
     UIButton          *soundButton;
-  
-    // acceleration 
-    UIAccelerometer   *accelerometer;
-
-    BOOL              isSampling;
-    NSTimeInterval    startTime;
-    NSUInteger        previousTimeInterval;
-    NSInteger         direction;
-    NSUInteger        numberOfSamples;
-
+    
     UIImageView       *dots[4];
-
-  UILabel           *myScoreValue;
-  UILabel           *remoteScoreValue;
-
+    
+    UILabel           *myScoreValue;
+    UILabel           *remoteScoreValue;
+    
+    // game state
     NSInteger           gameState;
-	NSInteger           peerStatus;
-
+    NSInteger           peerStatus;
+    BOOL                myServe;
+    NSInteger           round;
+    
     // networking
 	GKSession		*gameSession;
 	int				gameUniqueID;
@@ -68,18 +58,14 @@ typedef enum {
     
     UIAlertView		*connectionAlert;
     
-    AVController    *avController;
-    
-	UIAccelerationValue		prevZ;
-	UIAccelerationValue		z;
-	UIAccelerationValue		prevX;
-	UIAccelerationValue		x;
-	PongPacket			currentSwing;
-	BOOL isServe;
+    AVController    *avController;    
+    SwingHandler    *swingHandler;
 }
 
 @property (nonatomic) NSInteger		gameState;
 @property (nonatomic) NSInteger		peerStatus;
+@property (nonatomic) BOOL  myServe;
+@property (nonatomic) NSInteger round;
 
 @property (nonatomic, retain) GKSession	 *gameSession;
 @property (nonatomic, copy)	 NSString	 *gamePeerId;
@@ -90,8 +76,7 @@ typedef enum {
 - (void)sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend;
 -(void)startPicker;
 
--(void)didMiss;
--(void)didHit:(PongPacket *)packet;
-
+-(BOOL)wasHit:(PongPacket *)packet;
+-(void)incRound;
 @end
 

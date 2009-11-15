@@ -11,39 +11,40 @@
 #define kNumBeeps 4 // 4th is the one we want the user to press. 
 #define kFinalBeep (kNumBeeps - 1)
 
+// GameKit Session ID for app
+#define kPongSessionID @"iPong"
+#define kMaxPongPacketSize 1024
+#define CLAMP(x, l, h)  (((x) > (h)) ? (h) : (((x) < (l)) ? (l) : (x)))
+#define TOGGLE(x) (x ? NO : YES)
+
 //
 // various states the game can get into
 //
 typedef enum {
 	kStateStartGame,
 	kStatePicker,
-	kStateMultiplayer,
+	kStatePlay,
     kStateMyServe,
     kStateEndGame,
 	kStateMultiplayerCointoss,
 	kStateMultiplayerReconnect
 } gameStates;
 
-
 typedef enum {
 	kServer,
 	kClient
 } gameNetwork;
 
-// GameKit Session ID for app
-#define kPongSessionID @"iPong"
-
-#define kMaxPongPacketSize 1024
+#define kPeerEnemy (self.peerStatus == kClient ? kServer : kClient)
 
 @interface iPongAppDelegate()
 - (void) startSampling;
 - (void) stopSampling;
-- (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 @end
 
 @implementation iPongAppDelegate
 
-@synthesize gameState, peerStatus, gameSession, gamePeerId, lastHeartbeatDate, connectionAlert;
+@synthesize gameState, peerStatus, gameSession, gamePeerId, lastHeartbeatDate, connectionAlert, myServe, round;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 	//Create a full-screen window
@@ -119,21 +120,12 @@ typedef enum {
 	//Show the window
 	[_window makeKeyAndVisible];
   
-  direction = 1.0;
-  startTime = [[NSDate date] timeIntervalSince1970];  
-  previousTimeInterval = startTime;
-	
-	z = 0;
-	x = 0;
-	isServe = true;
-  
-  accelerometer = [UIAccelerometer sharedAccelerometer];
-  [accelerometer setDelegate:self];
-  [accelerometer setUpdateInterval:1.0/60.0];	
-
-    
     avController = [[AVController alloc] init];
-
+    swingHandler = [[SwingHandler alloc] init];
+    swingHandler.delegate = self;
+    [swingHandler startRecording];
+    
+    round = 0;
     peerStatus = kServer;
     gamePacketNumber = 0;
     gameSession = nil;
@@ -143,144 +135,71 @@ typedef enum {
     NSString *uid = [[UIDevice currentDevice] uniqueIdentifier];
     gameUniqueID = [uid hash];
 
-    self.gameState = kStateStartGame; // Setting to kStateStartGame does a reset of players, scores, etc. See -setGameState: below
+    [self startPicker];  
 
+    [self startNewGame];
+    
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
 }
 
 -(void)displayDotForInterval:(int)interval
 {
     for (int i = 0; i < kNumBeeps; i++) {
-        [dots[i] setImage:[UIImage imageNamed: (interval == i ? @"glowing-dot.png" : @"empty-dot.png")]];        
+        NSString *imgSrc = interval == i ? @"glowing-dot.png" : @"empty-dot.png";
+        [dots[i] setImage:[UIImage imageNamed:imgSrc]];        
     }
 }
 
-- (void) startSampling {
-  numberOfSamples = 0;
-  previousTimeInterval = [[NSDate date] timeIntervalSince1970];  
-  isSampling = true;
-}
-
-- (void) stopSampling {
-  currentSwing.velocity = 0;
-  numberOfSamples = 0;
-  isSampling = false;    
-
-    if (self.gameState == kStateStartGame) {
-        self.gameState = kStatePicker;
-        [self startPicker];  
-    }
-}
-
-- (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
-	NSTimeInterval intervalDate = [[NSDate date] timeIntervalSince1970];
-	CGFloat timeDifference = intervalDate - previousTimeInterval;
-	previousTimeInterval = intervalDate;
-	
-	//if(!isSampling) return;
-	
-	z = 0.923077 * (z + acceleration.z - prevZ);
-	x = 0.923077 * (x + acceleration.x - prevX);
-	
-	
-	if(isServe) {
-		//	NSLog(@"z %f, x %f", z, acceleration.x);
-		if (z > .5  && -0.1 <= x  && x <= 0.1 && z > acceleration.z) {
-			NSLog(@"threw the ball for serve");
-			isServe = false;
-		}
-	} else {
-		
-		//	NSLog(@"velocity %f", z);
-		UIAccelerationValue temp = sqrt(x*x + z*z);
-		//	NSLog(@"z %f, x %f", z, x);
-		
-		//If the direction has changed
-		currentSwing.velocity = (timeDifference * temp);
-		if(z >= 0.5){
-			if (x <= -0.5 || x >= 0.5 || currentSwing.swingType == 0) {
-				NSLog(@"topspin %f", (-x)/(z-x));
-				
-				//x will be more - implies more top
-				currentSwing.swingType = kTopSpin;
-				currentSwing.typeIntensity = (-x)/(z-x);
-			} else if (x/(x+z) <= 0.5 && x/(x+z) >= -0.1 && z > acceleration.z) {
-				NSLog(@"normal %f", currentSwing.velocity);
-				//x will be more + implies more 
-				currentSwing.swingType = kNormal;
-				currentSwing.typeIntensity = 1;
-			}
-		} else if (-0.5<= acceleration.z && acceleration.z <= 0.0 && (x >= 0.5 || x <= -0.5)) {
-			NSLog(@"slice %f", x/(x+fabs(z)));
-			
-			currentSwing.swingType = kSlice;
-			currentSwing.typeIntensity = (x)/(x+z);
-		} else {
-			currentSwing.swingType = kNormal;
-			currentSwing.velocity = 0.0;
-		}
-		
-	}
-	
-	prevZ = acceleration.z;
-	prevX = acceleration.x;
-	
-}
+- (void) startSampling {}
+- (void) stopSampling {}
 
 #pragma mark SwingTimerDelegate methods
+-(BOOL)wasHit:(PongPacket *)pp
+{
+    NSLog(@"velocity = %f, swingType = %d, intensity = %f", pp->velocity, 
+          pp->swingType, pp->typeIntensity);
+    return YES;
+}
 
 -(void)intervalDidOccur:(int)interval
 {
+    [self displayDotForInterval:interval];
+
+    // calc quadratic volume.
+    float volume = pow((float)interval/(float)kNumBeeps,3);
     if (interval != kFinalBeep) {
-        [avController playBeepAtVolume:interval/(float)kNumBeeps];
-        
-        [self displayDotForInterval:interval];
-        
+        [avController playBeepAtVolume:volume];
     } else {
-        BOOL hit = YES;
-        PongPacket packet;
-        packet.velocity = 1;
-        packet.swingType = kNormal;
-        packet.typeIntensity = 1;
+        
+        PongPacket packet = [swingHandler currentSwing];
 
-        // test for hit
-        // Right now, assume hit all the time
-        if (hit) {
-            [avController playHit];
-            [self didHit:&packet];
+        if ([self wasHit:&packet]) {
+            [avController playHitAtVolume:volume];
+            [self sendNetworkPacket:gameSession 
+                           packetID:NETWORK_PING_EVENT 
+                           withData:&packet 
+                           ofLength:sizeof(&packet)
+                           reliable:NO];
         } else {
-            [self didMiss];
-        }        
+            [self sendNetworkPacket:gameSession 
+                           packetID:NETWORK_MISS_EVENT
+                           withData:nil 
+                           ofLength:0
+                           reliable:NO];
+            [player pointScored:kPeerEnemy]; 
+            [self incRound];
+        }
     }
-    
 }
 
--(void)didMiss
-{
-    NSLog(@"Missed our swing");
-    [self sendNetworkPacket:gameSession 
-                   packetID:NETWORK_MISS_EVENT
-                   withData:nil 
-                   ofLength:0
-                   reliable:NO];
-}
+#pragma mark SwingHandler methods
 
--(void)didHit:(PongPacket *)packet
-{
-    NSLog(@"Sending serve to peer");
-    [self sendNetworkPacket:gameSession 
-                   packetID:NETWORK_PING_EVENT 
-                   withData:packet 
-                   ofLength:sizeof(packet)
-                   reliable:NO];
-}
-
-#pragma mark Swing methods
 -(void)didServe
 {
-    self.gameState = kStateMultiplayer;
+    self.gameState = kStatePlay;
     
-    // Fire off our swing timer as it comes down; act like it's 
+    // Fire off our swing timer as it comes down; act like it
+    // received a network event. 
     PongPacket packet;
     packet.velocity = 1.0;
     packet.swingType = kNormal;
@@ -290,6 +209,19 @@ typedef enum {
                                                          andNumBeeps:kNumBeeps];
     swingTimer.delegate = self;
     [swingTimer start];
+}
+
+-(void)incRound
+{
+    if (++(self.round) % 5) {
+        self.myServe = TOGGLE(self.myServe);
+    }
+    if (self.myServe) {
+        self.gameState = kStateMyServe;
+        [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve
+    } else {
+        self.gameState = kStatePlay;
+    }    
 }
 
 #pragma mark Peer Picker Related Methods
@@ -397,12 +329,15 @@ typedef enum {
             int coinToss = pIntData[2];
             // if other player's coin is higher than ours then that player is the server
             if(coinToss > gameUniqueID) {
-                self.peerStatus = kClient;
+                self.peerStatus = kClient;        
+                self.myServe = NO;
             } else {
                 // we're server
                 self.peerStatus = kServer;
-//                self.gameState = kStateMyServe;
-                [self didServe];
+
+                self.myServe = YES;
+                self.gameState = kStateMyServe;
+                [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve                    
             }
         }
 			break;
@@ -422,12 +357,8 @@ typedef enum {
             // received a miss event from the other player. This means that we, 
             // in turn, score. 
             
-            // TODO: update our score. 
-            
-            self.gameState = kStateMyServe;
-            
-            // now wait for a serve event to take us into multiplayer mode. 
-            
+            [player pointScored:self.peerStatus];
+            [self incRound];
         }
             break;
 		case NETWORK_HEARTBEAT:
@@ -441,7 +372,7 @@ typedef enum {
                 if(self.connectionAlert && self.connectionAlert.visible) {
                     [self.connectionAlert dismissWithClickedButtonIndex:-1 animated:YES];
                 }
-                self.gameState = kStateMultiplayer;
+                self.gameState = kStatePlay;
             }
         }
 			break;
@@ -504,7 +435,7 @@ typedef enum {
 		}
 		
 		// go back to start mode
-		self.gameState = kStateStartGame; 
+		self.gameState = kStatePicker; 
 	} 
 } 
 
@@ -523,10 +454,10 @@ typedef enum {
                            withData:&gameUniqueID 
                            ofLength:sizeof(int) 
                            reliable:YES];
-			self.gameState = kStateMultiplayer; // we only want to be in the cointoss state for one loop
+			self.gameState = kStatePlay; // we only want to be in the cointoss state for one loop
 			break;
         case kStateMyServe: // wait for a serve event
-		case kStateMultiplayer: // playing the game... still use heartbeats
+		case kStatePlay: // playing the game... still use heartbeats
         case kStateEndGame: // either you won or you lost... waits for button press
             
 			counter++;
@@ -589,6 +520,7 @@ typedef enum {
 	self.gamePeerId = nil;
 
     [avController release];
+    [swingHandler release];
     [_window release];
     
     [super dealloc];
