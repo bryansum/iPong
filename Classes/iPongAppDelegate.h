@@ -8,6 +8,7 @@
 
 #include <AudioToolbox/AudioToolbox.h>
 #import <GameKit/GameKit.h>
+#import "ScoreController.h"
 #import "PongPacket.h"
 #import "SwingTimer.h"
 #import "AVController.h"
@@ -36,43 +37,47 @@ typedef enum {
 	BOOL				   	  _inReady;
 	BOOL				      _outReady;
   
-    UILabel           *labelView;
-    UILabel           *secondLabel;
-
-    UIButton          *buttonView;
-    UIButton          *soundButton;
+  UILabel           *labelView;
+  UILabel           *secondLabel;
   
-    // acceleration 
-    UIAccelerometer   *accelerometer;
-
-    BOOL              isSampling;
-    NSTimeInterval    startTime;
-    NSUInteger        previousTimeInterval;
-    NSInteger         direction;
-    NSUInteger        numberOfSamples;
-
+  UIButton          *buttonView;
+  UIButton          *soundButton;
+  
+  // acceleration 
+  UIAccelerometer   *accelerometer;
+  
+  BOOL              isSampling;
+  BOOL              isSwinging;
+  NSTimeInterval    startTime;
+  NSUInteger        previousTimeInterval;
+  NSInteger         direction;
+  NSUInteger        numberOfSamples;
+  
   UIImageView       *firstDot;
   UIImageView       *secondDot;
   UIImageView       *thirdDot;
   UIImageView       *fourthDot;
-
+  
   UILabel           *myScoreValue;
   UILabel           *remoteScoreValue;
-
-    NSInteger           gameState;
+  
+  ScoreController   *player;
+//  ScoreController   *remotePlayer;
+  
+  NSInteger           gameState;
 	NSInteger           peerStatus;
-
-    // networking
+  
+  // networking
 	GKSession		*gameSession;
 	int				gameUniqueID;
 	int				gamePacketNumber;
 	NSString		*gamePeerId;
 	NSDate			*lastHeartbeatDate;
-    
-    UIAlertView		*connectionAlert;
-    
-    AVController    *avController;
-    
+  
+  UIAlertView		*connectionAlert;
+  
+  AVController    *avController;
+  
 	UIAccelerationValue		prevZ;
 	UIAccelerationValue		z;
 	UIAccelerationValue		prevX;
@@ -89,9 +94,12 @@ typedef enum {
 @property (nonatomic, retain) NSDate	 *lastHeartbeatDate;
 @property (nonatomic, retain) UIAlertView *connectionAlert;
 
-- (void)invalidateSession:(GKSession *)session;
-- (void)sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend;
--(void)startPicker;
+- (void) invalidateSession:(GKSession *)session;
+- (void) sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend;
+- (void) startPicker;
+- (void) startNewGame;
+- (void) updateMyScoreLabelWithValue:(NSInteger) n;
+- (void) updateRemoteScoreLabelWithValue:(NSInteger) n; 
 
 -(void)didMiss;
 -(void)didHit:(PongPacket *)packet;

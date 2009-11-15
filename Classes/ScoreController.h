@@ -8,14 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface ScoreController : NSObject {
+@interface ScoreController : NSObject <UIAlertViewDelegate> {
   NSInteger winningScore;
   NSInteger localScore;
   NSInteger remoteScore;
+  
+  NSInteger localPeerStatus;
 }
+
+@property (nonatomic, assign) NSInteger localPeerStatus;
 
 - (void) gameWon;
 - (void) pointScored:(NSInteger) peerStatus;
+- (void) _showAlert:(NSString *)title withMessage:(NSString *)message andButtonTitle:(NSString *)buttonTitle;
 
 @end

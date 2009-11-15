@@ -37,6 +37,8 @@ typedef enum {
 
 @interface iPongAppDelegate()
 - (void) startSampling;
+- (void) testButtonClicked;
+- (void) testButton2Clicked;
 - (void) stopSampling;
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 @end
@@ -80,7 +82,7 @@ typedef enum {
   myScoreValue = [[UILabel alloc] init];
   [myScoreValue setFrame:CGRectMake(10, 50, 153, 35)];
   [myScoreValue setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.0]];
-  [myScoreValue setText:@"11"];
+  [myScoreValue setText:@"0"];
   [myScoreValue setTextAlignment:UITextAlignmentCenter];
   [myScoreValue setShadowColor:[UIColor colorWithRed:221.0/255.0 green:230.0/255.0 blue:211.0/255.0 alpha:1.0]];
   [myScoreValue setShadowOffset:CGSizeMake(0.0, 1.0)];
@@ -91,7 +93,7 @@ typedef enum {
   remoteScoreValue = [[UILabel alloc] init];
   [remoteScoreValue setFrame:CGRectMake(160, 50, 153, 35)];
   [remoteScoreValue setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.0]];
-  [remoteScoreValue setText:@"5"];
+  [remoteScoreValue setText:@"0"];
   [remoteScoreValue setTextAlignment:UITextAlignmentCenter];
   [remoteScoreValue setShadowColor:[UIColor colorWithRed:221.0/255.0 green:230.0/255.0 blue:211.0/255.0 alpha:1.0]];
   [remoteScoreValue setShadowOffset:CGSizeMake(0.0, 1.0)];
@@ -105,7 +107,19 @@ typedef enum {
   [buttonView setBackgroundImage:[UIImage imageNamed:@"paddle.png"] forState:UIButtonTypeCustom];
   [buttonView addTarget:self action:@selector(startSampling) forControlEvents:UIControlEventTouchDown];
   [buttonView addTarget:self action:@selector(stopSampling) forControlEvents:UIControlEventTouchUpInside];
-  [_window addSubview:buttonView];       
+  [_window addSubview:buttonView];   
+  
+  UIButton *testButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [testButton setFrame:CGRectMake(10, 10, 150, 30)];
+  [testButton setTitle:@"Run test" forState:UIControlStateNormal];
+  [testButton addTarget:self action:@selector(testButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+  [_window addSubview:testButton];   
+  
+  UIButton *testButton2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [testButton2 setFrame:CGRectMake(170, 10, 150, 30)];
+  [testButton2 setTitle:@"Run second test" forState:UIControlStateNormal];
+  [testButton2 addTarget:self action:@selector(testButton2Clicked) forControlEvents:UIControlEventTouchUpInside];
+  [_window addSubview:testButton2];       
   
 	firstDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
   [firstDot setFrame:CGRectMake(110, 440, 30, 30)];
@@ -122,6 +136,8 @@ typedef enum {
 	fourthDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
   [fourthDot setFrame:CGRectMake(185, 440, 30, 30)];
   [_window addSubview:fourthDot];
+  
+  player = [[ScoreController alloc] init];
   
 	//Show the window
 	[_window makeKeyAndVisible];
@@ -154,6 +170,27 @@ typedef enum {
 
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
 }
+
+- (void) testButtonClicked{
+  [player pointScored:0];
+}
+
+- (void) testButton2Clicked{
+  [player pointScored:1];
+}
+
+- (void) startNewGame{
+  self.gameState = kStateStartGame;
+}
+
+- (void) updateMyScoreLabelWithValue:(NSInteger) n{
+  [myScoreValue setText:[NSString stringWithFormat:@"%d",n]];
+}
+
+- (void) updateRemoteScoreLabelWithValue:(NSInteger) n{
+  [remoteScoreValue setText:[NSString stringWithFormat:@"%d",n]];
+}
+
 - (void) startSampling{
   currentSwing.velocity = 0;
 	isSwinging = false;
@@ -169,10 +206,10 @@ typedef enum {
   isSampling = false;
 }
 
-    self.gameState = kStatePicker;
-    [self startPicker];
-
-}
+//    self.gameState = kStatePicker;
+//    [self startPicker];
+//
+//}
 
 - (void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
 	NSTimeInterval intervalDate = [[NSDate date] timeIntervalSince1970];
