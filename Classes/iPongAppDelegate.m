@@ -128,7 +128,7 @@ typedef enum {
     
     player = [[ScoreController alloc] init];
     
-    round = 1;
+    round = 0;
     peerStatus = kServer;
     gamePacketNumber = 0;
     gameSession = nil;
@@ -243,7 +243,7 @@ typedef enum {
     // Fire off our swing timer as it comes down; act like it
     // received a network event. 
     PongPacket packet;
-    packet.velocity = 1.0;
+    packet.velocity = 0.7;
     packet.swingType = kNormal;
     packet.typeIntensity = 1;
     
@@ -402,6 +402,7 @@ typedef enum {
 			break;
 		case NETWORK_PING_EVENT:
         {
+          NSLog(@"Recieved ping event");
             // received move event from other player, update other player's position/destination info
             PongPacket *pp = (PongPacket *)&incomingPacket[8];            
             // calls interval did occur every at every 1/numBeeps interval
@@ -412,7 +413,8 @@ typedef enum {
         }
 			break;
         case NETWORK_MISS_EVENT:
-        {
+    {
+      NSLog(@"Recieved miss event");
             // received a miss event from the other player. This means that we, 
             // in turn, score. 
             
