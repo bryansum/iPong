@@ -208,10 +208,7 @@ UIImageView *flashView;
 			
 			
         
-      PongPacket packet;// = [swingHandler currentSwing];
-      packet.velocity = 1;
-      packet.swingType = kNormal;
-      packet.typeIntensity = 1;
+      PongPacket packet = [swingHandler currentSwing];
 
       [self performSelectorOnMainThread: @selector(resetDots) 
                              withObject:nil
