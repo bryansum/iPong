@@ -21,13 +21,13 @@
 // various states the game can get into
 //
 typedef enum {
-	kStateStartGame,
-	kStatePicker,
-	kStatePlay,
-    kStateMyServe,
-    kStateEndGame,
-	kStateMultiplayerCointoss,
-	kStateMultiplayerReconnect
+	kStateStartGame,           // 0
+	kStatePicker,              // 1
+	kStatePlay,                // 2
+  kStateMyServe,             // 3 
+  kStateEndGame,             // 4 
+	kStateMultiplayerCointoss, // 5
+	kStateMultiplayerReconnect // 6
 } gameStates;
 
 typedef enum {
@@ -184,6 +184,7 @@ typedef enum {
 
 - (void) startSampling {}
 - (void) stopSampling {
+  NSLog(@"Stopped sampling.");
   if (self.gameState == kStateStartGame) {
     [self startPicker];
   }
@@ -192,11 +193,13 @@ typedef enum {
 #pragma mark SwingTimerDelegate methods
 -(BOOL)wasHit:(PongPacket *)pp
 {
+    NSLog(@"Was hit?");
     return pp->velocity > 0.3 ? YES : NO; /* MAJD - Reduced threshold from 0.5 to 0.3 */
 }
 
 -(void)intervalDidOccur:(int)interval
 {
+  NSLog(@"intervalDidOccur (%d)...",interval);
     [self displayDotForInterval:interval];
 
     // calc quadratic volume.
@@ -211,6 +214,7 @@ typedef enum {
         [self resetDots];
         
         if ([self wasHit:&packet]) {
+          NSLog(@"sending hit packet");
             [avController playSound:@"hit" atVolume:volume];
             [self sendNetworkPacket:gameSession 
                            packetID:NETWORK_PING_EVENT 
@@ -218,6 +222,7 @@ typedef enum {
                            ofLength:sizeof(&packet)
                            reliable:NO];
         } else {
+          NSLog(@"sending miss packet");
             [self sendNetworkPacket:gameSession 
                            packetID:NETWORK_MISS_EVENT
                            withData:nil 
@@ -242,6 +247,7 @@ typedef enum {
     packet.swingType = kNormal;
     packet.typeIntensity = 1;
     
+    NSLog(@"We served, and ball is coming down!");
     SwingTimer *swingTimer = [[SwingTimer alloc] initWithEnemyPacket:&packet 
                                                          andNumBeeps:kNumBeeps];
     swingTimer.delegate = self;
@@ -254,6 +260,7 @@ typedef enum {
 
 -(void)incRound
 {
+    NSLog(@"Incrementing round to: %d",round+1);
     if ((self.round++) % 5 == 0) {
         NSLog(@"Toggling serve, %d rounds",self.round-1);
         self.myServe = TOGGLE(self.myServe);
@@ -265,6 +272,7 @@ typedef enum {
     if (self.myServe) {
         self.gameState = kStateMyServe;
     } else {
+        NSLog(@"Not my round, so just play");
         self.gameState = kStatePlay;
     }    
 }
@@ -275,7 +283,7 @@ typedef enum {
 	GKPeerPickerController*		picker;
 	
 	self.gameState = kStatePicker; // we're going to do Multiplayer!
-    
+  NSLog(@"Starting picker...");
 	// note: picker is released in various picker delegate methods when picker use is done.
 	picker = [[GKPeerPickerController alloc] init]; 
 	picker.delegate = self;
@@ -285,6 +293,7 @@ typedef enum {
 #pragma mark GKPeerPickerControllerDelegate Methods
 
 - (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker { 
+  NSLog(@"cancelled picker");
 	// Peer Picker automatically dismisses on user cancel. No need to programmatically dismiss.
     
 	// autorelease the picker. 
@@ -315,6 +324,7 @@ typedef enum {
 }
 
 - (void)peerPickerController:(GKPeerPickerController *)picker didConnectPeer:(NSString *)peerID toSession:(GKSession *)session { 
+  NSLog(@"connection made");
 	// Remember the current peer.
 	self.gamePeerId = peerID;  // copy
 	
@@ -354,6 +364,7 @@ typedef enum {
  * We set ourselves as the receive data handler in the -peerPickerController:didConnectPeer:toSession: method.
  */
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context { 
+  NSLog(@"receivedData...");
 	static int lastPacketTime = -1;
 	unsigned char *incomingPacket = (unsigned char *)[data bytes];
 	int *pIntData = (int *)&incomingPacket[0];
@@ -376,9 +387,12 @@ typedef enum {
             if(coinToss > gameUniqueID) {
                 self.peerStatus = kClient;        
                 self.myServe = NO;
+              NSLog(@"I'm the client in the game and Current state is %d",self.gameState);
+//                self.gameState = kStatePlay; // MAJD: Added to set the proper state
             } else {
                 // we're server
-                self.peerStatus = kServer;
+              self.peerStatus = kServer;
+              NSLog(@"I'm the server in the game and Current state is %d",self.gameState);
 
                 self.myServe = YES; // will get changed                
                 self.gameState = kStateMyServe;
@@ -428,6 +442,7 @@ typedef enum {
 }
 
 - (void)sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend {
+  NSLog(@"Sending network packet...");
 	// the packet we'll send is resued
 	static unsigned char networkPacket[kMaxPongPacketSize];
 	const unsigned int packetHeaderSize = 2 * sizeof(int); // we have two "ints" for our header
@@ -453,6 +468,7 @@ typedef enum {
 
 // we've gotten a state change in the session
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state { 
+  NSLog(@"State has changed to %d..",state);
 	if(self.gameState == kStatePicker) {
 		return;	// only do stuff if we're in multiplayer, otherwise it is probably for Picker
 	}
@@ -492,6 +508,8 @@ typedef enum {
 	switch (self.gameState) {
 		case kStatePicker:
 		case kStateStartGame:
+      
+      NSLog(@"kStatePicker or kStateStartGame: %d",self.gameState);
 			break;
 		case kStateMultiplayerCointoss:
 			[self sendNetworkPacket:self.gameSession 
@@ -500,6 +518,8 @@ typedef enum {
                            ofLength:sizeof(int) 
                            reliable:YES];
 			self.gameState = kStatePlay; // we only want to be in the cointoss state for one loop
+      
+      NSLog(@"kStateMultiplayerCointoss: %d",self.gameState);
 			break;
     case kStateMyServe: // wait for a serve event
     case kStatePlay: // playing the game... still use heartbeats
@@ -533,6 +553,7 @@ typedef enum {
                                ofLength:0 
                                reliable:NO];
 			}
+      NSLog(@"kStateMyServe or kStatePlay or kStateEndGame: %d",self.gameState);
 			break;
 		case kStateMultiplayerReconnect:
 			// we have lost a heartbeat for too long, 
@@ -545,6 +566,8 @@ typedef enum {
                                ofLength:0
                                reliable:NO];
 			}
+      
+      NSLog(@"kStateMultiplayerReconnect      : %d",self.gameState);
 			break;
 		default:
 			break;
