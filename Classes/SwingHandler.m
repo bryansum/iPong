@@ -76,7 +76,7 @@ static void describe(PongPacket*p)
       }
                                  
       // Values typically from 1 - 4
-      retSwing.velocity = CLAMP(retSwing.velocity-1,0,3)/1.5;
+      retSwing.velocity = CLAMP(retSwing.velocity-1,0,3)/2;
       NSLog(@"vel = %f",retSwing.velocity);
       
       retSwing.swingType = kNormal;
