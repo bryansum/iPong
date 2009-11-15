@@ -70,7 +70,7 @@
         
         if(canServe) {
             //	NSLog(@"z %f, x %f", z, acceleration.x);
-            if (z > .5  && -0.1 <= x  && x <= 0.1 && z > acceleration.z) {
+            if (z > .3  && -0.1 <= x  && x <= 0.1 && z > acceleration.z) {
                 [delegate didServe];
                 canServe = false;
             }

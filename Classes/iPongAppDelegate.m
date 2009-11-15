@@ -108,15 +108,15 @@ typedef enum {
   [buttonView addTarget:self action:@selector(startSampling) forControlEvents:UIControlEventTouchDown];
   [buttonView addTarget:self action:@selector(stopSampling) forControlEvents:UIControlEventTouchUpInside];
   [_window addSubview:buttonView];   
-  
-    int curX = 110;
-    for (int i = 0; i < kNumBeeps; i++) {
-        dots[i] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
-        [dots[i] setFrame:CGRectMake(curX, 440, 30, 30)];
-        [_window addSubview:dots[i]];
 
-        curX += 25;        
-    }
+  int curX = 110;
+  for (int i = 0; i < kNumBeeps; i++) {
+      dots[i] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
+      [dots[i] setFrame:CGRectMake(curX, 440, 30, 30)];
+      [_window addSubview:dots[i]];
+
+      curX += 25;        
+  }
   
 	//Show the window
 	[_window makeKeyAndVisible];
@@ -128,7 +128,7 @@ typedef enum {
     
     player = [[ScoreController alloc] init];
     
-    round = 0;
+    round = 1;
     peerStatus = kServer;
     gamePacketNumber = 0;
     gameSession = nil;
@@ -141,14 +141,6 @@ typedef enum {
     [self startPicker];  
 
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
-}
-
-- (void) testButtonClicked{
-  [player pointScored:0];
-}
-
-- (void) testButton2Clicked{
-  [player pointScored:1];
 }
 
 - (void) startNewGame {
@@ -180,15 +172,13 @@ typedef enum {
 
 -(void)displayDotForInterval:(int)interval
 {
-    NSString *imgSrc = @"glowing-dot.png";
-    [dots[interval] setImage:[UIImage imageNamed:imgSrc]];           
+    [dots[interval] setImage:[UIImage imageNamed:@"glowing-dot.png"]];           
 }
 
 -(void) resetDots
 {
     for (int i = 0; i < kNumBeeps; i++) {
-        NSString *imgSrc = @"empty-dot.png";
-        [dots[i] setImage:[UIImage imageNamed:imgSrc]];           
+        [dots[i] setImage:[UIImage imageNamed: @"empty-dot.png"]];           
     }
 }
 
@@ -202,7 +192,7 @@ typedef enum {
 #pragma mark SwingTimerDelegate methods
 -(BOOL)wasHit:(PongPacket *)pp
 {
-    return pp->velocity > 0.5 ? YES : NO;
+    return pp->velocity > 0.3 ? YES : NO; /* MAJD - Reduced threshold from 0.5 to 0.3 */
 }
 
 -(void)intervalDidOccur:(int)interval
@@ -265,6 +255,7 @@ typedef enum {
 -(void)incRound
 {
     if ((self.round++) % 5 == 0) {
+        NSLog(@"Toggling serve, %d rounds",self.round-1);
         self.myServe = TOGGLE(self.myServe);
       
         if (self.myServe) {
