@@ -22,6 +22,7 @@
 		A94CD02E10AFC78200A9F7D9 /* bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD02D10AFC78200A9F7D9 /* bounce.wav */; };
 		A94CD03010AFC81800A9F7D9 /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD02F10AFC81800A9F7D9 /* hit.wav */; };
 		A94CD14E10AFD82600A9F7D9 /* happy.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD14D10AFD82600A9F7D9 /* happy.wav */; };
+		A9C381BC10B0A2BF00C7E6FB /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C381BB10B0A2BF00C7E6FB /* white.png */; };
 		A9CA775510AF489B00A0F4FE /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA774D10AF489B00A0F4FE /* back-button.png */; };
 		A9CA775610AF489B00A0F4FE /* bg-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA774E10AF489B00A0F4FE /* bg-pattern.png */; };
 		A9CA775710AF489B00A0F4FE /* empty-dot.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA774F10AF489B00A0F4FE /* empty-dot.png */; };
@@ -60,6 +61,7 @@
 		A94CD02D10AFC78200A9F7D9 /* bounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bounce.wav; sourceTree = "<group>"; };
 		A94CD02F10AFC81800A9F7D9 /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
 		A94CD14D10AFD82600A9F7D9 /* happy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = happy.wav; sourceTree = "<group>"; };
+		A9C381BB10B0A2BF00C7E6FB /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		A9CA774D10AF489B00A0F4FE /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button.png"; sourceTree = "<group>"; };
 		A9CA774E10AF489B00A0F4FE /* bg-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-pattern.png"; sourceTree = "<group>"; };
 		A9CA774F10AF489B00A0F4FE /* empty-dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty-dot.png"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				A94CD02D10AFC78200A9F7D9 /* bounce.wav */,
 				A94CD02F10AFC81800A9F7D9 /* hit.wav */,
 				A9CA779110AF4D4400A0F4FE /* scoreboard-divider.png */,
+				A9C381BB10B0A2BF00C7E6FB /* white.png */,
 				A9CA775410AF489B00A0F4FE /* scoreboard.png */,
 				A94CD14D10AFD82600A9F7D9 /* happy.wav */,
 				A9124B2510AF0C3B00EBA976 /* 6002b.jpg */,
@@ -228,6 +231,7 @@
 				A94CD02E10AFC78200A9F7D9 /* bounce.wav in Resources */,
 				A94CD03010AFC81800A9F7D9 /* hit.wav in Resources */,
 				A94CD14E10AFD82600A9F7D9 /* happy.wav in Resources */,
+				A9C381BC10B0A2BF00C7E6FB /* white.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
