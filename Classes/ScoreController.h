@@ -10,21 +10,17 @@
 
 @interface ScoreController : NSObject <UIAlertViewDelegate> {
   NSInteger winningScore;
-  NSInteger localScore;
-  NSInteger remoteScore;
+  NSInteger score[2];
   
   NSInteger localPeerStatus;
     
     id      d;
 }
 
+@property (nonatomic, assign) NSInteger winningScore;
 @property (retain) id d;
-@property (nonatomic, assign) NSInteger localPeerStatus;
 
-- (void) gameWon;
-- (void) alertIsMyServe;
-- (void) alertIsMyFirstServe;
-- (void) pointScored:(NSInteger) peerStatus;
-- (void) _showAlert:(NSString *)title withMessage:(NSString *)message andButtonTitle:(NSString *)buttonTitle;
+- (void) resetScores;
+- (void) pointScored:(NSInteger)peerStatus;
 
 @end

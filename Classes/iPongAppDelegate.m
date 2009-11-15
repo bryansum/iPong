@@ -16,7 +16,10 @@
 #define kMaxPongPacketSize 1024
 #define CLAMP(x, l, h)  (((x) > (h)) ? (h) : (((x) < (l)) ? (l) : (x)))
 #define TOGGLE(x) (x ? NO : YES)
-
+#define kServiceChangeMsg @"Service Change!"
+#define kServiceFirstMsg @"Your serve"
+#define kYouWonMsg @"You won!"
+#define kYouLostMsg @"You lost :("
 //
 // various states the game can get into
 //
@@ -38,9 +41,9 @@ typedef enum {
 #define kPeerEnemy (self.peerStatus == kClient ? kServer : kClient)
 
 @interface iPongAppDelegate()
-- (void) startSampling;
-- (void) stopSampling;
+- (void) didTouchPaddle;
 - (void) resetDots;
+- (void) _showAlert:(NSString *)title withMessage:(NSString *)message andButtonTitle:(NSString *) buttonTitle;
 @end
 
 @implementation iPongAppDelegate
@@ -105,17 +108,15 @@ typedef enum {
   [buttonView setFrame:CGRectMake(70, 130, 186, 310)];
   [buttonView imageRectForContentRect:CGRectMake(100, 1300, 3200, 350)];
   [buttonView setBackgroundImage:[UIImage imageNamed:@"paddle.png"] forState:UIButtonTypeCustom];
-  [buttonView addTarget:self action:@selector(startSampling) forControlEvents:UIControlEventTouchDown];
-  [buttonView addTarget:self action:@selector(stopSampling) forControlEvents:UIControlEventTouchUpInside];
+  [buttonView addTarget:self action:@selector(didTouchPaddle) forControlEvents:UIControlEventTouchUpInside];
   [_window addSubview:buttonView];   
-
+  
   int curX = 110;
-  for (int i = 0; i < kNumBeeps; i++) {
-      dots[i] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
-      [dots[i] setFrame:CGRectMake(curX, 440, 30, 30)];
-      [_window addSubview:dots[i]];
-
-      curX += 25;        
+  for(int i = 0; i < 4; i++) {
+    dots[i] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-dot.png"]];
+    [dots[i] setFrame:CGRectMake(curX, 440, 30, 30)];
+    [_window addSubview:dots[i]];
+    curX += 25;            
   }
   
 	//Show the window
@@ -143,76 +144,67 @@ typedef enum {
     [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
 }
 
-- (void) startNewGame {
-    [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve
-    round = -1;
-    [self incRound];
+- (void) updateMyScoreLabel:(NSInteger)peerStat withValue:(NSInteger)n {
+  if (peerStat == self.peerStatus) {
+    [myScoreValue setText:[NSString stringWithFormat:@"%d",n]];
+  } else {
+    [remoteScoreValue setText:[NSString stringWithFormat:@"%d",n]];
+  }
 }
 
-- (void) beginGame {
-    [swingHandler setCanServe:YES]; // will respond with a didServe event when we serve
-}
-
-- (void) startFirstGame {
-    [swingHandler setCanServe:YES];
-}
-
-
-- (void) gameEnded {
-  self.gameState = kStateEndGame;
-}
-
-- (void) updateMyScoreLabelWithValue:(NSInteger) n{
-  [myScoreValue setText:[NSString stringWithFormat:@"%d",n]];
-}
-
-- (void) updateRemoteScoreLabelWithValue:(NSInteger) n{
-  [remoteScoreValue setText:[NSString stringWithFormat:@"%d",n]];
-}
-
--(void)displayDotForInterval:(int)interval
+-(void)displayDotForInterval:(NSNumber*)interval
 {
-    [dots[interval] setImage:[UIImage imageNamed:@"glowing-dot.png"]];           
+  [dots[[interval intValue]] setImage:[UIImage imageNamed:@"glowing-dot.png"]];
 }
 
--(void) resetDots
+-(void)resetDots
 {
-    for (int i = 0; i < kNumBeeps; i++) {
-        [dots[i] setImage:[UIImage imageNamed: @"empty-dot.png"]];           
-    }
+  for(int i = 0; i < 4; i++) {
+    [dots[i] setImage:[UIImage imageNamed:@"empty-dot.png"]];
+  }
 }
 
-- (void) startSampling {}
-- (void) stopSampling {
-  NSLog(@"Stopped sampling.");
-  if (self.gameState == kStateStartGame) {
-    [self startPicker];
+- (void) didTouchPaddle {
+  switch (self.gameState) {
+    case kStateStartGame:
+      [self startPicker];
+      break;
+    case kStateMyServe:
+      [self didServe];
+    default:
+      break;
   }
 }
 
 #pragma mark SwingTimerDelegate methods
 -(BOOL)wasHit:(PongPacket *)pp
 {
-    NSLog(@"Was hit?");
     return pp->velocity > 0.3 ? YES : NO; /* MAJD - Reduced threshold from 0.5 to 0.3 */
 }
 
 -(void)intervalDidOccur:(int)interval
 {
   NSLog(@"intervalDidOccur (%d)...",interval);
-    [self displayDotForInterval:interval];
+  [self performSelectorOnMainThread:@selector(displayDotForInterval:) 
+                         withObject:[NSNumber numberWithInt:interval] 
+                      waitUntilDone:NO];
 
     // calc quadratic volume.
 //    float volume = pow((float)interval/(float)kNumBeeps,2);
-    float volume = (float)interval/(float)kNumBeeps;
+    float volume = (float)interval/((float)kNumBeeps*2.)+0.50;
     if (interval != kFinalBeep) {
         [avController playSound:@"bounce" atVolume:volume];
     } else {
         
-        PongPacket packet = [swingHandler currentSwing];
-        
-        [self resetDots];
-        
+      PongPacket packet;// = [swingHandler currentSwing];
+      packet.velocity = 1;
+      packet.swingType = kNormal;
+      packet.typeIntensity = 1;
+
+      [self performSelectorOnMainThread: @selector(resetDots) 
+                             withObject:nil
+                          waitUntilDone:NO];
+      
         if ([self wasHit:&packet]) {
           NSLog(@"sending hit packet");
             [avController playSound:@"hit" atVolume:volume];
@@ -238,6 +230,7 @@ typedef enum {
 
 -(void)didServe
 {
+    // set state to play state
     self.gameState = kStatePlay;
     
     // Fire off our swing timer as it comes down; act like it
@@ -253,30 +246,78 @@ typedef enum {
     swingTimer.delegate = self;
     [swingTimer start];
 }
--(void)playWinSound 
-{
-    [avController playSound:@"happy" atVolume:1];
-}
 
 -(void)incRound
 {
     NSLog(@"Incrementing round to: %d",round+1);
-    if ((self.round++) % 5 == 0) {
+    if ((++self.round) % 5 == 0) {
         NSLog(@"Toggling serve, %d rounds",self.round-1);
         self.myServe = TOGGLE(self.myServe);
       
         if (self.myServe) {
-          [player alertIsMyServe];
+          [self _showAlert:kServiceChangeMsg
+               withMessage:@"You are now the server" 
+            andButtonTitle:@"Click paddle to serve"];
+          // wait for dismissal for setting swingHandler
+          self.gameState = kStateMyServe;
+        } else {
+          self.gameState = kStatePlay;
         }
-    }
-    if (self.myServe) {
-        self.gameState = kStateMyServe;
+    
+      // normal round increase
     } else {
+      if (self.myServe) {
+        self.gameState = kStateMyServe;
+      } else {
         NSLog(@"Not my round, so just play");
         self.gameState = kStatePlay;
-    }    
+      }      
+    }
 }
 
+#pragma mark Serve alert / game status alerts
+- (void) _showAlert:(NSString *)title withMessage:(NSString *)message andButtonTitle:(NSString *) buttonTitle
+{
+  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:buttonTitle otherButtonTitles:nil];
+  [alertView show];
+  [alertView release];
+  
+  // temporarily stop reading accelerometer data
+  [swingHandler stopRecording];
+}
+         
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+ 
+  [swingHandler startRecording];
+  
+  NSString *title = [alertView title];
+ if(title == kYouWonMsg || title == kYouLostMsg){
+   
+   [player resetScores];
+   [self updateMyScoreLabel:self.peerStatus withValue:0];
+   [self updateMyScoreLabel:kPeerEnemy withValue:0];
+   
+   // state should get reset to either serve / play here
+   [self incRound];
+   
+ } else if (title == kServiceFirstMsg|| title == kServiceChangeMsg) {}
+}
+
+-(void)gameWonFor:(NSInteger)peerStat
+{
+  if (peerStat == self.peerStatus) {
+    [avController playSound:@"happy" atVolume:1];
+    [self _showAlert:kYouWonMsg
+         withMessage:@"Hail To The Victors!" 
+      andButtonTitle:@"Start a new game"];      
+  } else {
+    [self _showAlert:kYouLostMsg 
+         withMessage:@"Fail." 
+      andButtonTitle:@"Start a new game"];        
+  }
+  self.gameState = kStateEndGame;
+}
+                  
 #pragma mark Peer Picker Related Methods
 
 -(void)startPicker {
@@ -364,7 +405,6 @@ typedef enum {
  * We set ourselves as the receive data handler in the -peerPickerController:didConnectPeer:toSession: method.
  */
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context { 
-  NSLog(@"receivedData...");
 	static int lastPacketTime = -1;
 	unsigned char *incomingPacket = (unsigned char *)[data bytes];
 	int *pIntData = (int *)&incomingPacket[0];
@@ -396,7 +436,9 @@ typedef enum {
 
                 self.myServe = YES; // will get changed                
                 self.gameState = kStateMyServe;
-                [player alertIsMyFirstServe];
+                [self _showAlert:kServiceFirstMsg
+                     withMessage:@"You are the server" 
+                  andButtonTitle:@"Let's play!"];  
             }
         }
 			break;
@@ -444,7 +486,6 @@ typedef enum {
 }
 
 - (void)sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend {
-  NSLog(@"Sending network packet...");
 	// the packet we'll send is resued
 	static unsigned char networkPacket[kMaxPongPacketSize];
 	const unsigned int packetHeaderSize = 2 * sizeof(int); // we have two "ints" for our header
@@ -470,7 +511,6 @@ typedef enum {
 
 // we've gotten a state change in the session
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state { 
-  NSLog(@"State has changed to %d..",state);
 	if(self.gameState == kStatePicker) {
 		return;	// only do stuff if we're in multiplayer, otherwise it is probably for Picker
 	}
@@ -498,7 +538,7 @@ typedef enum {
 		}
 		
 		// go back to start mode
-		self.gameState = kStatePicker; 
+		self.gameState = kStateStartGame; 
 	} 
 } 
 
@@ -511,7 +551,7 @@ typedef enum {
 		case kStatePicker:
 		case kStateStartGame:
       
-      NSLog(@"kStatePicker or kStateStartGame: %d",self.gameState);
+      //NSLog(@"kStatePicker or kStateStartGame: %d",self.gameState);
 			break;
 		case kStateMultiplayerCointoss:
 			[self sendNetworkPacket:self.gameSession 
@@ -555,7 +595,7 @@ typedef enum {
                                ofLength:0 
                                reliable:NO];
 			}
-      NSLog(@"kStateMyServe or kStatePlay or kStateEndGame: %d",self.gameState);
+      //NSLog(@"kStateMyServe or kStatePlay or kStateEndGame: %d",self.gameState);
 			break;
 		case kStateMultiplayerReconnect:
 			// we have lost a heartbeat for too long, 
@@ -569,7 +609,7 @@ typedef enum {
                                reliable:NO];
 			}
       
-      NSLog(@"kStateMultiplayerReconnect      : %d",self.gameState);
+      NSLog(@"kStateMultiplayerReconnect: %d",self.gameState);
 			break;
 		default:
 			break;

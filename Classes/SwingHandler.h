@@ -16,21 +16,21 @@
 @end
 
 @interface SwingHandler : NSObject <UIAccelerometerDelegate> {
+  // acceleration 
+  UIAccelerometer             *accelerometer;
+
 	UIAccelerationValue		prevZ;
 	UIAccelerationValue		z;
 	UIAccelerationValue		prevX;
 	UIAccelerationValue		x;
     
-    NSTimeInterval              startTime;
-    NSUInteger                  previousTimeInterval;
-    
-    PongPacket                  currentSwing;
-    BOOL canServe;
-    
-    // acceleration 
-    UIAccelerometer             *accelerometer;
-    
-    id                          delegate;
+  NSTimeInterval              startTime;
+  NSUInteger                  previousTimeInterval;
+  
+  id                          delegate;
+
+  PongPacket                  *currentSwingBuffer;
+  NSUInteger                  curSwing;
 }
 
 -(void)startRecording;
@@ -42,5 +42,4 @@
 - (PongPacket)currentSwing;
 
 @property (retain) id delegate;
-@property (assign) BOOL canServe;
 @end

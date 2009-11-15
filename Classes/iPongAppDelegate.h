@@ -78,12 +78,8 @@ typedef enum {
 - (void) invalidateSession:(GKSession *)session;
 - (void) sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend;
 - (void) startPicker;
-- (void) startNewGame;
-- (void) startFirstGame;
-- (void) beginGame;
-- (void) updateMyScoreLabelWithValue:(NSInteger) n;
-- (void) updateRemoteScoreLabelWithValue:(NSInteger) n; 
--(void)playWinSound;
+-(void)gameWonFor:(NSInteger)peerStatus;
+- (void) updateMyScoreLabel:(NSInteger)peerStatus withValue:(NSInteger)n;
 
 -(BOOL)wasHit:(PongPacket *)packet;
 -(void)incRound;

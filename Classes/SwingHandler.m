@@ -9,11 +9,14 @@
 #import "SwingHandler.h"
 #define CLAMP(x, l, h)  (((x) > (h)) ? (h) : (((x) < (l)) ? (l) : (x)))
 #define NORMALIZE(x)    (CLAMP(x,0,2)*0.5)
-#define VEL_NORMALIZE(x) (CLAMP(x,0,3))
+#define VEL_NORMALIZE(x) ((CLAMP(x,0,1)+1)/2)
+#define kSwingBufferSize 10
+#define kSampleSize 10
+#define kAccelSamplingFreq 1.0/60.0
 
 @implementation SwingHandler
 
-@synthesize delegate, canServe;
+@synthesize delegate;
 
 - (id) init
 {
@@ -21,14 +24,16 @@
     if (self != nil) {
         z = 0;
         x = 0;
-        canServe = false;
         accelerometer = [UIAccelerometer sharedAccelerometer];        
+        currentSwingBuffer = malloc(sizeof(PongPacket) * kSwingBufferSize);
+        curSwing = 0;
     }
     return self;
 }
 
 - (void) dealloc
 {
+    free(currentSwingBuffer);
     [self stopRecording];
     [accelerometer release];
     [delegate release];
@@ -38,7 +43,7 @@
 - (void)startRecording
 {
     [accelerometer setDelegate:self];
-    [accelerometer setUpdateInterval:1.0/60.0];	
+    [accelerometer setUpdateInterval:kAccelSamplingFreq];	
     startTime = previousTimeInterval = [[NSDate date] timeIntervalSince1970];  
 }
 
@@ -48,10 +53,10 @@
 }
 
 #pragma mark SwingHandler
--(void)describe
+static void describe(PongPacket*p) 
 {
-    NSLog(@"velocity = %f, swingType = %d, intensity = %f", currentSwing.velocity, 
-          currentSwing.swingType, currentSwing.typeIntensity);
+    NSLog(@"velocity = %f, swingType = %d, intensity = %f", p->velocity, 
+          p->swingType, p->typeIntensity);
     
 }
 
@@ -67,61 +72,66 @@
         
         z = 0.923077 * (z + acceleration.z - prevZ);
         x = 0.923077 * (x + acceleration.x - prevX);
+            
+        //	NSLog(@"velocity %f", z);
+        UIAccelerationValue temp = sqrt(x*x + z*z);
+        //	NSLog(@"z %f, x %f", z, x);
         
-        if(canServe) {
-            //	NSLog(@"z %f, x %f", z, acceleration.x);
-            if (z > .3  && -0.1 <= x  && x <= 0.1 && z > acceleration.z) {
-                [delegate didServe];
-                canServe = false;
-            }
-        } else {
-            
-            //	NSLog(@"velocity %f", z);
-            UIAccelerationValue temp = sqrt(x*x + z*z);
-            //	NSLog(@"z %f, x %f", z, x);
-            
-            //If the direction has changed
-            currentSwing.velocity = VEL_NORMALIZE(timeDifference * temp);
-            if(z >= 0.5){
-                if (x <= -0.5 || x >= 0.5 || currentSwing.swingType == 0) {
-                    NSLog(@"topspin %f", (-x)/(z-x));
-                    
-                    //x will be more - implies more top
-                    currentSwing.swingType = kTopSpin;
-                    currentSwing.typeIntensity = NORMALIZE((-x)/(z-x));
-                                    [self describe];
-
-                } else if (x/(x+z) <= 0.5 && x/(x+z) >= -0.1 && z > acceleration.z) {
-                    NSLog(@"normal %f", currentSwing.velocity);
-                    //x will be more + implies more 
-                    currentSwing.swingType = kNormal;
-                    currentSwing.typeIntensity = NORMALIZE(1);    
-                                    [self describe];
-                }
-            } else if (-0.5<= acceleration.z && acceleration.z <= 0.0 && (x >= 0.5 || x <= -0.5)) {
-                NSLog(@"slice %f", x/(x+fabs(z)));
+        //If the direction has changed
+        currentSwingBuffer[curSwing].velocity = VEL_NORMALIZE(timeDifference * temp);
+        if(z >= 0.5){
+            if (x <= -0.5 || x >= 0.5 || currentSwingBuffer[curSwing].swingType == 0) {
+                NSLog(@"topspin %f", (-x)/(z-x));
                 
-                currentSwing.swingType = kSlice;
-                currentSwing.typeIntensity = NORMALIZE((x)/(x+z));
-                [self describe];
-            } else {
-                currentSwing.swingType = kNormal;
-                currentSwing.velocity = 0.0;
+                //x will be more - implies more top
+                currentSwingBuffer[curSwing].swingType = kTopSpin;
+                currentSwingBuffer[curSwing].typeIntensity = NORMALIZE((-x)/(z-x));
+              describe(&currentSwingBuffer[curSwing]);
+
+            } else if (x/(x+z) <= 0.5 && x/(x+z) >= -0.1 && z > acceleration.z) {
+                NSLog(@"normal %f", currentSwingBuffer[curSwing].velocity);
+                //x will be more + implies more 
+                currentSwingBuffer[curSwing].swingType = kNormal;
+                currentSwingBuffer[curSwing].typeIntensity = NORMALIZE(1);    
+              describe(&currentSwingBuffer[curSwing]);
             }
+        } else if (-0.5<= acceleration.z && acceleration.z <= 0.0 && (x >= 0.5 || x <= -0.5)) {
+            NSLog(@"slice %f", x/(x+fabs(z)));
             
+            currentSwingBuffer[curSwing].swingType = kSlice;
+            currentSwingBuffer[curSwing].typeIntensity = NORMALIZE((x)/(x+z));
+              describe(&currentSwingBuffer[curSwing]);
+        } else {
+            currentSwingBuffer[curSwing].swingType = kNormal;
+            currentSwingBuffer[curSwing].velocity = 0.0;
         }
         
         prevZ = acceleration.z;
         prevX = acceleration.x;        
     }
+    curSwing++;
+    if (curSwing == kSwingBufferSize) curSwing = 0;
 }
 
 -(PongPacket)currentSwing
 {
     PongPacket retSwing;
+  
     @synchronized(self) {
-        retSwing = currentSwing;
+      NSUInteger swingNum = curSwing;
+      // record previous five swings
+      for(int i = 0; i < kSampleSize; i++) {
+          retSwing.velocity = currentSwingBuffer[swingNum].velocity;
+          retSwing.swingType = currentSwingBuffer[swingNum].swingType;
+          retSwing.typeIntensity = currentSwingBuffer[swingNum].typeIntensity;
+        if (swingNum == 0) swingNum = kSwingBufferSize;
+        swingNum--;
+      }      
+      retSwing.velocity /= kSampleSize;
+      retSwing.swingType = floor(retSwing.swingType/kSampleSize);
+      retSwing.typeIntensity /= kSampleSize;
     }
+  describe(&retSwing);
     return retSwing;
 }
 
