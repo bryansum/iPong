@@ -14,7 +14,7 @@
     NSMutableDictionary      *soundPlayers;
 }
 
-- (void)playBeep;
-- (void)playHit;
+- (void)playBeepAtVolume:(float)volume;
+- (void)playHitAtVolume:(float)volume;
 
 @end
