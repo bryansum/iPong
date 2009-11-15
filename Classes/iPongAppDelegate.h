@@ -7,22 +7,32 @@
 //
 
 #include <AudioToolbox/AudioToolbox.h>
-#import "BrowserViewController.h"
+#import <GameKit/GameKit.h>
+#import "PongPacket.h"
 #import "Picker.h"
-#import "TCPServer.h"
 #import "SwingTimer.h"
+#import "AVController.h"
 
 typedef struct AccelerationSample{
   NSTimeInterval elapsedTime;
   double x;
 } AccelerationSample;
 
-@interface iPongAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate,
-BrowserViewControllerDelegate, TCPServerDelegate, UIAccelerometerDelegate, SwingTimerDelegate>
+typedef enum {
+	NETWORK_ACK,					// no packet
+	NETWORK_COINTOSS,				// decide who is going to be the server
+	NETWORK_PING_EVENT,				// ping event received
+    NETWORK_MISS_EVENT,
+	NETWORK_HEARTBEAT				// send of entire state at regular intervals
+} packetCodes;
+
+@interface iPongAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate, 
+                                        GKPeerPickerControllerDelegate, GKSessionDelegate, 
+                                        UIAlertViewDelegate,
+                                        UIAccelerometerDelegate, SwingTimerDelegate>
 {
 	UIWindow				  *_window;
 	Picker					  *_picker;
-	TCPServer				  *_server;
 	NSInputStream		  *_inStream;
 	NSOutputStream		*_outStream;
 	BOOL				   	  _inReady;
@@ -33,40 +43,54 @@ BrowserViewControllerDelegate, TCPServerDelegate, UIAccelerometerDelegate, Swing
 
     UIButton          *buttonView;
     UIButton          *soundButton;
-
-    UIAccelerometer   *accelerometer;
   
+    // acceleration 
+    UIAccelerometer   *accelerometer;
+
     BOOL              isSampling;
     NSTimeInterval    startTime;
     NSUInteger        previousTimeInterval;
     CGFloat           partialVelocity;
     NSInteger         direction;
     NSUInteger        numberOfSamples;
-  
+
   UIImageView       *firstDot;
   UIImageView       *secondDot;
   UIImageView       *thirdDot;
   UIImageView       *fourthDot;
-  
+
   UILabel           *myScoreValue;
   UILabel           *remoteScoreValue;
-  
-  UIAccelerometer   *accelerometer;
-  
-  BOOL              isSampling;
-  NSTimeInterval    startTime;
-  NSUInteger        previousTimeInterval;
-  CGFloat           partialVelocity;
-  NSInteger         direction;
-  NSUInteger        numberOfSamples;
-  
-	CFURLRef		soundFileURLRef;
-	SystemSoundID	soundFileObject;
-  
+
+    NSInteger           gameState;
+	NSInteger           peerStatus;
+
+    // networking
+	GKSession		*gameSession;
+	int				gameUniqueID;
+	int				gamePacketNumber;
+	NSString		*gamePeerId;
+	NSDate			*lastHeartbeatDate;
+    
+    UIAlertView		*connectionAlert;
+    
+    AVController    *avController;
+    
 }
 
-@property (readwrite)	CFURLRef		soundFileURLRef;
-@property (readonly)	SystemSoundID	soundFileObject;
+@property (nonatomic) NSInteger		gameState;
+@property (nonatomic) NSInteger		peerStatus;
+
+@property (nonatomic, retain) GKSession	 *gameSession;
+@property (nonatomic, copy)	 NSString	 *gamePeerId;
+@property (nonatomic, retain) NSDate	 *lastHeartbeatDate;
+@property (nonatomic, retain) UIAlertView *connectionAlert;
+
+- (void)invalidateSession:(GKSession *)session;
+- (void)sendNetworkPacket:(GKSession *)session packetID:(int)packetID withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend;
+
+-(void)didMiss;
+-(void)didHit:(PongPacket *)packet;
 
 @end
 

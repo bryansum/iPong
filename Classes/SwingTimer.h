@@ -25,7 +25,7 @@
     id                           delegate;
 }
 
--(id)initWithEnemyPacket:(PongPacket)packet;
+-(id)initWithEnemyPacket:(PongPacket*)packet andNumBeeps:(int)nBeeps;
 -(void)start;
 
 @property (retain) id delegate;

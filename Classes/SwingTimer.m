@@ -10,7 +10,6 @@
 #import "PongPacket.h"
 
 #define kDistance 1
-#define kDefaultNumBeeps 4 // 4th is the one we want the user to press. 
 
 @implementation SwingTimer
 
@@ -35,7 +34,7 @@
     [pool release];
 }
 
--(id)initWithEnemyPacket:(PongPacket)packet andNumBeeps:(int)nBeeps
+-(id)initWithEnemyPacket:(PongPacket*)packet andNumBeeps:(int)nBeeps
 {
     self = [super init];
     if (self != nil) {
@@ -44,7 +43,7 @@
         
         timeAtInterval = malloc(numBeeps * sizeof(NSTimeInterval));
         
-        NSTimeInterval totalTime = (double) kDistance / packet.velocity;
+        NSTimeInterval totalTime = (double) kDistance / packet->velocity;
 
         NSLog(@"total time %f", totalTime);
         NSTimeInterval secPerInterval = totalTime/(double)(numBeeps - 1);
@@ -52,7 +51,7 @@
 
         // calculate time interval 
         for (int i = 0; i < numBeeps; i++) {
-            switch (packet.swingType) {
+            switch (packet->swingType) {
                 case kTopSpin:
                     specialSwing = M_2_PI*acos(-(i*secPerInterval) + 1);
                     break;
@@ -66,18 +65,13 @@
             }
             
             // weighting function b/t linear and special swing
-            timeAtInterval[i] = packet.typeIntensity*specialSwing + 
-                                    (1-packet.typeIntensity)*(i*secPerInterval);
+            timeAtInterval[i] = packet->typeIntensity*specialSwing + 
+                                    (1-packet->typeIntensity)*(i*secPerInterval);
             
             NSLog(@"timeInterval %d is %f", i, timeAtInterval[i]);
         }        
     }
     return self;    
-}
-
--(id)initWithEnemyPacket:(PongPacket)packet
-{
-    return [self initWithEnemyPacket:packet andNumBeeps:kDefaultNumBeeps];
 }
 
 -(void)start
