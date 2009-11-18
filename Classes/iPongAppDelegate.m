@@ -195,13 +195,13 @@ UIImageView *flashView;
     int interval = [ival intValue];
   //[self displayDotForInterval:ival];
 
+    [self startAnimation];
+
     float volume = (float)interval/((float)kNumBeeps*2.)+0.50;
     if (interval != kFinalBeep) {
       [avController playSound:@"bounce" atVolume:volume];
     } else {
-			
-			[self startAnimation];
-			
+          
       PongPacket packet = [swingHandler currentSwing];
 
       //[self resetDots];
@@ -221,13 +221,14 @@ UIImageView *flashView;
                            withData:nil 
                            ofLength:0
                            reliable:NO];
+          [avController playSound:@"lost-point" atVolume:1];
             [player pointScored:kPeerEnemy]; 
             [self incRound];
         }
     }
 }
 
-- (void) startAnimation{
+- (void) startAnimation {
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.15];
 	[UIView setAnimationDelegate:self];
@@ -483,6 +484,7 @@ UIImageView *flashView;
             // in turn, score. 
             
             [player pointScored:self.peerStatus];
+                [avController playSound:@"won-point" atVolume:1];
             [self incRound];
         }
             break;
