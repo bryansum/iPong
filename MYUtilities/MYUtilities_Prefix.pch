@@ -1,10 +1,9 @@
 //
-// Prefix header for all source files of the 'iPong' target in the 'iPong' project
+// Prefix header for clients of MYUtilities.
 //
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
     #import "Logging.h"
     #import "Test.h"
     #import "CollectionUtils.h"

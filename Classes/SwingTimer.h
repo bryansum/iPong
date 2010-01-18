@@ -2,33 +2,34 @@
 //  SwingTimer.h
 //  iPong
 //
-//  Created by Bryan Summersett on 11/14/09.
-//  Copyright 2009 NatIanBryan. All rights reserved.
+//  Created by Majd Taby on 11/13/09.
+//  Copyright 2010 WinBy2Sports. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "PongPacket.h"
+@class PongEvent;
 
-@protocol SwingTimerDelegate
+@protocol SwingTimerDelegate <NSObject>
 
--(void)intervalDidOccur:(NSNumber *)interval;
+/** After starting the timer, this delegate method is called for 0..(kNumBeeps - 1). */
+-(void)swingTimerBeepDidOccur:(NSNumber *)beepNum;
 @end
 
-// When allocated, sets off a timer which plays a beep at given intervals 
-// given a PongPacket. 
+extern const NSInteger kNumBeeps;
+extern const NSInteger kFinalBeep;
+
+/** When allocated, sets off a timer which plays a beep at given intervals 
+    given a PongEvent. */
 @interface SwingTimer : NSObject {
-                                 // array of when the next beep should fire using 
-                                 // weighting functions
-  int                          curInterval;
-    NSTimeInterval               timeAtInterval;
-    NSTimer                      *timer;
-    int                          numBeeps;
-    id                           delegate;
+    NSInteger                           curBeep;
+    NSTimeInterval                      *secsBetweenBeeps;
+    PongEvent                           *event;
+    NSObject<SwingTimerDelegate>        *delegate;
 }
 
--(id)initWithEnemyPacket:(PongPacket*)packet andNumBeeps:(int)nBeeps;
--(void)start;
++ (id)timerWithEvent:(PongEvent*)ev delegate:(id)d startImmediately:(BOOL)s;
 
-@property (retain) id delegate;
+- (id)initWithEvent:(PongEvent*)ev;
+- (void)start;
 
+@property (retain) id<SwingTimerDelegate> delegate;
 @end

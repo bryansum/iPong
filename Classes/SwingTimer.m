@@ -2,53 +2,88 @@
 //  SwingTimer.m
 //  iPong
 //
-//  Created by Bryan Summersett on 11/14/09.
-//  Copyright 2009 NatIanBryan. All rights reserved.
+//  Created by Majd Taby on 11/13/09.
+//  Copyright 2010 WinBy2Sports. All rights reserved.
 //
 
 #import "SwingTimer.h"
-#import "PongPacket.h"
+#import "PongEvent.h"
+#import "Test.h"
 
-#define kDistance 1
+#define _nBeeps 4
+const NSInteger kNumBeeps = _nBeeps;
+const NSInteger kFinalBeep = _nBeeps - 1;
+
+/** Arbitrary constant determining how long the given playing field is. */
+static const double kDistanceToTravel = 1;
+
+@interface SwingTimer ()
+
+-(void)_fireIntervalBeeps;
+
+@property (nonatomic, retain) PongEvent *event;
+@end
 
 @implementation SwingTimer
+@synthesize delegate, event;
 
-@synthesize delegate;
-
--(void)fireIntervalBeeps
++ (id)timerWithEvent:(PongEvent*)ev delegate:(id)d startImmediately:(BOOL)startNow
 {
-  if (curInterval == 4) [timer invalidate];
-  [delegate intervalDidOccur:[NSNumber numberWithInt:curInterval]];
-  curInterval++;
+    SwingTimer *st = [[[[self class] alloc] initWithEvent:ev] autorelease];
+    st.delegate = d;
+    if (startNow) {
+        [st start];
+    }
+    return st;
 }
 
--(id)initWithEnemyPacket:(PongPacket*)packet andNumBeeps:(int)nBeeps
+- (id)initWithEvent:(PongEvent*)ev
 {
     self = [super init];
     if (self != nil) {
+        AssertEq([ev hitEventType],kHitEventHit);
+        secsBetweenBeeps = calloc(kNumBeeps, sizeof(NSTimeInterval));
+        self.event = ev;
+        curBeep = 0;
         
-        numBeeps = nBeeps;
-        
-        NSTimeInterval totalTime = (double) kDistance / packet->velocity;
-
-        NSLog(@"total time %f", totalTime);
-        NSTimeInterval secPerInterval = totalTime/(double)(numBeeps - 1);
-      
-        timeAtInterval = secPerInterval;       
+        // For now, we treat all swings like normal ones. 
+        switch ([ev swingType]) {
+            default: {
+                NSTimeInterval totalTime = kDistanceToTravel / [ev velocity];
+                for (int i = 0; i < kNumBeeps; i++) {
+                    secsBetweenBeeps[i] = totalTime/(kNumBeeps - 1);
+                }                
+            }
+                break;
+        }
     }
     return self;    
 }
 
 -(void)start
 {
-  curInterval = 0;
-  timer = [[NSTimer scheduledTimerWithTimeInterval:timeAtInterval target:self selector:@selector(fireIntervalBeeps) userInfo:nil repeats:YES] retain];
+    Assert(delegate != nil, @"delegate not set for swingTimer");
+    [NSThread detachNewThreadSelector:@selector(_fireIntervalBeeps) 
+                             toTarget:self
+                           withObject:nil];
+}
+
+-(void)_fireIntervalBeeps
+{
+    for (curBeep = 0; curBeep < kNumBeeps; curBeep++) {
+        NSNumber *n = [[NSNumber alloc] initWithInteger:curBeep];
+        [delegate performSelectorOnMainThread:@selector(swingTimerBeepDidOccur:) 
+                                   withObject:n
+                                waitUntilDone:NO];        
+        [n release];
+        [NSThread sleepForTimeInterval:secsBetweenBeeps[curBeep]];
+    }
 }
 
 - (void) dealloc
 {
-    [timer release];
-    [delegate release];
+    free(secsBetweenBeeps);
+    self.delegate = nil;
     [super dealloc];
 }
 

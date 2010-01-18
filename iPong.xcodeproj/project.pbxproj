@@ -11,13 +11,25 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		23026CBA10AFBB8800209D75 /* SwingHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 23026CB910AFBB8800209D75 /* SwingHandler.m */; };
-		23026DBC10AFF4A900209D75 /* ScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = A93BEC0510AF9FB000D050EF /* ScoreController.m */; };
+		23026CBA10AFBB8800209D75 /* AccelerometerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 23026CB910AFBB8800209D75 /* AccelerometerHandler.m */; };
+		23026DBC10AFF4A900209D75 /* ScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = A93BEC0510AF9FB000D050EF /* ScoreKeeper.m */; };
 		232F5B4810AF13E700C65C6F /* SwingTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F5B4710AF13E700C65C6F /* SwingTimer.m */; };
 		232F5DE010AF623E00C65C6F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 232F5DDF10AF623E00C65C6F /* GameKit.framework */; };
-		232F5E2910AF871500C65C6F /* AVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F5E2810AF871500C65C6F /* AVController.m */; };
+		232F5E2910AF871500C65C6F /* Jukebox.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F5E2810AF871500C65C6F /* Jukebox.m */; };
 		232F5E2D10AF873600C65C6F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 232F5E2C10AF873600C65C6F /* AVFoundation.framework */; };
-		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		2357D28710FC1143005B5F50 /* InGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357D28610FC1143005B5F50 /* InGameViewController.m */; };
+		2357D28C10FC12AF005B5F50 /* InGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357D28B10FC12AF005B5F50 /* InGameView.m */; };
+		2357D39310FC3013005B5F50 /* VCView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357D39210FC3013005B5F50 /* VCView.m */; };
+		23BED82B1104653000FB1AFB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23BED82A1104653000FB1AFB /* Localizable.strings */; };
+		23F244CA11018C090009216B /* CollectionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244BE11018C090009216B /* CollectionUtils.m */; };
+		23F244CB11018C090009216B /* ExceptionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244C011018C090009216B /* ExceptionUtils.m */; };
+		23F244CC11018C090009216B /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244C211018C090009216B /* Logging.m */; };
+		23F244CD11018C090009216B /* MYUtilities_Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 23F244C311018C090009216B /* MYUtilities_Debug.xcconfig */; };
+		23F244CE11018C090009216B /* MYUtilities_Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 23F244C511018C090009216B /* MYUtilities_Release.xcconfig */; };
+		23F244D111018C090009216B /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244C911018C090009216B /* Test.m */; };
+		23F244F511018EBA0009216B /* BluetoothOpponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244F411018EBA0009216B /* BluetoothOpponent.m */; };
+		23F244F81101982D0009216B /* NetOpponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244F71101982D0009216B /* NetOpponent.m */; };
+		23F245711101FDFE0009216B /* PongEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F245701101FDFE0009216B /* PongEvent.m */; };
 		A9124B2610AF0C3B00EBA976 /* 6002b.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9124B2510AF0C3B00EBA976 /* 6002b.jpg */; };
 		A94CD02E10AFC78200A9F7D9 /* bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD02D10AFC78200A9F7D9 /* bounce.wav */; };
 		A94CD03010AFC81800A9F7D9 /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = A94CD02F10AFC81800A9F7D9 /* hit.wav */; };
@@ -33,7 +45,6 @@
 		A9CA779210AF4D4400A0F4FE /* scoreboard-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA779010AF4D4400A0F4FE /* scoreboard-bg.png */; };
 		A9CA779310AF4D4400A0F4FE /* scoreboard-divider.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CA779110AF4D4400A0F4FE /* scoreboard-divider.png */; };
 		A9FDD3E110AEB2070051B673 /* pingpong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9FDD3E010AEB2070051B673 /* pingpong.mp3 */; };
-		A9FDD43E10AEB9780051B673 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9FDD43D10AEB9780051B673 /* AudioToolbox.framework */; };
 		A9FDD5B210AECEF60051B673 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = A9FDD5B110AECEF60051B673 /* tap.aif */; };
 /* End PBXBuildFile section */
 
@@ -43,22 +54,47 @@
 		1D3623250D0F684500981E51 /* iPongAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPongAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iPong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		23026CB810AFBB8800209D75 /* SwingHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwingHandler.h; sourceTree = "<group>"; };
-		23026CB910AFBB8800209D75 /* SwingHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwingHandler.m; sourceTree = "<group>"; };
+		23026CB810AFBB8800209D75 /* AccelerometerHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerHandler.h; sourceTree = "<group>"; };
+		23026CB910AFBB8800209D75 /* AccelerometerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerHandler.m; sourceTree = "<group>"; };
 		232F5B4610AF13E700C65C6F /* SwingTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwingTimer.h; sourceTree = "<group>"; };
 		232F5B4710AF13E700C65C6F /* SwingTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwingTimer.m; sourceTree = "<group>"; };
-		232F5B4910AF15F700C65C6F /* PongPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PongPacket.h; sourceTree = "<group>"; };
+		232F5B4910AF15F700C65C6F /* PongEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PongEvent.h; sourceTree = "<group>"; };
 		232F5DDF10AF623E00C65C6F /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		232F5E2710AF871500C65C6F /* AVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVController.h; sourceTree = "<group>"; };
-		232F5E2810AF871500C65C6F /* AVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVController.m; sourceTree = "<group>"; };
+		232F5E2710AF871500C65C6F /* Jukebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jukebox.h; sourceTree = "<group>"; };
+		232F5E2810AF871500C65C6F /* Jukebox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Jukebox.m; sourceTree = "<group>"; };
 		232F5E2C10AF873600C65C6F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2357D28510FC1143005B5F50 /* InGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InGameViewController.h; sourceTree = "<group>"; };
+		2357D28610FC1143005B5F50 /* InGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InGameViewController.m; sourceTree = "<group>"; };
+		2357D28A10FC12AF005B5F50 /* InGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InGameView.h; sourceTree = "<group>"; };
+		2357D28B10FC12AF005B5F50 /* InGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InGameView.m; sourceTree = "<group>"; };
+		2357D39110FC3013005B5F50 /* VCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCView.h; sourceTree = "<group>"; };
+		2357D39210FC3013005B5F50 /* VCView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCView.m; sourceTree = "<group>"; };
+		23BED8281104652400FB1AFB /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		23F244BD11018C090009216B /* CollectionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionUtils.h; path = MYUtilities/CollectionUtils.h; sourceTree = "<group>"; };
+		23F244BE11018C090009216B /* CollectionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionUtils.m; path = MYUtilities/CollectionUtils.m; sourceTree = "<group>"; };
+		23F244BF11018C090009216B /* ExceptionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionUtils.h; path = MYUtilities/ExceptionUtils.h; sourceTree = "<group>"; };
+		23F244C011018C090009216B /* ExceptionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExceptionUtils.m; path = MYUtilities/ExceptionUtils.m; sourceTree = "<group>"; };
+		23F244C111018C090009216B /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logging.h; path = MYUtilities/Logging.h; sourceTree = "<group>"; };
+		23F244C211018C090009216B /* Logging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Logging.m; path = MYUtilities/Logging.m; sourceTree = "<group>"; };
+		23F244C311018C090009216B /* MYUtilities_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = MYUtilities_Debug.xcconfig; path = MYUtilities/MYUtilities_Debug.xcconfig; sourceTree = "<group>"; };
+		23F244C411018C090009216B /* MYUtilities_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MYUtilities_Prefix.pch; path = MYUtilities/MYUtilities_Prefix.pch; sourceTree = "<group>"; };
+		23F244C511018C090009216B /* MYUtilities_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = MYUtilities_Release.xcconfig; path = MYUtilities/MYUtilities_Release.xcconfig; sourceTree = "<group>"; };
+		23F244C611018C090009216B /* MYUtilities.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = MYUtilities.xcconfig; path = MYUtilities/MYUtilities.xcconfig; sourceTree = "<group>"; };
+		23F244C711018C090009216B /* MYUtilitiesTest_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MYUtilitiesTest_main.m; path = MYUtilities/MYUtilitiesTest_main.m; sourceTree = "<group>"; };
+		23F244C811018C090009216B /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Test.h; path = MYUtilities/Test.h; sourceTree = "<group>"; };
+		23F244C911018C090009216B /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Test.m; path = MYUtilities/Test.m; sourceTree = "<group>"; };
+		23F244ED11018DC80009216B /* Opponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Opponent.h; path = Opponent/Opponent.h; sourceTree = "<group>"; };
+		23F244F311018EBA0009216B /* BluetoothOpponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BluetoothOpponent.h; path = Opponent/BluetoothOpponent.h; sourceTree = "<group>"; };
+		23F244F411018EBA0009216B /* BluetoothOpponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BluetoothOpponent.m; path = Opponent/BluetoothOpponent.m; sourceTree = "<group>"; };
+		23F244F61101982D0009216B /* NetOpponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetOpponent.h; path = Opponent/NetOpponent.h; sourceTree = "<group>"; };
+		23F244F71101982D0009216B /* NetOpponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetOpponent.m; path = Opponent/NetOpponent.m; sourceTree = "<group>"; };
+		23F245701101FDFE0009216B /* PongEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PongEvent.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* iPong_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPong_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* iPong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iPong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A9124B2510AF0C3B00EBA976 /* 6002b.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6002b.jpg; sourceTree = "<group>"; };
-		A93BEC0410AF9FB000D050EF /* ScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreController.h; sourceTree = "<group>"; };
-		A93BEC0510AF9FB000D050EF /* ScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreController.m; sourceTree = "<group>"; };
+		A93BEC0410AF9FB000D050EF /* ScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreKeeper.h; sourceTree = "<group>"; };
+		A93BEC0510AF9FB000D050EF /* ScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreKeeper.m; sourceTree = "<group>"; };
 		A94CD02D10AFC78200A9F7D9 /* bounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bounce.wav; sourceTree = "<group>"; };
 		A94CD02F10AFC81800A9F7D9 /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
 		A94CD14D10AFD82600A9F7D9 /* happy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = happy.wav; sourceTree = "<group>"; };
@@ -73,7 +109,6 @@
 		A9CA779010AF4D4400A0F4FE /* scoreboard-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scoreboard-bg.png"; sourceTree = "<group>"; };
 		A9CA779110AF4D4400A0F4FE /* scoreboard-divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scoreboard-divider.png"; sourceTree = "<group>"; };
 		A9FDD3E010AEB2070051B673 /* pingpong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pingpong.mp3; sourceTree = "<group>"; };
-		A9FDD43D10AEB9780051B673 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A9FDD5B110AECEF60051B673 /* tap.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = tap.aif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,8 +119,6 @@
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
-				A9FDD43E10AEB9780051B673 /* AudioToolbox.framework in Frameworks */,
 				232F5DE010AF623E00C65C6F /* GameKit.framework in Frameworks */,
 				232F5E2D10AF873600C65C6F /* AVFoundation.framework in Frameworks */,
 			);
@@ -97,17 +130,22 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				232F5E2710AF871500C65C6F /* AVController.h */,
-				232F5E2810AF871500C65C6F /* AVController.m */,
+				2357D28510FC1143005B5F50 /* InGameViewController.h */,
+				2357D28610FC1143005B5F50 /* InGameViewController.m */,
+				23F244EC11018DB00009216B /* Opponent */,
+				2357D25410FC0E8B005B5F50 /* GUI */,
+				232F5E2710AF871500C65C6F /* Jukebox.h */,
+				232F5E2810AF871500C65C6F /* Jukebox.m */,
 				1D3623240D0F684500981E51 /* iPongAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iPongAppDelegate.m */,
 				232F5B4610AF13E700C65C6F /* SwingTimer.h */,
 				232F5B4710AF13E700C65C6F /* SwingTimer.m */,
-				A93BEC0410AF9FB000D050EF /* ScoreController.h */,
-				A93BEC0510AF9FB000D050EF /* ScoreController.m */,
-				232F5B4910AF15F700C65C6F /* PongPacket.h */,
-				23026CB810AFBB8800209D75 /* SwingHandler.h */,
-				23026CB910AFBB8800209D75 /* SwingHandler.m */,
+				A93BEC0410AF9FB000D050EF /* ScoreKeeper.h */,
+				A93BEC0510AF9FB000D050EF /* ScoreKeeper.m */,
+				232F5B4910AF15F700C65C6F /* PongEvent.h */,
+				23F245701101FDFE0009216B /* PongEvent.m */,
+				23026CB810AFBB8800209D75 /* AccelerometerHandler.h */,
+				23026CB910AFBB8800209D75 /* AccelerometerHandler.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -120,9 +158,83 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2357D25410FC0E8B005B5F50 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				2357D28A10FC12AF005B5F50 /* InGameView.h */,
+				2357D28B10FC12AF005B5F50 /* InGameView.m */,
+				2357D39110FC3013005B5F50 /* VCView.h */,
+				2357D39210FC3013005B5F50 /* VCView.m */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		2357D27E10FC1036005B5F50 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				A9AED94B10B0B499000F7613 /* lost-point.wav */,
+				A9AED94910B0B490000F7613 /* won-point.wav */,
+				A94CD02D10AFC78200A9F7D9 /* bounce.wav */,
+				A94CD02F10AFC81800A9F7D9 /* hit.wav */,
+				A94CD14D10AFD82600A9F7D9 /* happy.wav */,
+				A9FDD5B110AECEF60051B673 /* tap.aif */,
+				A9FDD3E010AEB2070051B673 /* pingpong.mp3 */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		2357D27F10FC1043005B5F50 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A9CA774D10AF489B00A0F4FE /* back-button.png */,
+				A9CA774E10AF489B00A0F4FE /* bg-pattern.png */,
+				A9CA774F10AF489B00A0F4FE /* empty-dot.png */,
+				A9CA775010AF489B00A0F4FE /* glowing-dot.png */,
+				A9CA775110AF489B00A0F4FE /* paddle.png */,
+				A9CA779010AF4D4400A0F4FE /* scoreboard-bg.png */,
+				A9CA779110AF4D4400A0F4FE /* scoreboard-divider.png */,
+				A9CA775410AF489B00A0F4FE /* scoreboard.png */,
+				A9124B2510AF0C3B00EBA976 /* 6002b.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		23F244861101893B0009216B /* MYUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				23F244BD11018C090009216B /* CollectionUtils.h */,
+				23F244BE11018C090009216B /* CollectionUtils.m */,
+				23F244BF11018C090009216B /* ExceptionUtils.h */,
+				23F244C011018C090009216B /* ExceptionUtils.m */,
+				23F244C111018C090009216B /* Logging.h */,
+				23F244C211018C090009216B /* Logging.m */,
+				23F244C311018C090009216B /* MYUtilities_Debug.xcconfig */,
+				23F244C411018C090009216B /* MYUtilities_Prefix.pch */,
+				23F244C511018C090009216B /* MYUtilities_Release.xcconfig */,
+				23F244C611018C090009216B /* MYUtilities.xcconfig */,
+				23F244C711018C090009216B /* MYUtilitiesTest_main.m */,
+				23F244C811018C090009216B /* Test.h */,
+				23F244C911018C090009216B /* Test.m */,
+			);
+			name = MYUtilities;
+			sourceTree = "<group>";
+		};
+		23F244EC11018DB00009216B /* Opponent */ = {
+			isa = PBXGroup;
+			children = (
+				23F244ED11018DC80009216B /* Opponent.h */,
+				23F244F311018EBA0009216B /* BluetoothOpponent.h */,
+				23F244F411018EBA0009216B /* BluetoothOpponent.m */,
+				23F244F61101982D0009216B /* NetOpponent.h */,
+				23F244F71101982D0009216B /* NetOpponent.m */,
+			);
+			name = Opponent;
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				23F244861101893B0009216B /* MYUtilities */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -144,23 +256,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A9AED94B10B0B499000F7613 /* lost-point.wav */,
-				A9AED94910B0B490000F7613 /* won-point.wav */,
-				A9CA774D10AF489B00A0F4FE /* back-button.png */,
-				A9CA774E10AF489B00A0F4FE /* bg-pattern.png */,
-				A9CA774F10AF489B00A0F4FE /* empty-dot.png */,
-				A9CA775010AF489B00A0F4FE /* glowing-dot.png */,
-				A9CA775110AF489B00A0F4FE /* paddle.png */,
-				A9CA779010AF4D4400A0F4FE /* scoreboard-bg.png */,
-				A94CD02D10AFC78200A9F7D9 /* bounce.wav */,
-				A94CD02F10AFC81800A9F7D9 /* hit.wav */,
-				A9CA779110AF4D4400A0F4FE /* scoreboard-divider.png */,
-				A9CA775410AF489B00A0F4FE /* scoreboard.png */,
-				A94CD14D10AFD82600A9F7D9 /* happy.wav */,
-				A9124B2510AF0C3B00EBA976 /* 6002b.jpg */,
+				23BED82A1104653000FB1AFB /* Localizable.strings */,
+				2357D27F10FC1043005B5F50 /* Images */,
+				2357D27E10FC1036005B5F50 /* Sounds */,
 				8D1107310486CEB800E47090 /* iPong-Info.plist */,
-				A9FDD5B110AECEF60051B673 /* tap.aif */,
-				A9FDD3E010AEB2070051B673 /* pingpong.mp3 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -170,10 +269,8 @@
 			children = (
 				232F5E2C10AF873600C65C6F /* AVFoundation.framework */,
 				232F5DDF10AF623E00C65C6F /* GameKit.framework */,
-				A9FDD43D10AEB9780051B673 /* AudioToolbox.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
-				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -206,6 +303,13 @@
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iPong" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -236,6 +340,9 @@
 				A94CD14E10AFD82600A9F7D9 /* happy.wav in Resources */,
 				A9AED94A10B0B490000F7613 /* won-point.wav in Resources */,
 				A9AED94C10B0B499000F7613 /* lost-point.wav in Resources */,
+				23F244CD11018C090009216B /* MYUtilities_Debug.xcconfig in Resources */,
+				23F244CE11018C090009216B /* MYUtilities_Release.xcconfig in Resources */,
+				23BED82B1104653000FB1AFB /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,16 +353,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23026DBC10AFF4A900209D75 /* ScoreController.m in Sources */,
+				23F244F81101982D0009216B /* NetOpponent.m in Sources */,
+				23026DBC10AFF4A900209D75 /* ScoreKeeper.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* iPongAppDelegate.m in Sources */,
 				232F5B4810AF13E700C65C6F /* SwingTimer.m in Sources */,
-				232F5E2910AF871500C65C6F /* AVController.m in Sources */,
-				23026CBA10AFBB8800209D75 /* SwingHandler.m in Sources */,
+				232F5E2910AF871500C65C6F /* Jukebox.m in Sources */,
+				23026CBA10AFBB8800209D75 /* AccelerometerHandler.m in Sources */,
+				2357D28710FC1143005B5F50 /* InGameViewController.m in Sources */,
+				2357D28C10FC12AF005B5F50 /* InGameView.m in Sources */,
+				2357D39310FC3013005B5F50 /* VCView.m in Sources */,
+				23F244CA11018C090009216B /* CollectionUtils.m in Sources */,
+				23F244CB11018C090009216B /* ExceptionUtils.m in Sources */,
+				23F244CC11018C090009216B /* Logging.m in Sources */,
+				23F244D111018C090009216B /* Test.m in Sources */,
+				23F244F511018EBA0009216B /* BluetoothOpponent.m in Sources */,
+				23F245711101FDFE0009216B /* PongEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		23BED82A1104653000FB1AFB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23BED8281104652400FB1AFB /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -270,6 +398,7 @@
 				GCC_VERSION = 4.2;
 				INFOPLIST_FILE = "iPong-Info.plist";
 				PRODUCT_NAME = iPong;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
 			name = Debug;
 		};
@@ -292,7 +421,12 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
@@ -306,7 +440,12 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
