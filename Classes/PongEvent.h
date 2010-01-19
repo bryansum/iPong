@@ -40,5 +40,5 @@ typedef NSInteger SwingType;
 @property (nonatomic, readonly) SwingType swingType;
 @property (nonatomic, readonly) float velocity;
 @property (nonatomic, readonly) float typeIntensity;
-
+ 
 @end

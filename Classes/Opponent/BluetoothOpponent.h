@@ -13,6 +13,8 @@
     // networking
 	GKSession                   *session;
     NSString                    *opponentGamePeerId;
+    NSString                    *myName;
+    NSString                    *opponentName;
     NSInteger                   networkState;
     BOOL                        doesWinCointoss;
 
@@ -25,7 +27,7 @@
     GKPeerPickerController      *picker;
     UIAlertView                 *connectionAlert;
     
-    NSObject<NetOpponentDelegate>    *delegate;
+    id<OpponentDelegate>        delegate;
 }
 
 @end

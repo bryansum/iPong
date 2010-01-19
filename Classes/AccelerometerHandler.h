@@ -18,6 +18,7 @@
 -(void)startRecording;
 -(void)stopRecording;
 
+/** Return the current PongEvent for this swing. */
 - (PongEvent*)currentSwing;
 @end
 

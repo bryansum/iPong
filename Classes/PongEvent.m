@@ -73,4 +73,28 @@
     }
     return self;
 }
+
+- (NSString*)swingTypeDescription
+{
+    if (swingType == kSwingTypeNormal) {
+        return @"Normal";
+    } else if (swingType == kSwingTypeSlice) {
+        return @"Slice";
+    } else if (swingType == kSwingTypeTopSpin) {
+        return @"TopSpin";
+    } else {
+        Warn(@"SwingType not valid");
+        return nil;
+    }
+}
+
+- (NSString*)description
+{
+    if (hitEventType == kHitEventMiss) {
+        return @"PongEventMiss";
+    } else {
+        return [NSString stringWithFormat:@"PongEventHit velocity %0.2f, swingType: %@, specialSwingIntensity: %0.2f", 
+                velocity, [self swingTypeDescription], typeIntensity];
+    }
+}
 @end

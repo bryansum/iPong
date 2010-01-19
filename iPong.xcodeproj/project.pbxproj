@@ -21,6 +21,8 @@
 		2357D28C10FC12AF005B5F50 /* InGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357D28B10FC12AF005B5F50 /* InGameView.m */; };
 		2357D39310FC3013005B5F50 /* VCView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357D39210FC3013005B5F50 /* VCView.m */; };
 		23BED82B1104653000FB1AFB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23BED82A1104653000FB1AFB /* Localizable.strings */; };
+		23BED9371104CEB300FB1AFB /* AIOpponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 23BED9361104CEB300FB1AFB /* AIOpponent.m */; };
+		23EE32FC1106110F009C7825 /* W2Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32FB1106110F009C7825 /* W2Utilities.m */; };
 		23F244CA11018C090009216B /* CollectionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244BE11018C090009216B /* CollectionUtils.m */; };
 		23F244CB11018C090009216B /* ExceptionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244C011018C090009216B /* ExceptionUtils.m */; };
 		23F244CC11018C090009216B /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F244C211018C090009216B /* Logging.m */; };
@@ -70,6 +72,10 @@
 		2357D39110FC3013005B5F50 /* VCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCView.h; sourceTree = "<group>"; };
 		2357D39210FC3013005B5F50 /* VCView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCView.m; sourceTree = "<group>"; };
 		23BED8281104652400FB1AFB /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		23BED9351104CEB300FB1AFB /* AIOpponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIOpponent.h; sourceTree = "<group>"; };
+		23BED9361104CEB300FB1AFB /* AIOpponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIOpponent.m; sourceTree = "<group>"; };
+		23BED9481104D67D00FB1AFB /* W2Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = W2Utilities.h; sourceTree = "<group>"; };
+		23EE32FB1106110F009C7825 /* W2Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = W2Utilities.m; sourceTree = "<group>"; };
 		23F244BD11018C090009216B /* CollectionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionUtils.h; path = MYUtilities/CollectionUtils.h; sourceTree = "<group>"; };
 		23F244BE11018C090009216B /* CollectionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionUtils.m; path = MYUtilities/CollectionUtils.m; sourceTree = "<group>"; };
 		23F244BF11018C090009216B /* ExceptionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionUtils.h; path = MYUtilities/ExceptionUtils.h; sourceTree = "<group>"; };
@@ -146,6 +152,8 @@
 				23F245701101FDFE0009216B /* PongEvent.m */,
 				23026CB810AFBB8800209D75 /* AccelerometerHandler.h */,
 				23026CB910AFBB8800209D75 /* AccelerometerHandler.m */,
+				23BED9481104D67D00FB1AFB /* W2Utilities.h */,
+				23EE32FB1106110F009C7825 /* W2Utilities.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -227,6 +235,8 @@
 				23F244F411018EBA0009216B /* BluetoothOpponent.m */,
 				23F244F61101982D0009216B /* NetOpponent.h */,
 				23F244F71101982D0009216B /* NetOpponent.m */,
+				23BED9351104CEB300FB1AFB /* AIOpponent.h */,
+				23BED9361104CEB300FB1AFB /* AIOpponent.m */,
 			);
 			name = Opponent;
 			sourceTree = "<group>";
@@ -300,6 +310,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = WinBy2Sports;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iPong" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -369,6 +382,8 @@
 				23F244D111018C090009216B /* Test.m in Sources */,
 				23F244F511018EBA0009216B /* BluetoothOpponent.m in Sources */,
 				23F245711101FDFE0009216B /* PongEvent.m in Sources */,
+				23BED9371104CEB300FB1AFB /* AIOpponent.m in Sources */,
+				23EE32FC1106110F009C7825 /* W2Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,8 +410,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPong_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_VERSION = 4.2;
 				INFOPLIST_FILE = "iPong-Info.plist";
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = iPong;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 			};

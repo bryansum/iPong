@@ -17,6 +17,8 @@ enum {
 };
 typedef NSInteger NetworkStateType;
 
+NSString *descriptionforNetworkState(NetworkStateType t);
+
 /** Describes a delegate for network-based opponents. */
 @protocol NetOpponentDelegate <OpponentDelegate>
 

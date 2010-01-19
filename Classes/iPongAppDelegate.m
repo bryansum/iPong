@@ -9,6 +9,8 @@
 #import "iPongAppDelegate.h"
 #import "InGameViewController.h"
 #import "BluetoothOpponent.h"
+#import "AIOpponent.h"
+#import "W2Utilities.h"
 
 @implementation iPongAppDelegate
 
@@ -19,8 +21,14 @@
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	[window setBackgroundColor:[UIColor darkGrayColor]];
 
+    /* Seed our random number generator. */
+    [Random seed:time(NULL)];
+
     viewController = [[InGameViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.opponent = [[[BluetoothOpponent alloc] init] autorelease];
+    viewController.opponent = [[[AIOpponent alloc] init] autorelease];
+    [viewController.opponent setDelegate:viewController];
+//    viewController.opponent = [[[BluetoothOpponent alloc] init] autorelease];
+//    [viewController.opponent setDelegate:viewController];
     
     [window addSubview:self.viewController.view];
     [window makeKeyAndVisible];

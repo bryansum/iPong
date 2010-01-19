@@ -30,7 +30,7 @@
                 AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:&err];
                 
                 if (!player) {
-                    NSLog(@"AudioController error: %@\n", *err);
+                    Warn(@"AudioController error: %@\n", *err);
                 }
                 // set up AudioPlayer so it doesn't have to load it initially
                 [player prepareToPlay];
@@ -65,7 +65,7 @@
     AVAudioPlayer *player = [soundPlayers objectForKey:sound];
     
     if (player == nil) {
-        NSLog(@"Couldn't find instrument '%@'\n",sound);
+        Warn(@"Couldn't find instrument '%@'\n",sound);
         return;
     }
     if ([player isPlaying]) {

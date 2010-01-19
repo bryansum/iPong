@@ -8,6 +8,7 @@
 
 #import "BluetoothOpponent.h"
 #import "NetOpponent.h"
+#import "W2Utilities.h"
 
 enum {
 	kNetworkEventCointoss       = 1 << 0,
@@ -16,10 +17,30 @@ enum {
 };
 typedef NSInteger NetworkEventType;
 
+static NSString *descriptionforNetworkEvent(NetworkEventType t)
+{
+    switch (t) {
+        case kNetworkEventCointoss:
+            return @"Cointoss";
+            break;
+        case kNetworkEventHeartbeat:
+            return @"Hearbeat";
+            break;
+        case kNetworkEventPingEvent:
+            return @"Ping";
+        default:
+            [NSException raise:@"InvalidNetworkEvent" format:@"event type was invalid"];
+            break;
+    }
+    return nil;
+}
+
 static NSString * const kPongSessionID = @"iPong";
 
 @interface BluetoothOpponent ()
 
+- (void)_didConnectWithPeer:(NSString*)peer;
+- (GKSession*)_makeSession;
 - (void)_invalidateSession;
 - (void)_sendStateChange;
 - (void)_sendNetworkDict:(NSMutableDictionary*)dict withType:(NetworkEventType)t;
@@ -34,12 +55,15 @@ static NSString * const kPongSessionID = @"iPong";
 @property (copy) NSString *opponentGamePeerId;
 @property (retain) NSTimer *heartbeatTimer;
 @property (retain) UIAlertView *connectionAlert;
+@property (retain) NSString *myName;
+@property (retain) NSString *opponentName;
 @end
 
 @implementation BluetoothOpponent
-@synthesize delegate, connectionAlert;
+@synthesize connectionAlert, delegate;
 @synthesize lastHeartbeatDate, networkState, heartbeatTimer;
 @synthesize picker, session, opponentGamePeerId, heartbeatInterval;
+@synthesize myName, opponentName;
 
 #pragma mark NetOpponent protocol methods
 - (BOOL)doesWinCointoss
@@ -50,6 +74,8 @@ static NSString * const kPongSessionID = @"iPong";
     return doesWinCointoss;
 }
 
+/** Find opponents using either PeerPicker or setting client/server manually, as
+    GameKit on the simulator doesn't work with PeerMode. */
 - (void)findOpponents
 {
     if (networkState != kNetworkStateDisconnected) {
@@ -57,11 +83,17 @@ static NSString * const kPongSessionID = @"iPong";
     }
     
     [self _dismissAlertWithAnimation:NO];
-        
-    // note: picker is released in various picker delegate methods when picker use is done.
+
+#ifdef DEBUG
+    LogTo(Opponent, @"creating manual GKSession");
+    self.session = [self _makeSession];
+    session.delegate = self;
+    session.available = YES;
+#else
     self.picker = [[[GKPeerPickerController alloc] init] autorelease];
 	picker.delegate = self;
 	[picker show]; // show the Peer Picker
+#endif
     
     networkState = kNetworkStateFinding;
     [self _sendStateChange];
@@ -72,7 +104,9 @@ static NSString * const kPongSessionID = @"iPong";
     if ([picker isVisible]) {
         // should call - (void)peerPickerControllerDidCancel:(GKPeerPickerController *)p
         // and in turn [self invalidateSession]
-        [picker dismiss]; 
+        [picker dismiss];
+        picker.delegate = nil;
+        self.picker = nil;
     } else {
         [self _invalidateSession];
     }
@@ -96,7 +130,7 @@ static NSString * const kPongSessionID = @"iPong";
 
 - (NSString*)humanReadableName
 {
-    return [session displayNameForPeer:opponentGamePeerId];
+    return opponentName;
 }
 
 - (NSString*)machineName
@@ -111,10 +145,11 @@ static NSString * const kPongSessionID = @"iPong";
     AssertEqual(p,picker);
     AssertEq(networkState,kNetworkStateFinding);
     
-    NSLog(@"canceled picker");
+    LogTo(Opponent, @"canceled picker");
 	// Peer Picker automatically dismisses on user cancel. No need to programmatically dismiss.
     
 	// release this picker. 
+    [picker dismiss];
 	picker.delegate = nil;
     self.picker = nil;
     networkState = kNetworkStateDisconnected;
@@ -127,67 +162,73 @@ static NSString * const kPongSessionID = @"iPong";
     [self _sendStateChange];
 }
 
+/* TODO: probably don't need this as PeerPicker does this for us. */
 - (GKSession *)peerPickerController:(GKPeerPickerController *)p 
            sessionForConnectionType:(GKPeerPickerConnectionType)type
-{ 
-	self.session = [[GKSession alloc] initWithSessionID:kPongSessionID 
-                                            displayName:nil   // default displayName
-                                            sessionMode:GKSessionModePeer];
+{
+    self.session = [self _makeSession];
     session.delegate = self;
+
+    /* this method only works when GKSession is a peer. */
+    AssertEq(session.sessionMode, GKSessionModePeer);
 	return session;
 }
 
+/** informs us when a peer connects to us. This method should fire once since we
+    stop advertising in this method's implementation. */
 - (void)peerPickerController:(GKPeerPickerController *)p 
               didConnectPeer:(NSString *)opponentPeerId 
                    toSession:(GKSession *)sess
-{ 
-    NSLog(@"connection made with peer %@", opponentPeerId);
-    Assert(networkState == kNetworkStateFinding, @"networkState should be finding");
-    Assert(sess == session, @"session different than expected");
+{
+    AssertEq(sess, session);
+    AssertEq(networkState, kNetworkStateFinding);
     
-	// Remember the current peer.
-    self.opponentGamePeerId = opponentPeerId;
-
     picker.delegate = nil;
-        
-    // If our peerID is higher than the opponent's, then we will choose the cointoss.
-    if ([[session peerID] compare:opponentPeerId] == NSOrderedDescending) {
-        srandom(time(NULL));
-        doesWinCointoss = (random() & 0x1) ? YES : NO;
-        
-        // Send the negation of doesWinCointoss to the peer. 
-        NSMutableDictionary *netEvent = [NSMutableDictionary 
-                                         dictionaryWithObject:$object(!doesWinCointoss)
-                                                       forKey:@"doesWinCointoss"];
-        [self _sendNetworkDict:netEvent withType:kNetworkEventCointoss];
-        [self _scheduleHeartbeatCheck];
-        networkState = kNetworkStateConnected;
-    
-    // otherwise, wait for the other player to decide who goes first. 
-    } else {
-        networkState = kNetworkStateCointoss;
-    }
-    
-    [session setDataReceiveHandler:self withContext:NULL];
-    [self _sendStateChange];
+
+    [self _didConnectWithPeer:opponentPeerId];
 } 
 
-
-
 #pragma mark GKSessionDelegate methods
+
+/** PeerPicker typically handles this for us, but if we're testing we need to accept
+    connections manually. */
+- (void)session:(GKSession *)s didReceiveConnectionRequestFromPeer:(NSString *)peerID
+{
+    AssertEq(s, session);
+#ifdef DEBUG
+    AssertEq(s.sessionMode, GKSessionModeServer);
+    NSString *pName = [s displayNameForPeer:peerID];        
+
+    if (networkState == kNetworkStateFinding) {
+        if ([s acceptConnectionFromPeer:peerID error:nil]) {
+            LogTo(Opponent, @"Successfully connected to peer '%@'", pName);
+            session.available = NO;
+            [self _didConnectWithPeer:peerID];            
+        } else {
+            LogTo(Opponent, @"problem with accepting connection to '%@'");
+        }
+    } else {
+        LogTo(Opponent, @"Already received a connection request, won't fulfill this one from '%@'", pName);
+        [s denyConnectionFromPeer:peerID];
+    }
+#endif
+}
 
 - (void)receiveData:(NSData *)data 
            fromPeer:(NSString *)peer 
           inSession:(GKSession *)session 
             context:(void *)context 
 { 
+    AssertEqual(peer,opponentGamePeerId);
     NSDictionary *dict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     NetworkEventType eventType = [[dict objectForKey:@"eventType"] integerValue];
     NSInteger packetNum = [[dict objectForKey:@"packetNum"] integerValue];
+    LogTo(Opponent,@"received network event %@, packet# %d",descriptionforNetworkEvent(eventType), packetNum);
     
     // check to make sure packet numbering in monotonically increasing
     static NSInteger lastReceivedPacketNum = -1;
-	if(packetNum < lastReceivedPacketNum && eventType != kNetworkEventCointoss) {
+	if(packetNum < lastReceivedPacketNum) {
+        LogTo(Opponent, @"threw out packet due to invalid packet num");
 		return;	
 	}
     
@@ -195,6 +236,7 @@ static NSString * const kPongSessionID = @"iPong";
 
     // If any network info is received, we want to connect if we were reconnecting. 
     if (networkState == kNetworkStateReconnecting) {
+        LogTo(Opponent, @"reconnected after trying to reconnect");
         [self _dismissAlertWithAnimation:YES];
         networkState = kNetworkStateConnected;
         [self _sendStateChange];
@@ -209,13 +251,16 @@ static NSString * const kPongSessionID = @"iPong";
             break;
         case kNetworkEventCointoss: {
             if (networkState != kNetworkStateCointoss || ![dict objectForKey:@"doesWinCointoss"]) {
-                NSLog(@"Received networkEventCointoss packet when not in cointoss state or invalid");
+                Warn(@"Received networkEventCointoss packet when not in cointoss state or invalid");
                 return;
             }
             doesWinCointoss = [[dict objectForKey:@"doesWinCointoss"] boolValue];
+            LogTo(Opponent,@"opponent %@ cointoss",doesWinCointoss ? @"won" : @"lost");
 
+#ifndef DEBUG
             [picker dismiss];
             self.picker = nil;
+#endif
             
             [self _scheduleHeartbeatCheck];
             
@@ -239,16 +284,27 @@ static NSString * const kPongSessionID = @"iPong";
 - (void)session:(GKSession *)s 
            peer:(NSString *)peerID 
  didChangeState:(GKPeerConnectionState)state
-{ 
-    Assert([s isEqual:session], @"session values should match");
-    
-    if (!(state == GKPeerStateDisconnected || state == GKPeerStateUnavailable) ||
-        ![peerID isEqual:opponentGamePeerId] ||
-        networkState == kNetworkStateReconnecting) { // already reconnecting
-        return;        
+{
+    AssertEqual(s, session);
+#ifdef DEBUG
+    if (networkState == kNetworkStateFinding && s.sessionMode == GKSessionModeClient) {
+        if (state == GKPeerStateAvailable) {
+            LogTo(Opponent, @"found '%@', attempting to connect", [s displayNameForPeer:peerID]);
+            // wait 20 seconds to connect. This will fail hard if we timeout, but won't be in production code. 
+            [s connectToPeer:peerID withTimeout:20];             
+        } else if (state == GKPeerStateConnected) {
+            session.available = NO;
+            [self _didConnectWithPeer:peerID];
+        }
     }
-    
-    [self _didLoseConnection];
+#endif
+    /* If we lost our peer in the middle of a session. */
+    if ([peerID isEqual:opponentGamePeerId] && 
+        state == GKPeerStateDisconnected &&
+        networkState != kNetworkStateReconnecting) {
+            LogTo(Opponent, @"lost connection to '%@'", [s displayNameForPeer:peerID]);
+            [self _didLoseConnection];
+    } 
 }
 
 #pragma mark -
@@ -273,26 +329,85 @@ static NSString * const kPongSessionID = @"iPong";
 {
     [self disconnect];
     self.picker = nil;
+    self.connectionAlert = nil;
     self.opponentGamePeerId = nil;
+    self.heartbeatTimer = nil;
     self.lastHeartbeatDate = nil;
+    self.myName = self.opponentName = nil;
     
     [super dealloc];
 }
 
 #pragma mark Private methods
 
+- (void)_didConnectWithPeer:(NSString*)peer
+{
+    opponentName = [session displayNameForPeer:peer];
+    myName = [session displayNameForPeer:session.peerID];
+
+    LogTo(Opponent, @"connection made with peer '%@'", opponentName);
+    self.opponentGamePeerId = peer;
+    
+    [session setDataReceiveHandler:self withContext:NULL];
+    
+    // If our peerID is higher than the opponent's, then we will choose the cointoss.
+    if ([opponentName compare:myName] == NSOrderedAscending) {
+        LogTo(Opponent, @"taking control over cointoss");
+        doesWinCointoss = [Random bool];
+        LogTo(Opponent, @"opponent %@ cointoss", doesWinCointoss ? @"won" : @"lost");
+        
+        // Send the negation of doesWinCointoss to the peer. 
+        NSMutableDictionary *netEvent = [NSMutableDictionary 
+                                         dictionaryWithObject:$object(!doesWinCointoss)
+                                         forKey:@"doesWinCointoss"];
+        [self _sendNetworkDict:netEvent withType:kNetworkEventCointoss];
+        [self _scheduleHeartbeatCheck];
+        networkState = kNetworkStateConnected;
+        
+        // otherwise, wait for the other player to decide who goes first. 
+    } else {
+        LogTo(Opponent, @"waiting for network cointoss event");
+        networkState = kNetworkStateCointoss;
+    }
+    
+    [self _sendStateChange];    
+}
+
+/** Return to the picker a specialized session. This is explicitly configured on 
+ debug builds to be client/server, as GameKit doesn't work otherwise. 
+ See http://volcore.limbicsoft.com/2009/09/iphone-os-31-gamekit-pt-2-next-day.html */
+- (GKSession*)_makeSession
+{
+    GKSessionMode mode;
+#ifdef DEBUG
+#if !(TARGET_IPHONE_SIMULATOR)
+    LogTo(Opponent, @"session mode is server");
+    mode = GKSessionModeServer;
+#else
+    LogTo(Opponent, @"session mode is client");
+    mode = GKSessionModeClient;
+#endif
+#else // RELEASE
+    LogTo(Opponent, @"session mode is peer");
+    mode = GKSessionModePeer;
+#endif
+    return [[[GKSession alloc] initWithSessionID:kPongSessionID 
+                                     displayName:nil   // default displayName
+                                     sessionMode:mode] autorelease];
+}
+
 - (void)_heartbeatCheck
 {
-    if (fabs([lastHeartbeatDate timeIntervalSinceNow]) > self.heartbeatInterval) {
-        [self _didLoseConnection];
-    }
+//    if (fabs([lastHeartbeatDate timeIntervalSinceNow]) > self.heartbeatInterval) {
+//        [self _didLoseConnection];
+//    }
 }
 
 - (void)_didLoseConnection
 {
     NSString *msg = [NSString stringWithFormat:NSLocalizedString(@"Couldn't reconnect with %@.",
                                                                  @"lost connection description"),
-                     [session displayNameForPeer:opponentGamePeerId]];
+                     opponentName];
     if (!connectionAlert) {
         self.connectionAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Lost Connection", @"lost connection title") 
                                                            message:msg
@@ -302,14 +417,16 @@ static NSString * const kPongSessionID = @"iPong";
                                                  otherButtonTitles:nil] autorelease];
         connectionAlert.delegate = self;
     }
-    [connectionAlert show];
+    if (networkState != kNetworkStateReconnecting) {
+        networkState = kNetworkStateReconnecting;
+        [self _sendStateChange];        
+    }
 
-    networkState = kNetworkStateReconnecting;
-    [self _sendStateChange];
+    [connectionAlert show];
 }
 
 /** UIAlertView delegate method for connectionAlert. */
-- (void)alertViewCancel:(UIAlertView *)alertView
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     [self _invalidateSession];
     networkState = kNetworkStateDisconnected;
@@ -336,31 +453,32 @@ static NSString * const kPongSessionID = @"iPong";
     [dict setValue:$object(currentPacketNumber++) forKey:@"packetNum"];
     NSData *serializedEvent = [NSKeyedArchiver archivedDataWithRootObject:dict];
 
-    NSError *err = nil;
-    [session sendData:serializedEvent 
+    if (![session sendData:serializedEvent 
               toPeers:[NSArray arrayWithObject:opponentGamePeerId] 
          withDataMode:GKSendDataReliable
-                error:&err];
-    if (err) {
-        NSLog(@"sendNetworkData failed with: %@", [err localizedDescription]);
+                error:nil]) {
+        Warn(@"sendNetworkData failed!");
     }
 }
 
 - (void)_sendStateChange
 {
-    if ([delegate respondsToSelector:@selector(opponentDidChangeState:)]) {
+    if ([(NSObject*)delegate conformsToProtocol:@protocol(NetOpponentDelegate)]) {
         // Fire off state change asynchronously
-        [delegate performSelector:@selector(opponentDidChangeState:) 
-                       withObject:$object(networkState)
-                       afterDelay:0];
-    }    
+        [(NSObject*)delegate performSelector:@selector(opponentDidChangeState:) 
+                                  withObject:$object(networkState)
+                                  afterDelay:0];
+    } else {
+        Warn(@"delegate does not respond to state change messages");
+    }
+
 }
 
 - (void)_invalidateSession
 {
 	if(session != nil) {
-		[session disconnectFromAllPeers]; 
-		session.available = NO; 
+        [session disconnectFromAllPeers];
+        session.available = NO; 
 		[session setDataReceiveHandler: nil withContext: NULL]; 
 		session.delegate = nil; 
         self.session = nil;

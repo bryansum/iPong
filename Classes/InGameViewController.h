@@ -6,6 +6,7 @@
 //  Copyright 2010 WinBy2Sports. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "SwingTimer.h"
 #import "NetOpponent.h"
 
@@ -14,6 +15,7 @@
 @class AccelerometerHandler;
 @class ScoreKeeper;
 @class Opponent;
+@class UIAlertView;
 
 enum {
     kGameStatePreGame = 0,
@@ -27,12 +29,14 @@ typedef NSInteger GameStateType;
 @interface InGameViewController : UIViewController <UIAlertViewDelegate, SwingTimerDelegate, NetOpponentDelegate> {
     UIView                      *containerView;
     InGameView                  *inGameView;
+    NSArray                     *alerts;
+    NSMutableArray              *alertViewQueue;
+    UIAlertView                 *alertView;
     
     Jukebox                     *audio;    
     AccelerometerHandler        *accHandler;    
 	ScoreKeeper                 *scoreKeeper;
     Opponent                    *opponent;
-    NSArray                     *alerts;
     
     // game state variables
     GameStateType               gameState;

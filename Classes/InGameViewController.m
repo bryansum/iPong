@@ -14,17 +14,19 @@
 #import "PongEvent.h"
 #import "ScoreKeeper.h"
 #import "BluetoothOpponent.h"
-#import "CollectionUtils.h"
 #import "Test.h"
+#import "CollectionUtils.h"
 
 enum {
-    kAlertServiceChange = 0,
-    kAlertWin = 1,
-    kAlertLoss = 2
+    kAlertYourServe = 0,
+    kAlertServiceChange = 1,
+    kAlertWin = 2,
+    kAlertLoss = 3,
+    kAlertOpponentServe = 4
 };
 typedef NSInteger AlertType;
 
-@interface InGameViewController (Private)
+@interface InGameViewController ()
 
 -(void)_incRound;
 -(void)_playerDidWin:(PeerType)p;
@@ -35,13 +37,19 @@ typedef NSInteger AlertType;
 - (void)_resetGame;
 - (void)_resetScores;
 
-- (void)_startAnimation;
+- (void)_flashWindow;
 - (void)_animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context;
 - (void)_showAlert:(AlertType)type;
+- (void)_dismissAlert;
+
+@property (nonatomic, retain) NSArray *alerts;
+@property (nonatomic, assign) UIAlertView *alertView;
+@property (nonatomic, retain) NSMutableArray *alertViewQueue;
 @end
 
 @implementation InGameViewController
 
+@synthesize alerts, alertViewQueue, alertView;
 @synthesize inGameView, containerView, gameState, opponent;
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -51,7 +59,7 @@ typedef NSInteger AlertType;
     CGRect box = CGRectMake(0, 0, 480, 320);
     self.containerView = [[[UIView alloc] initWithFrame:box] autorelease];
     self.containerView.backgroundColor = [UIColor darkGrayColor];
-    self.inGameView = [[[InGameView alloc] initWithFrame:box andViewController:self] autorelease];
+    self.inGameView = [[[InGameView alloc] initWithFrame:box viewController:self] autorelease];
     
     [containerView addSubview:self.inGameView];
     self.view = containerView;
@@ -59,6 +67,8 @@ typedef NSInteger AlertType;
     [accHandler startRecording];
 
     [self _resetGame];
+
+    LogTo(InGame,@"InGameView loaded");
 }
 
 - (void)viewDidUnload
@@ -66,19 +76,30 @@ typedef NSInteger AlertType;
     [accHandler stopRecording];
     self.inGameView = nil;
     self.containerView = nil;
+    
+    LogTo(InGame,@"InGameView unloaded");
 }
 
 #pragma mark OpponentDelegate methods
 
 - (void)opponentEventDidOccur:(PongEvent*)p
 {
+    LogTo(InGame,@"received opponentEvent event: %@",p);
     AssertEq(gameState, kGameStatePlaying);
 
     if (p.hitEventType == kHitEventHit) {
+        
+        /** If our OpponentServe dialog is present, just quit it. */
+        if (alertView && alertView.visible && alertView.tag == kAlertOpponentServe) {
+            [self _dismissAlert];
+        }
+
         [SwingTimer timerWithEvent:p delegate:self startImmediately:YES];
+        
     } else {
+        BOOL didWin = [scoreKeeper incrementScoreFor:kPeerMe];
         [self _updateMyScore:[scoreKeeper scoreFor:kPeerMe]];
-        if ([scoreKeeper incrementScoreFor:kPeerMe]) {
+        if (didWin) {
             [self _playerDidWin:kPeerMe];
         } else {
             [self _incRound];
@@ -91,6 +112,8 @@ typedef NSInteger AlertType;
 - (void)opponentDidChangeState:(NSNumber*)networkState
 {
     NetworkStateType state = [networkState integerValue];
+    LogTo(InGame,@"opponent changed state to %@",descriptionforNetworkState(state));
+
     switch (state) {
         case kNetworkStateConnected: {
             // If we're succeeded in reconnecting
@@ -106,6 +129,10 @@ typedef NSInteger AlertType;
         // stop handling acceleration, etc. 
         case kNetworkStateReconnecting: {
             [accHandler stopRecording];
+            if (alertView) {
+                Warn(@"Trying to dimiss alertView to show reconnecting alert view; doing nothing for now");
+                [self _dismissAlert];
+            }
         }
         case kNetworkStateDisconnected: {
             [self _resetGame];
@@ -118,20 +145,21 @@ typedef NSInteger AlertType;
 
 #pragma mark SwingTimerDelegate methods
 
-- (void)swingTimerBeepDidOccur:(NSNumber *)b
+- (void)swingTimerBeepDidOccur:(SwingTimer*)st
 {
-    NSInteger beepNum = [b integerValue];
+    [self _flashWindow];
     
-    [self _startAnimation];
-    
-    if (beepNum != kFinalBeep) {
+    if (![st isFinalBeep]) {
         [audio playSound:@"bounce"];
-    } else {        
+        [inGameView displayDotForInterval:st.curBeep];
+    } else {
+        [inGameView resetDots];
         PongEvent *event = [accHandler currentSwing];
         
         if (event.hitEventType == kHitEventMiss) {
+            BOOL didWin = [scoreKeeper incrementScoreFor:kPeerOpponent];
             [self _updateOpponentScore:[scoreKeeper scoreFor:kPeerOpponent]];
-            if ([scoreKeeper incrementScoreFor:kPeerOpponent]) {
+            if (didWin) {
                 [self _playerDidWin:kPeerOpponent];
             } else {
                 [self _incRound];                
@@ -148,16 +176,19 @@ typedef NSInteger AlertType;
     Assert(opponent, @"opponent shouldn't be nil");
     if (gameState == kGameStatePreGame) {
         if ([opponent conformsToProtocol:@protocol(NetOpponent)]) {
+            LogTo(InGame,@"finding network opponents");
             [opponent findOpponents];
             gameState = kGameStateConnecting;
         } else {
+            LogTo(InGame,@"no network, starting game immediately");
             [self _startGame];
         }
 
     } else if (gameState == kGameStatePreServe) {
+        LogTo(InGame,@"initiating serve swing");
+        gameState = kGameStatePlaying;
         PongEvent *pongEvent = [PongEvent pongHitWithVelocity:1 swingType:kSwingTypeNormal typeIntensity:0];
         [SwingTimer timerWithEvent:pongEvent delegate:self startImmediately:YES];
-        gameState = kGameStatePlaying;
     }
 }
 
@@ -165,6 +196,7 @@ typedef NSInteger AlertType;
              
 - (void)_resetGame
 {
+    LogTo(InGame,@"game was reset");
     curRound = 0;
     gameState = kGameStatePreGame;
     previousNetworkState = -1;
@@ -174,9 +206,14 @@ typedef NSInteger AlertType;
 - (void)_startGame
 {
     if ([opponent doesWinCointoss]) {
+        isMyServe = NO;
         gameState = kGameStatePlaying;
+        [self _showAlert:kAlertOpponentServe];
+        [opponent yourServe];
     } else {
+        isMyServe = YES;
         gameState = kGameStatePreServe;
+        [self _showAlert:kAlertYourServe];
     }
 }
 
@@ -185,18 +222,29 @@ typedef NSInteger AlertType;
     if (++curRound % 5 == 0) {
         isMyServe = !isMyServe;
         
+        LogTo(InGame,@"service change! Is it now %@ serve", isMyServe ? @"my" : @"opponent's");
         if (isMyServe) {
             [self _showAlert:kAlertServiceChange];
+        } else {
+            [self _showAlert:kAlertOpponentServe];
         }
     }
     
-    gameState = isMyServe ? kGameStatePreServe : kGameStatePlaying;
+    LogTo(InGame,@"currentRound: %d",curRound);
+    
+    if (isMyServe) {
+        gameState = kGameStatePreServe;
+    } else {
+        /* tell AI opponents that should serve again. */
+        [opponent yourServe];
+        gameState = kGameStatePlaying;
+    }
 }
 
 -(void)_playerDidWin:(PeerType)p
 {
     if (p == kPeerMe) {
-        [audio playSound:@"happy" atVolume:1];
+        [audio playSound:@"happy"];
         [self _showAlert:kAlertWin];
     } else {
         [self _showAlert:kAlertLoss];
@@ -206,65 +254,95 @@ typedef NSInteger AlertType;
 
 - (void)_showAlert:(AlertType)alertType
 {
-    NSDictionary *alertStrings = [alerts objectAtIndex:alertType];
+    /** add to the queue if one alert is already present. */
+    if (alertView) {
+        [alertViewQueue addObject:$object(alertType)];
+    } else {
+        NSDictionary *alertStrings = [alerts objectAtIndex:alertType];
+        LogTo(InGame,@"showing alert type '%@'",[alertStrings objectForKey:@"title"]);
+        
+        self.alertView = [[[UIAlertView alloc] initWithTitle:[alertStrings objectForKey:@"title"]
+                                                     message:[alertStrings objectForKey:@"description"] 
+                                                    delegate:self 
+                                           cancelButtonTitle:[alertStrings objectForKey:@"buttonTitle"]
+                                           otherButtonTitles:nil] autorelease];
+        alertView.tag = alertType;
+        alertView.delegate = self;
+        [alertView show];
+        
+        /* temporarily stop reading accelerometer data. */
+        [accHandler stopRecording];        
+    }
+}
 
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[alertStrings objectForKey:@"title"]
-                                                        message:[alertStrings objectForKey:@"description"] 
-                                                       delegate:self 
-                                              cancelButtonTitle:[alertStrings objectForKey:@"buttonTitle"]
-                                              otherButtonTitles:nil];
-    alertView.tag = alertType;
-    alertView.delegate = self;
-    [alertView show];
-    [alertView release];
-    
-    // temporarily stop reading accelerometer data
-    [accHandler stopRecording];
+- (void)_dismissAlert
+{
+    if (!alertView) {
+        LogTo(InGame,@"dismissAlert called but no alerts visible.");
+    } else {
+        /** This will in turn call the delegate method and pick the next alert off the queue, if present. */
+        [alertView dismissWithClickedButtonIndex:alertView.cancelButtonIndex animated:YES];
+    }
 }
 
 /** UIAlertViewDelegate delegate method. */
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)alertView:(UIAlertView *)av didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    AlertType alertType = alertView.tag;
+    AssertEqual(av, alertView);
+
+    AlertType alertType = av.tag;
     switch (alertType) {
         case kAlertWin:
         case kAlertLoss: {
             [self _resetScores];
-            gameState = kGameStatePreServe;
+            [self _incRound];
         }
             break;
+        case kAlertYourServe:
+        case kAlertServiceChange:
+        case kAlertOpponentServe:
+            break;
         default:
+            Warn(@"AlertType %d not present in array",alertType);
             break;
     }
+
+    alertView = nil;
+    /* Take the next alert in the queue and display it. */
+    if ([alertViewQueue count]) {
+        AlertType aType = [[alertViewQueue objectAtIndex:0] integerValue];
+        [alertViewQueue removeObjectAtIndex:0];
+        [self _showAlert:aType];
+    }
+
     [accHandler startRecording];
 }
 
 - (void)_resetScores
 {
+    [scoreKeeper reset];
     [self _updateMyScore:0];
     [self _updateOpponentScore:0];
 }
 
 - (void)_updateMyScore:(NSInteger)n
 {
-    [self.inGameView.myScore setText:[NSString stringWithFormat:@"%d",n]];
+    inGameView.myScore.text = [NSString stringWithFormat:@"%d",n];
 }
 
 - (void)_updateOpponentScore:(NSInteger)n
 {
-    [self.inGameView.opponentScore setText:[NSString stringWithFormat:@"%d",n]];
+    inGameView.opponentScore.text = [NSString stringWithFormat:@"%d",n];
 }
 
 
-- (void)_startAnimation
+- (void)_flashWindow
 {
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.15];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(_animationFinished:finished:context:)];
-    
-	// Change property or properties here
-	[self.inGameView.flashView setAlpha:0.6];
+	[inGameView.flashView setAlpha:0.6];
 	[UIView commitAnimations];	
 }
 
@@ -273,9 +351,7 @@ typedef NSInteger AlertType;
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.15];
 	[UIView setAnimationDelegate:self];
-    
-	// Change property or properties here
-	[self.inGameView.flashView setAlpha:0.0];
+	[inGameView.flashView setAlpha:0.0];
 	[UIView commitAnimations];		
 }
 
@@ -287,9 +363,15 @@ typedef NSInteger AlertType;
         audio = [[Jukebox alloc] init];
         scoreKeeper = [[ScoreKeeper alloc] init];
         accHandler = [[AccelerometerHandler alloc] init];
+        alertView = nil;
         
-        alerts = $array($dict({@"title",NSLocalizedString(@"Service Change!",@"service change title")},
-                              {@"description",NSLocalizedString(@"You are now the server", @"service change description")},
+        self.alertViewQueue = [NSMutableArray array];
+        self.alerts = $array($dict({@"title",NSLocalizedString(@"Your serve!",@"alert declaring the player is serving")},
+                              {@"description",NSLocalizedString(@"You are the server.", @"service change description")},
+                              {@"buttonTitle",NSLocalizedString(@"Click paddle to serve", @"serv. change confirm button")}),
+
+                        $dict({@"title",NSLocalizedString(@"Service Change!",@"service change title")},
+                              {@"description",NSLocalizedString(@"You are now the server.", @"service change description")},
                               {@"buttonTitle",NSLocalizedString(@"Click paddle to serve", @"serv. change confirm button")}),
                         
                         $dict({@"title",NSLocalizedString(@"You won!", @"winning title")},
@@ -298,8 +380,13 @@ typedef NSInteger AlertType;
                         
                         $dict({@"title",NSLocalizedString(@"You lost :(",@"losing title")},
                               {@"description",NSLocalizedString(@"Fail.",@"losing alert description")},
-                              {@"buttonTitle",NSLocalizedString(@"Start a new game",@"option asking to start a game")})
-                        );
+                              {@"buttonTitle",NSLocalizedString(@"Start a new game.",@"option asking to start a game")}),
+                        $dict({@"title",NSLocalizedString(@"Opponent's serve!",@"service change title")},
+                              {@"description",NSLocalizedString(@"Your opponent is serving. Just wait for them to attempt their serve to you.", 
+                                                                @"description of what happens when the opponent serves. ")},
+                              {@"buttonTitle",NSLocalizedString(@"Continue", @"continue playing")})
+                         );
+        
     }
     return self;
 }
@@ -307,10 +394,11 @@ typedef NSInteger AlertType;
 - (void)dealloc
 {
     self.opponent = nil;
+    self.alerts = nil;
+    [alertView release];
     [audio release];
     [accHandler release];
     [scoreKeeper release];    
-    [alerts release];
     [super dealloc];
 }
 

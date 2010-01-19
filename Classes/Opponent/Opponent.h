@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PongEvent.h"
 
-@protocol OpponentDelegate <NSObject>
+@protocol OpponentDelegate
 - (void)opponentEventDidOccur:(PongEvent*)p;
 @end
 
@@ -23,8 +23,14 @@
     opponentEventDidOccur: method */
 - (void)sendPongEvent:(PongEvent*)p;
 
-@property (retain) NSObject<OpponentDelegate> *delegate;
+@property (assign) id<OpponentDelegate> delegate;
 @property (readonly) NSString *humanReadableName;
 @property (readonly) NSString *machineName;
 
+@optional
+
+/** Alerts the opponent that it is now his serve, if necessary. Networked opponents 
+    are already notified of this implicitly, so this is most useful for AI-type 
+    opponents. */
+- (void)yourServe;
 @end

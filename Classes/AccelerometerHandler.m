@@ -8,8 +8,8 @@
 
 #import "AccelerometerHandler.h"
 #import "PongEvent.h"
+#import "W2Utilities.h"
 
-#define CLAMP(x, l, h)  (((x) > (h)) ? (h) : (((x) < (l)) ? (l) : (x)))
 #define kAccelSamplingFreq 1.0/60.0
 
 @interface AccelerometerHandler ()
@@ -32,9 +32,22 @@
     [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
 }
 
+/** When using the simulator, we don't have access to the accelorometer, so just
+    give it some random values to use. */
 -(PongEvent*)currentSwing
 {
     PongEvent *retSwing;
+#if TARGET_IPHONE_SIMULATOR
+    if ([Random bool]) {
+        Log(@"Simulated hit");
+        retSwing = [PongEvent pongHitWithVelocity:1 
+                                        swingType:kSwingTypeNormal 
+                                    typeIntensity:1];
+    } else {
+        Log(@"Simulated miss");
+        retSwing = [PongEvent pongMiss];
+    }
+#else
     float v = CLAMP(sqrt(pow(acc.x,2) + pow(acc.y,2) + pow(acc.z,2))-1,0,3)/2;
     if ([self _isHit:v]) {
         retSwing = [PongEvent pongMiss];
@@ -42,7 +55,8 @@
         retSwing = [PongEvent pongHitWithVelocity:v
                                         swingType:kSwingTypeNormal
                                     typeIntensity:0];
-    }
+    }    
+#endif
     return retSwing;
 }
 
@@ -67,6 +81,7 @@
 
 - (void) dealloc
 {
+    self.acc = nil;
     [self stopRecording];
     [super dealloc];
 }

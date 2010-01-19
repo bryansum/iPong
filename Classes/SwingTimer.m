@@ -11,8 +11,8 @@
 #import "Test.h"
 
 #define _nBeeps 4
-const NSInteger kNumBeeps = _nBeeps;
-const NSInteger kFinalBeep = _nBeeps - 1;
+static const NSInteger kNumBeeps = _nBeeps;
+static const NSInteger kFinalBeep = _nBeeps - 1;
 
 /** Arbitrary constant determining how long the given playing field is. */
 static const double kDistanceToTravel = 1;
@@ -20,12 +20,10 @@ static const double kDistanceToTravel = 1;
 @interface SwingTimer ()
 
 -(void)_fireIntervalBeeps;
-
-@property (nonatomic, retain) PongEvent *event;
 @end
 
 @implementation SwingTimer
-@synthesize delegate, event;
+@synthesize delegate, event, numBeeps, curBeep;
 
 + (id)timerWithEvent:(PongEvent*)ev delegate:(id)d startImmediately:(BOOL)startNow
 {
@@ -43,8 +41,9 @@ static const double kDistanceToTravel = 1;
     if (self != nil) {
         AssertEq([ev hitEventType],kHitEventHit);
         secsBetweenBeeps = calloc(kNumBeeps, sizeof(NSTimeInterval));
-        self.event = ev;
+        event = [ev copy];
         curBeep = 0;
+        numBeeps = kNumBeeps;
         
         // For now, we treat all swings like normal ones. 
         switch ([ev swingType]) {
@@ -68,14 +67,17 @@ static const double kDistanceToTravel = 1;
                            withObject:nil];
 }
 
--(void)_fireIntervalBeeps
+- (BOOL)isFinalBeep
+{
+    return curBeep == kFinalBeep;
+}
+
+- (void)_fireIntervalBeeps
 {
     for (curBeep = 0; curBeep < kNumBeeps; curBeep++) {
-        NSNumber *n = [[NSNumber alloc] initWithInteger:curBeep];
         [delegate performSelectorOnMainThread:@selector(swingTimerBeepDidOccur:) 
-                                   withObject:n
-                                waitUntilDone:NO];        
-        [n release];
+                                   withObject:self
+                                waitUntilDone:YES];        
         [NSThread sleepForTimeInterval:secsBetweenBeeps[curBeep]];
     }
 }
@@ -83,6 +85,7 @@ static const double kDistanceToTravel = 1;
 - (void) dealloc
 {
     free(secsBetweenBeeps);
+    [event release];
     self.delegate = nil;
     [super dealloc];
 }
