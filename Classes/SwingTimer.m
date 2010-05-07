@@ -2,8 +2,8 @@
 //  SwingTimer.m
 //  iPong
 //
-//  Created by Majd Taby on 11/13/09.
-//  Copyright 2010 WinBy2Sports. All rights reserved.
+//  Created by Bryan Summersett on 11/14/09.
+//  Copyright 2010 http://bsumm.net. All rights reserved.
 //
 
 #import "SwingTimer.h"

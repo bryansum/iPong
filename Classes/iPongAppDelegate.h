@@ -2,8 +2,8 @@
 //  iPongAppDelegate.h
 //  iPong
 //
-//  Created by Majd Taby on 11/13/09.
-//  Copyright 2010 WinBy2Sports. All rights reserved.
+//  Created by Bryan Summersett on 11/13/09.
+//  Copyright http://bsumm.net 2010. All rights reserved.
 //
 
 @class InGameViewController;

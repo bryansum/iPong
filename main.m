@@ -2,8 +2,8 @@
 //  main.m
 //  iPong
 //
-//  Created by Majd Taby on 11/13/09.
-//  Copyright __MyCompanyName__ 2009. All rights reserved.
+//  Created by Bryan Summersett on 11/13/09.
+//  Copyright http://bsumm.net 2010. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
