@@ -7,7 +7,7 @@
 //
 
 #import "AIOpponent.h"
-#import "W2Utilities.h"
+#import "Utilities.h"
 
 static const NSInteger kMaxVelocity = 3;
 static const NSInteger kMinVelocity = 0.3;

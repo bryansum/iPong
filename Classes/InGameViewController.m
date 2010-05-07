@@ -366,7 +366,7 @@ typedef NSInteger AlertType;
         alertView = nil;
         
         self.alertViewQueue = [NSMutableArray array];
-        self.alerts = $array($dict({@"title",NSLocalizedString(@"Your serve!",@"alert declaring the player is serving")},
+        self.alerts = $array($dict({@"title",NSLocalizedString(@"Your serve!",@"serve desc.")},
                               {@"description",NSLocalizedString(@"You are the server.", @"service change description")},
                               {@"buttonTitle",NSLocalizedString(@"Click paddle to serve", @"serv. change confirm button")}),
 

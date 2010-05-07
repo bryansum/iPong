@@ -10,7 +10,7 @@
 #import "InGameViewController.h"
 #import "BluetoothOpponent.h"
 #import "AIOpponent.h"
-#import "W2Utilities.h"
+#import "Utilities.h"
 
 @implementation iPongAppDelegate
 
@@ -20,9 +20,6 @@
 	//Create a full-screen window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	[window setBackgroundColor:[UIColor darkGrayColor]];
-
-    /* Seed our random number generator. */
-    [Random seed:time(NULL)];
 
     viewController = [[InGameViewController alloc] initWithNibName:nil bundle:nil];
     viewController.opponent = [[[AIOpponent alloc] init] autorelease];

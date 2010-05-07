@@ -1,5 +1,5 @@
 /*
- *  W2Utilities.h
+ *  Utilities.h
  *  iPong
  *
  *  Created by Bryan Summersett on 1/18/10.
@@ -11,7 +11,6 @@
 
 @interface Random : NSObject
 
-+ (void)seed:(NSInteger)s;
 + (BOOL)bool;
 + (float)float0to1;
 

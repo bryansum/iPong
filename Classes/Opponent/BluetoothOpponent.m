@@ -8,7 +8,7 @@
 
 #import "BluetoothOpponent.h"
 #import "NetOpponent.h"
-#import "W2Utilities.h"
+#import "Utilities.h"
 
 enum {
 	kNetworkEventCointoss       = 1 << 0,

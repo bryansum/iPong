@@ -8,7 +8,7 @@
 
 #import "AccelerometerHandler.h"
 #import "PongEvent.h"
-#import "W2Utilities.h"
+#import "Utilities.h"
 
 #define kAccelSamplingFreq 1.0/60.0
 
