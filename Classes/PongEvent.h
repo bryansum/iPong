@@ -7,15 +7,15 @@
 //
 
 enum {
-    kHitEventMiss = 1 << 0,
-    kHitEventHit  = 1 << 1
+    kHitEventMiss,
+    kHitEventHit
 };
 typedef NSInteger HitEventType;
 
 enum {
-    kSwingTypeTopSpin = 1 << 0,
-    kSwingTypeSlice   = 1 << 1,
-    kSwingTypeNormal  = 1 << 2
+    kSwingTypeTopSpin,
+    kSwingTypeSlice,
+    kSwingTypeNormal
 };
 typedef NSInteger SwingType;
 

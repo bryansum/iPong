@@ -9,11 +9,11 @@
 #import "Opponent.h"
 
 enum {
-    kNetworkStateDisconnected   = 1 << 0,
-	kNetworkStateFinding        = 1 << 1,
-    kNetworkStateCointoss       = 1 << 2,
-	kNetworkStateConnected      = 1 << 3,
-    kNetworkStateReconnecting   = 1 << 4
+    kNetworkStateDisconnected,
+    kNetworkStateFinding,
+    kNetworkStateCointoss,
+    kNetworkStateConnected,
+    kNetworkStateReconnecting
 };
 typedef NSInteger NetworkStateType;
 

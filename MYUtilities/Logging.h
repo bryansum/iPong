@@ -17,14 +17,22 @@
  
     All logging is off by default.
 
-    To enable logging in general, set the user default 'Log' to 'YES'. You can do this persistently using the 'defaults write' command; but it's very convenient during development to use the Arguments tab in the Xcode Executable Info panel. Just add a new entry to the arguments list, of the form "-Log YES". Now you can check and uncheck that as desired; the change will take effect when relaunching Murky.
+    To enable logging in general, set the user default 'Log' to 'YES'. You can do this 
+    persistently using the 'defaults write' command; but it's very convenient during 
+    development to use the Arguments tab in the Xcode Executable Info panel. 
+    Just add a new entry to the arguments list, of the form "-Log YES". Now you can 
+    check and uncheck that as desired; the change will take effect when relaunching Murky.
 
-    Once logging is enabled, you can turn on and off individual categories of logs. For any category "Something", to enable output from calls of the form LogTo(Something, @"..."), set the user default 'LogSomething' to 'YES', just as above.
+    Once logging is enabled, you can turn on and off individual categories of logs. 
+    For any category "Something", to enable output from calls of the form 
+    LogTo(Something, @"..."), set the user default 'LogSomething' to 'YES', just as above.
 
     Warn() is a related function that _always_ logs, and prefixes the message with "WARNING***".
         Warn(@"Reactor coolant system has failed");
  
-    Note: Logging is still present in release/nondebug builds. I've found this to be very useful in tracking down problems in the field, since I can tell a user how to turn on logging, and then get detailed logs back.
+    Note: Logging is still present in release/nondebug builds. I've found this to be 
+    very useful in tracking down problems in the field, since I can tell a user how 
+    to turn on logging, and then get detailed logs back.
 */ 
 
 
